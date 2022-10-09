@@ -1,0 +1,19 @@
+theme = "boots"
+
+[editor]
+mouse = false
+line-number = "relative"
+idle-timeout = 0
+cursorline = true
+
+# [editor.lsp]
+# display-messages = true
+
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+newline = "none"
+
+[editor.indent-guides]
+render = true
+character = "╎"

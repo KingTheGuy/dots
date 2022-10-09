@@ -1,0 +1,45 @@
+[[language]]
+name = "java"
+scope = "source.java"
+injection-regex = "java"
+file-types = ["java"]
+roots = ["build.xml", "pom.xml", "settings.gradle", "settings.gradle.kts"]
+indent = { tab-width = 2, unit = "    " }
+# jdtl is a python script provided by JDTLS, and must be on $PATH
+language-server = { command = "jdtls", args = [ 
+  "-configuration", "/home/boots/.cache/jdtls/config",
+  "-data", "/home/boots/.cache/jdtls/workspace",
+  ]}
+# language-server = { command = "jdtls", timeout = 240, args = [ 
+#   "-configuration", "/home/boots/.cache/jdtls/config",
+#   "-data", "/home/boots/.cache/jdtls/workspace",
+#   ]}
+# language-server = { command = "jdtls", timeout = 240, args = [ 
+#   "-configuration", "/home/boots/.workspace/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_linux",
+#   "-data", "/home/boots/.workspace/some/workspace",
+#   ]}
+
+[[language]]
+name = "gdscript"
+scope = "source.gdscript"
+injection-regex = "gdscript"
+file-types = ["gd", "gdscript", "gdscript3", "gdscript4"]
+roots = ["project.godot"]
+auto-format = true
+comment-token = "#"
+indent = { tab-width = 2, unit = "\t" }
+language-server = { command = "nc", args = ["localhost", "6005"] }
+ 
+
+# [[language]]
+# name = "xml"
+# scope = "source.xml"  
+# injection-regex = "xml"
+# file-types = ["xml"]
+# roots = []
+# language-server = { command = "vscode-html-language-server", args = ["--stdio"] }
+
+# [[grammar]]
+# name = "xml"
+# source = { git = "https://github.com/tree-sitter/tree-sitter-html", rev = "d93af487cc75120c89257195e6be46c999c6ba18" }
+

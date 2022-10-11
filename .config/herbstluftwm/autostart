@@ -193,7 +193,7 @@ hc unlock
 hc attr settings.focus_follows_mouse true
 ##comment out if hdmi not connected
 xrandr --output eDP1 --off
-xrandr --output HDMI1 --primary
+xrandr --output HDMI1 --mode 2560x1080 --primary
 hc detect_monitors
 
 # feh --bg ~/Downloads/annie-spratt-YOSQoiGnbwY-unsplash.jpg

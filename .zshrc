@@ -4,11 +4,15 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/bladeslab/.oh-my-zsh"
 
+##LINK TO DOTFILES POST
+# https://fwuensche.medium.com/how-to-manage-your-dotfiles-with-git-f7aeed8adf8b
+
 
 alias hx=/usr/bin/helix
 alias xcd='cd "$(xplr --print-pwd-as-result)"' #in xplr when i quit with :qp ill exit and cd
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 export PATH=$HOME/go/bin:$PATH
+export EDITOR=/usr/bin/helix
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,

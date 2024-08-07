@@ -1,0 +1,6 @@
+(defwidget clock_timer []
+  (box :orientation "v"
+    :class "cpu"
+    :tooltip "cpu usage"
+    "CLOCK")
+)

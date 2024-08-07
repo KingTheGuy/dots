@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+tmux capture-pane -S -
+tmux save-buffer /tmp/tmuxbuff
+tmux display-popup -w 100% -h 80% -E "hx /tmp/tmuxbuff:$(wc -l /tmp/tmuxbuff | cut -d ' ' -f 1)"
+# tmux display-popup -w 100% -h 80% -E "bat /tmp/tmuxbuff"
+# tmux display-popup -w 100% -h 80% -E "/usr/bin/helix /tmp/tmuxbuff"

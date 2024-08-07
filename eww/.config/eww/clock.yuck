@@ -1,0 +1,132 @@
+(defpoll current_time_h
+  :interval "1s"
+  :initial "0"
+`date +%I`)
+(defpoll current_time_m
+  :interval "1s"
+  :initial "0"
+`date +%M`)
+(defpoll current_time_s
+  :interval "1s"
+  :initial "0"
+`date +%S`)
+
+
+(defpoll date_weekday_1 :interval "60s"
+              :initial "000"
+`date +%a | cut -b 1`)
+(defpoll date_weekday_2 :interval "60s"
+              :initial "000"
+`date +%a | cut -b 2`)
+(defpoll date_weekday_3 :interval "60s"
+              :initial "000"
+`date +%a | cut -b 3`)
+
+(defpoll date_m :interval "60s"
+              :initial "000"
+`date +%m`)
+(defpoll date_d :interval "60s"
+              :initial "000"
+`date +%d`)
+(defpoll date_y :interval "60s"
+              :initial "000"
+`date +%g`)
+
+
+(defvar clock_show "clock")
+(defwidget clock[]
+  (eventbox
+    :onhover "eww update clock_show='date'"
+    :onhoverlost "eww update clock_show='clock'"
+    :onclick "eww update clock_show='weekday'"
+    (overlay
+      (box 
+        :style {clock_show == "clock"? "opacity:1":"opacity:0"}
+        :orientation "v"
+        :class "clock"
+        {current_time_h}
+        {current_time_m}
+        {current_time_s}
+        (label
+          :halign "center"
+          :text ""
+          ; :text "󱑂"
+        )
+      )
+      (box 
+        :style {clock_show == "date"? "opacity:1":"opacity:0"}
+        :orientation "v"
+        :class "clock"
+        {date_m}
+        {date_d}
+        {date_y}
+        (label
+          :halign "center"
+          :text ""
+        )
+      )
+      (box 
+        :style {clock_show == "weekday"? "opacity:1":"opacity:0"}
+        :orientation "v"
+        ; :space-evenly false
+        :class "clock"
+        {date_weekday_1}
+        {date_weekday_2}
+        {date_weekday_3}
+        (label
+          :halign "center"
+          :text ""
+        )
+      )
+    )  
+  )
+)
+
+(defvar timer_running false)
+
+(deflisten current_timer_left
+  ; :interval "1s"
+  ; :initial "00\t00\t00"
+  :initial ""
+  "tail -F /tmp/time_left"
+)
+; "lua ./scripts/formatter.lua $(tail -n1 /tmp/clock_timer) v ")
+
+(deflisten current_timer 
+  ; :interval "1s"
+  ; :initial "00\t00\t00"
+"tail -F /tmp/clock_timer"
+  ; "tail -fn3 /tmp/formatted_tick"
+  ; "ok"
+)
+; "lua ./scripts/formatter.lua 120")
+  ; ""
+  ; "00\n00\n00"
+
+(defwidget timer[]
+  (box 
+    :orientation "v"
+    :class "timer"
+    ; NOTE: need to get current_tick to be formatted?
+    ; {!timer_running?
+    ; current_timer
+    ; :
+    ; current_timer_left
+    ; }
+    current_timer
+  )
+)
+
+(defwidget clock_container[]
+  (eventbox
+    :onscroll "
+      echo 'we scroll'
+      lua scripts/timer_scroll.lua {} "
+    (box 
+      :orientation "v"
+      ; :class "timer"
+      (clock)
+      (timer)
+    )
+  )
+)

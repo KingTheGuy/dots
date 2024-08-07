@@ -1,0 +1,88 @@
+(defvar max_lines 20)
+(defvar apps "")
+(defvar gaps "")
+; (deflisten apps "ls /bin/ $HOME/.locl/bin/ | head -20")
+
+(defvar launcher_item_style
+  `(eventbox :onclick "eww close launcher" :class "launcher_item_style" (box :style "padding:5px;" "item_name"))`
+)
+
+(defwidget launcher_content[]
+  (eventbox
+    (box
+      :width 400
+      :orientation "v"
+      :class "base_alt"
+      ; :class "base"
+      ; :class "canvas"
+      :space-evenly false
+      :spacing 6
+      ; {gaps}
+      (box
+        :class "base"
+        (input
+          ; :onchange "scripts/launcher_apps.sh ${max_lines} {} && go/launcher/main {}"
+          :onchange "go/launcher/main {}"
+          :onaccept "bash/run_app.sh && eww close launcher"
+        )
+        ; (input
+        ;   :style "background-color:gold;color:gold;border:none;"
+        ;   :onaccept "echo hello"
+        ; )
+      )
+      (box
+        :orientation "v"
+        :space-evenly false
+        ; :class "base_alt"
+        ; :class "sinks_section"
+        ; :class "canvas"
+        ; :halign "center"
+        :valign "start"
+        ; :style "background-color:blue;"
+        (scroll
+          :height 200
+          :valign "start"
+          (literal
+            :content {gaps}
+          )
+          ; {apps}
+        )
+      )
+    )
+  )
+)
+
+
+(defwindow launcher
+  :namespace "canvas"
+  :monitor 0
+  :stacking "overlay"
+  :windowtype "dock"
+  :exclusive false
+  :focusable true
+  :geometry (geometry 
+             ; :x "5px"
+             ; :y "20%"
+             ; :height "30%"
+             ; :width "40%"
+             :anchor "center"
+            )
+  ; :reserve (struts :distance "32px" :side "left")
+
+  ; (box :orientation "v"
+  ;   :halign "end"
+  ;   :valign "start"
+  ;   :space-evenly false  
+  ; (launcher_content)
+  (box
+    ; :class "canvas"
+    (eventbox 
+      :halign "center"
+      :valign "center"
+      ; :onclick "notify-send ass"
+      :onhoverlost "eww close launcher"
+      (launcher_content)
+    )
+  )
+)
+

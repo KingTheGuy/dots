@@ -1,0 +1,79 @@
+(deflisten loaded_sources
+  "go/sink/main SOURCES"
+)
+
+(defvar sources_style_container
+  `(box :width 120 :orientation 'v' :halign "center" :valign "center" :space-evenly false :spacing 2 %s)`
+)
+
+(defvar sources_style
+  `(eventbox :onclick "wpctl set-default %v && go/audio/volume_level" :class "audio_sources" (box :style "padding:6px;" "%s"))`
+)
+
+
+(defwidget sources_container[]
+    (box
+      :orientation "v"
+      :halign "center"
+      :valign "center"
+      :space-evenly false
+      :spacing 6
+      :class "base"
+      (box
+        :orientation "h"
+        :halign "start"
+        :valign "center"
+        :space-evenly false
+        :spacing 6
+        ; :class "base"
+        ; :vexapnd false
+        ; :height 100
+        (progress_bar 
+          ; :height 120
+          ; :vexpand true
+          :width 35
+          :scroll 'lua lua/scroll_handler.lua {} "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.05+" "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.05-" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@" "mic_level"'
+          ; :click {"pgrep gamma >/dev/null && pkill gammastep || gammastep -o -O 4000 -b 0.5"}
+          :value "${round(replace(mic_level,"Volume: ",""),1) * 100}"
+          :text "${round(replace(mic_level,"Volume: ",""),1) * 100}"
+          ; :value "${round(mic_level,0)}"
+          ; :text "${round(mic_level,0)}"
+        )
+        (eventbox
+          :onclick "$PWD/bash/update_loaded.sh"
+          ; TODO: have the devices get order by id
+          ; :onhoverlost "$PWD/bash/update_loaded.sh"
+          (scroll
+            :vscroll true
+            :hscroll false
+            :class "sinks_section"
+            (box
+              :space-evenly false
+              :orientation "v"
+              :spacing 2
+              :valign "start"
+              ; :style "padding:10px;"
+              (literal
+                :content {loaded_sources}
+              )
+              ; (literal
+              ;   :content {replace(sinks_style,"%s","*TEST_SINK*")}
+              ; )
+              ; (literal
+              ;   :content {replace(sinks_style,"%s","*TEST_SINK*")}
+              ; )
+              ; (literal
+              ;   :content {replace(sinks_style,"%s","*TEST_SINK*")}
+              ; )
+              ; (literal
+              ;   :content {replace(sinks_style,"%s","*TEST_SINK*")}
+              ; )
+            )
+          )
+        )
+      )
+      (box
+        ""
+      )
+    )
+)

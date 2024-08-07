@@ -1,0 +1,674 @@
+;NOTE:
+;FONTS: "Share Tech Mono" & "Material Design Icons"
+;replace "eww" with your eww exe/path
+(include "./timer.yuck")
+(include "./clock.yuck")
+
+(defpoll time :interval "1s"
+              :initial "0"
+`date +%I`)
+(defpoll time_m :interval "1s"
+              :initial "0"
+`date +%M`)
+(defpoll time_s :interval "1s"
+              :initial "0"
+`date +%S`)
+
+(defpoll cross :interval "1s"
+              :initial "0"
+; `date +%H:%M:%S`)
+`date +%S`)
+
+(defpoll user_name :interval "60s"
+                  :initial "000"
+`whoami`)
+
+(defpoll refresher :interval "30s"
+                  :initial "00"
+`./scripts/refresher.sh`)
+
+(deflisten  clock_timer_display 
+    :initial "00/n00/n00"
+`tail -F /tmp/clock_timer`)
+(defvar  clock_timer_left_display 
+    ; :initial "00/n00/n00"
+`tail -F /tmp/time_left`)
+; `./scripts/tick_to_format.lua 90`)
+
+(defwidget the_refresher []
+    (overlay
+      (revealer
+        :visible false
+        :reveal false
+        :class "refresh"
+        {refresher}
+      )
+    )
+)
+
+(defvar light_level "000")
+
+(defwidget ram []
+    (box :orientation "v"
+      :class "ram"
+      :tooltip "ram usage"
+      ; "󰘚"
+      ; "󰚌${round(EWW_RAM.used_mem_perc, 0)}"
+      "󰚌"
+      ; "󰇄"
+      ; ""
+      ; "${round(EWW_RAM.used_mem_perc, 0)}"
+      {round(EWW_RAM.used_mem_perc, 0) > 99 ? 99 : round(EWW_RAM.used_mem_perc, 0)}
+    )
+)
+(defwidget cpu []
+    (box :orientation "v"
+      :class "cpu"
+      :tooltip "cpu usage"
+      ; "󰒇 ${round(EWW_CPU.avg,0)}"
+      ; "󰍛${round(EWW_CPU.avg,0)}"
+      "󰍛"
+      ; ""
+      ; "${round(EWW_CPU.avg,0)}"
+      {round(EWW_CPU.avg,0) > 99 ? 99 : round(EWW_CPU.avg,0)}
+    )
+)
+(defwidget temp []
+    (box :orientation "v"
+      :class "temp"
+      :tooltip "sys temp"
+      ; "󰹅"
+      ; "󰈸"
+      ""
+      {EWW_TEMPS.CORETEMP_PACKAGE_ID_0 > 99 ? 99 : EWW_TEMPS.CORETEMP_PACKAGE_ID_0}
+      ; "${EWW_TEMPS.CORETEMP_PACKAGE_ID_0}"
+      ; "󰔏 ${EWW_TEMPS.CORETEMP_PACKAGE_ID_0}"
+    )
+)
+
+(deflisten night
+  :initial "normal"
+"tail -F /tmp/redshift")
+
+(defwidget light []
+  (eventbox
+    :class "backlight"
+    :cursor "pointer"
+    :onclick "$HOME/.config/eww/scripts/redshift.sh &"
+    :onrightclick "$HOME/.config/eww/scripts/redshift.sh darker &"
+    ; :timeout "60s"
+    :onscroll "$HOME/.config/eww/scripts/light {}"
+      (box :orientation "v"
+        :tooltip {light_level}
+        :spacing 2
+          (overlay
+            (circular-progress
+              :thickness 3
+              :start-at 0
+              :clockwise true
+              :style "color:black;opacity:0.1;"
+              :value 100
+            )
+            (circular-progress
+              :thickness 3
+              :start-at 0
+              :clockwise true
+              :class "volume_bar"
+              :value {round(light_level,0)}
+            )
+          )
+          {night == "night" ? "󰌫":"󰌬"}
+          ; {night == "night" ? "":""}
+      )
+    )
+)
+(defpoll packages_to_update
+  :interval "20m"
+  :initial "00"
+  ; 'pacman -Qu | wc -l') ; arch linux
+  ; 'pacman -Syup | wc -l') ; arch linux
+'xbps-install -Mun | wc -l') ; void linux
+
+(defwidget update []
+  (eventbox
+    :tooltip {packages_to_update > 0 ? "${packages_to_update} packages out of date, click to update" :"${packages_to_update} packages need updating"}
+    ; :onclick "alacritty -e sudo pacman -Syyu" ; arch linux
+    :onclick "alacritty -e $HOME/.config/eww/scripts/update.sh &" ; void linux
+    :class "action"
+    (box
+      :orientation "v"
+      ; ""
+      "󰁲"
+      {packages_to_update}
+    )
+  )
+)
+
+(defpoll battery_level
+  :interval "60s"
+  :initial "00"
+'cat /sys/class/power_supply/BAT0/capacity')
+
+(defwidget battery []
+  (eventbox
+    :tooltip "battery"
+    :onclick "$HOME/.config/herbstluftwm/show_keybinds.sh"
+    :class "holder"
+    (box
+      :orientation "v"
+    {round(battery_level,0) > 99 ? 99 : round(battery_level,0)}
+    ""
+    )
+  )
+)
+(defwidget keys []
+  (eventbox
+    :tooltip "show keybinds"
+    :onclick "$HOME/.config/herbstluftwm/show_keybinds.sh"
+    :class "action"
+    (box
+      :orientation "v"
+      "KY"
+      ; ""
+      ; ""
+    )
+  )
+)
+
+(defwidget wifi []
+  (eventbox
+    :onclick "$HOME/.config/eww/scripts/rofi-wifi-menu.sh"
+    :tooltip "wifi"
+    :class "action"
+    (box
+      "WF"
+      ; ""
+      ; ""
+    )
+  )
+)
+(defwidget bluetooth []
+  (eventbox
+    :onclick "$HOME/.config/eww/scripts/rofi-bluetooth"
+    :tooltip "bluetooth"
+    :class "action"
+    (box
+      "BT"
+      ; ""
+      ; ""
+    )
+  )
+)
+
+(defwidget power []
+  (eventbox
+    :onclick "sudo reboot"
+    :tooltip "reboot"
+    (box
+      "PW"
+    )
+  )
+)
+
+(defvar volume_icon "")
+; (defvar volume_icon "󰓃")
+; (defvar volume_icon "")
+(defvar volume_level 0)
+
+(defwidget volume [] 
+  (eventbox
+    :height 15
+    :class "volume"
+    :cursor "pointer"
+    :onclick "$HOME/.config/eww/scripts/volume mute &"
+    :onscroll "$HOME/.config/eww/scripts/volume {}"
+      (box :orientation "v"
+        :tooltip {volume_level}
+        :spacing 2
+          (overlay
+            (circular-progress
+              :thickness 3
+              :start-at 0
+              :clockwise true
+              :style "color:black;opacity:0.1;"
+              :value 100
+            )
+            (circular-progress
+              :thickness 3
+              :start-at 0
+              :clockwise true
+              :class "volume_bar"
+              :value {volume_level}
+            )
+          )
+          {volume_icon}
+          ; "󰓃"
+          ; (progress
+          ;   :width 2
+          ;   :min-width 2
+          ;   :value {volume_level}
+          ;   :orientation "v"
+          ;   :flipped true
+          ;   :class "progress"
+          ; )
+          ; {volume_level}
+      )
+    )
+)
+(defpoll work_spaces :interval "100ms"
+                  :initial "000"
+`$HOME/.config/eww/scripts/tags`)
+; "echo 'herbstluftwm'")
+
+(defwidget workspace []
+  (box 
+    :orientation "v"
+    :class "workspace"
+    :halign "center"
+    {work_spaces}
+  )
+)
+
+(defwidget left []
+  (box :orientation "h"
+        :halign "start"
+        :class "left"
+    (workspace)
+  )
+)
+(defpoll date :interval "1s"
+              :initial "000"
+; `date +%H:%M:%S`)
+`date +%b:%d:%a`)
+(defpoll date_mon :interval "1s"
+              :initial "000"
+; `date +%H:%M:%S`)
+`date +%a`)
+(defpoll date_m :interval "1s"
+              :initial "000"
+; `date +%H:%M:%S`)
+`date +%m`)
+(defpoll date_d :interval "1s"
+              :initial "000"
+; `date +%H:%M:%S`)
+`date +%d`)
+(defpoll date_y :interval "1s"
+              :initial "000"
+; `date +%H:%M:%S`)
+`date +%g`)
+
+(defvar toggle_date_time true)
+(defvar reveal_var true)
+(defvar view_date false)
+(defvar wait false)
+
+(defvar time_to_pass 0)
+
+(defvar timer "")
+; (defvar timer_running false)
+(defvar timer_cancel false)
+
+;another idea.. as i scroll maybe update the current time to what once the timer is done??
+;and then once the timer is running have the time show current time.
+;on hover show how much time is left on the timer.
+
+;have a timer, maybe implement an alarm. not sure how but scroll on H M S to set each..
+;not sure if i want to implement my own alarm settings system or use something already made.
+;i mean i kinda already made my own timer, may as well do the same for the alarm
+(defvar we_time "ok")
+              ; :initial "0"
+; )
+; `scripts/tick_to_format.lua $(cat /tmp/time_left)`)
+(defwidget clock_clock []
+  (box
+    :orientation "v"
+    {time}
+    {time_m}
+    {time_s}
+    "󱑂"
+    ; ""
+  )
+)
+(defwidget clock_timer []
+    (box
+      :space-evenly false
+      :orientation "v"
+      :class {timer_running?"timer_running":"timer"}
+      ; {timer_running ? clock_timer_display : clock_timer_left_display}
+      ; {clock_timer_display} ; icon is with the timer exe
+      ; {!timer_running? clock_timer_left_display:we_time}
+      {clock_timer_left_display}
+      ; {clock_timer_left_display} ; icon is with the timer exe
+      ; "󰄉"
+      ; "II"
+      ""
+  )
+)
+
+(defvar switch false)
+(defvar toggle_fade false)
+(defvar clock_timer_cancel false)
+(defvar clock_timer_left 0)
+; (defvar clock_timer_display "")
+(defwidget new_time []
+  (eventbox
+    :class "clock"
+    :cursor "pointer"
+    :halign "center"
+    :onclick "
+      echo 'we click'
+      ./scripts/toggle_fade.sh &
+    "
+    :onscroll "
+      echo 'we scroll'
+    lua scripts/timer_scroll.lua {} ${timer_running}"
+    :onhover "
+      echo 'we hover'
+      scripts/timer_scroll.lua
+      eww update switch='${!switch}'"
+    :onhoverlost "
+      echo 'we un-hover'
+    ./scripts/timer_hover_lost.sh ${timer_running} ${clock_timer_cancel}"
+      (overlay
+          (revealer
+            :reveal {!switch?true:false}
+            :halign "center"
+            (clock_clock)
+          )
+          (revealer
+            :reveal {switch?true:false}
+            :halign "center"
+            (clock_timer)
+          )
+          (revealer
+            :reveal {toggle_fade ? true : false}
+            ; :style "color:blue;"
+            ; :transition "slidedown"
+            :halign "center"
+            (box
+              :orientation "v"
+              ; "󰇜"
+              ; "󰀻"
+              ; "󰙹"
+              ; {date_mon}
+              {date_m}
+              {date_d}
+              {date_y}
+              ""
+              ; "󰑆"
+              ; "󰎕"
+
+            )
+          )
+    )
+  )
+)
+(defwidget center []
+      ;could have the timer use a circular progress bar
+      ;and have that show right next to the time/date
+      ;timer time using scroll
+
+      ;on hover will now show the timer
+      ;on click will show date for a few seconds
+        (eventbox
+              :class "center"
+              :cursor "pointer"
+              :css "* {background: none};"
+              :halign "center"
+              :width 100
+              ; :onhover "eww update toggle_date_time='false'"
+              ; :onhoverlost "eww update toggle_date_time='true'"
+              :onhover "
+                    $HOME/.config/eww/scripts/fade.sh true &
+                    eww update time_left=$(cat /tmp/time_left)
+                    if [[ $(cat /tmp/time_left) > 0 ]];then
+                      eww update timer_running=true
+                    fi
+                    "
+              :onhoverlost "
+                        $HOME/.config/eww/scripts/fade.sh false &
+                        if [[ ${time_to_pass} == 0 ]]; then
+                          exit
+                        fi
+                        if [[ ${timer_running} == 'true' ]];then
+                          if [[ ${timer_cancel} == 'true' ]];then
+                            echo 'timer_cancel'
+                            pkill timer
+                            echo 0 > /tmp/time_left
+                            eww update timer_running='false'
+                            eww update time_to_pass=0
+                            eww update timer_cancel='false'
+                          fi
+                          exit
+                        fi
+                        ./scripts/timer ${time_to_pass} &                                 
+                        "
+              :onscroll "
+                    if [[ ${reveal_var} == 'false' ]];then
+                      return
+                    fi
+                    if [[ ${timer_running} == 'true' ]];then
+                      if [[ {} == 'up' ]];then
+                        eww update timer_cancel='false'
+                      else
+                        eww update timer_cancel='true'
+                      fi
+                      exit
+                    fi
+                    if [[ {} == 'up' ]];then
+                      eww update time_to_pass=${time_to_pass + 2}
+                    else
+                      if [[ ${time_to_pass} > 0 ]];then
+                        eww update time_to_pass=${time_to_pass - 2}
+                      fi
+                    fi
+                    "
+              :onclick 
+                    "
+                    if [[ ${wait} == 'true' ]]; then
+                      exit
+                    fi
+                    $HOME/.config/eww/scripts/wait.sh 'true' &
+                    "
+              (box
+                  :orientation "v"
+                  :halign "center"
+                  :space-evenly false
+                  (revealer 
+                    :transition {wait ? "slideup" : "crossfade"}
+                    :css {timer_running ? "*{color: gold}" : ""}
+                    :visible {!wait}
+                    :reveal {reveal_var}
+                    {toggle_date_time ? 
+                    "${time}" : 
+                      "${timer_cancel ? 
+                        "cancel" : 
+                          "${timer_running ? "${timer}" : "${time_to_pass > 0 ? "${time_to_pass}" : "SET TIMER"}" }"}" }
+                  )
+                  (revealer
+                    :transition "slidedown"
+                    :visible {wait}
+                    :reveal {view_date}
+                    {date}
+                  )
+              )
+        )
+
+
+)
+
+(deflisten time_left :initial 0
+`cat /tmp/time_left`)
+
+(defwidget stats []
+  (box 
+      :orientation "v"
+      :spacing 16
+      :class "stats"
+    (update)
+    (temp)
+    (cpu)
+    (ram)
+  )
+)
+(defwidget controls []
+    (box :orientation "v"
+        :spacing 3
+        :class "controls"
+        :space-evenly true
+    (volume)
+    (light)
+  )
+)
+
+(defvar toggler false)
+
+(defwidget reveal []
+  (revealer 
+    :transition "slideup"
+    :reveal {!toggler}
+    (stats)
+  )
+)
+
+(defwidget toggle []
+  (eventbox 
+      :halign "center"
+      :tooltip "stats"
+      :cursor "pointer"
+      :width 20
+      :onclick "eww update toggler='${!toggler}'"
+      (box
+        :halign "center"
+        :space-evenly false
+        {!toggler ? "" : "" }
+        ; {!toggler ? "󰅃" : "󰅀" }
+        ; (revealer
+        ;   :transition {!toggler ? "slidedown" : "slidedown"}
+        ;   :reveal {cross %2 == 1 ? false : true}
+        ;   ; :reveal true
+        ;   (overlay
+        ;     (box
+        ;       :orientation "v"
+        ;       ; :visible {cross %4 <= 1 ? true : false}
+        ;       ; :visible {cross %4 <= 1 ? true : false}
+        ;       ; {toggler ? "󰅂" : "󰅁" }
+        ;       {toggler ? "󰅃" : "󰅀" }
+        ;     )
+        ;     ; (box
+        ;     ;   :visible {cross %4 >= 2 ? true : false}
+        ;     ;   {toggler ? "󰄾" : "󰄽" }
+        ;     ; )
+        ;   )
+        ; )
+      )
+  )
+)
+(defwidget container_right []
+  (box 
+        :orientation "v"
+        :halign "end"
+        :space-evenly false
+        :class "right"
+        :spacing 6
+
+        ; (clock_container)
+        {work_spaces} ;works
+        ; (power)
+        ; (battery)
+        ; (clock_timer)
+        (new_time) ;works
+        (controls) ;works
+        (wifi)
+        (bluetooth)
+        (keys)
+        (toggle) ;works
+        (the_refresher) ;works
+        (reveal) ;need test
+ )
+)
+      
+(defwidget bar []
+  (centerbox :orientation "h"
+    :class "bar"
+    (left)
+    (center)
+    (container_right)
+  )
+)
+
+(defwindow left
+            :monitor 0
+            :windowtype "dock"
+            :geometry (geometry :x "5px"
+                               :y "-5px"
+                               :width "0px"
+                               :height "1px"
+                               :anchor "left bottom")
+            :reserve (struts :distance "35px" :side "left")
+    (workspace)
+)
+(defwindow center
+            :monitor 0
+            :windowtype "dock"
+            :geometry (geometry :x "4px"
+                               :y "4px"
+                               ; :width "10%"
+                               :height "5px"
+                               :anchor "top center")
+            :reserve (struts :distance "20px" :side "top")
+    (center)
+)
+(defwindow right
+            :monitor 0
+            :stacking "fg"
+            :windowtype "dock"
+            :exclusive true
+            :geometry (geometry 
+                               :x "5px"
+                               :y "0px"
+                               :height "99%"
+                               :width "0px"
+                               :anchor "left center"
+                              )
+            :reserve (struts :distance "22px" :side "left")
+    (box
+      :orientation "v"
+      :halign "end"
+      :valign "start"
+      :space-evenly false
+      ; :style "background:none;"
+      (container_right)
+    )
+)
+
+(defwidget launcher []
+    (box :orientation "h"
+      :visible true
+      :class "launcher"
+      (input
+        :value "search"
+        :onchange "ls /usr/bin | fzf"
+
+        )
+    )
+)
+
+;;;;launcher
+(defwindow launcher
+    :class "launcher"
+    :monitor 0
+    :windowtype "dialog"
+    :focusable true
+    ; :wm-ignore true
+    :geometry (geometry :x "0%"
+                       :y "0%"
+                       :width "100%"
+                       :height "100%"
+                       :anchor "top center")
+                        :stacking "fg"
+    :reserve (struts :distance "20px" :side "top")
+    (launcher)
+
+)
+

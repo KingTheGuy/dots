@@ -1,0 +1,482 @@
+$color-foreground: #b7b8b9;
+$color-background: #0c0d0e;
+$color-white: #FCFDFE;
+$color-egg: #c8c8c8;
+$color-yellow: #dca060;
+$color-red: #e31a1c;
+$color-cyan: #58dad6;
+$color-wash: #44e3c6;
+$color-magenta: #7067aa;
+$color-purple: #9270cc;
+$color-dark-magenta: #422d61;
+$color-periwinkle: #CCCCFF;
+$color-marigold: #eba832;
+/* $color-blue: #7aa8c8; */
+$color-blue: #39aaf0;
+$color-green: #5a9e6d;
+$color-salmon: #c95c49;
+$color-pink: #ffd7d7;
+$color-hot-pink: #e91f63;
+
+$color-dark-gray: #242424;
+$color-gray: #737475;
+$color-grey: #2c2d2e;
+$color-black: #0c0d0e;
+$color-slate: #516572;
+$color-sage: #69796a;
+
+// Special
+$background: #101010;
+$foreground: #e5e6e2;
+$cursor: #e5e6e2;
+// Colors
+$color0: #101010;
+$color1: #C3C82C;
+$color2: #9BA262;
+$color3: #242CBC;
+$color4: #5E679B;
+$color5: #9BA09E;
+$color6: #C2C5BB;
+$color7: #e5e6e2;
+$color8: #a0a19e;
+$color9: #C3C82C;
+$color10: #9BA262;
+$color11: #242CBC;
+$color12: #5E679B;
+$color13: #9BA09E;
+$color14: #C2C5BB;
+$color15: #e5e6e2;
+
+
+* {
+  font-family: "Share Tech Mono";
+  border-radius: 8px;
+  background: none;
+  /* text-shadow: -1px -1px 2px yellow, 1px 1px 2px blue; */
+}
+
+
+$color-main: $color-black;
+$color-accent: $color-egg;
+
+/* $color-main: $color-egg; */
+/* $color-accent: $color-black; */
+
+/* $color-main: $color-wash; */
+/* $color-accent: $color-black; */
+
+/* $color-main: $color-white; */
+/* $color-accent: $color-black; */
+
+/* $color-main: #c95c49; */
+/* $color-accent: #3A001E; */
+
+/* $color-main: $color-pink; */
+/* $color-accent: $color-magenta; */
+
+/* $color-main: $color-pink; */
+/* $color-accent: $color-hot-pink; */
+
+/* $color-main: $color-marigold; */
+/* $color-accent: $color-hot-pink; */
+
+/* $color-main: $color-salmon; */
+/* $color-accent: $color-white; */
+
+/* $color-main: $color-salmon; */
+/* $color-accent: $color-black; */
+
+/* $color-main: $color-black; */
+/* $color-accent: $color-salmon; */
+
+/* $color-main: $color-periwinkle; */
+/* $color-accent: $color-black; */
+
+/* $color-main: $color-black; */
+/* $color-accent: $color-periwinkle; */
+
+/* $color-main: $color-yellow; */
+/* $color-accent: $color-black; */
+
+/* $color-main: $color-black; */
+/* $color-accent: $color-yellow; */
+
+/* $color-main: $color-black; */
+/* $color-accent: $color-blue; */
+
+/* $color-main: $color-blue; */
+/* $color-accent: $color-black; */
+
+/* $color-main: $color-sage; */
+/* $color-accent: $color-black; */
+
+/* $color-main: $color-gray; */
+/* $color-accent: $color-black; */
+
+
+
+
+$dark-theme: true;
+
+$color-accent-select: $color-accent;
+
+$color-accent-lighter: transparentize($color-accent, 0.6);
+$color-accent-light: transparentize($color-accent, 0.3);
+
+$color-accent-select: lighten($color-accent, 50%);
+$color-accent-select-text: darken($color-accent, 50%);
+
+@if $dark-theme {
+  $color-accent-select: lighten($color-accent, 20%);
+  $color-accent-select-text: darken($color-accent, 50%);
+}
+
+*:focus {
+  border-color: $color-main;
+}
+*:hover {
+  /* border-color: $color-accent; */
+  /* filter:invert(1); */
+  /* animation:select infinite 2s; */
+}
+* .canvas:hover {
+  /* animation:none infinite 3s; */
+  /* animation-fill-mode:none; */
+  
+}
+
+
+.controls {
+  /* background-color: $color-accent; */
+  background-color: $color-accent;
+  color: $color-main;
+  padding: 5px 0px;
+  border-radius: 6px;
+}
+
+/* $color-main: $color-main; */
+/* $color-accent: $color-main; */
+/* $color-active: $color-main; */
+/* $color-select: $color-main; */
+.back_window {
+  /* background: linear-gradient(90deg, rgba(82, 82, 82, 1) 0%, rgba(0, 0, 0, 1) 90%); */
+  /* background: linear-gradient(90deg, $color-main 0%, $color-accent 90%); */
+  border-radius: 0px;
+  /* padding: 20px 0px 20px 20px; */
+  /* margin: 100px; */
+  background: linear-gradient(90deg, $color-main 0%, $color-black 90%);
+  /* background-color: $color-slate; */
+}
+
+.main_bar {
+  border-radius: 0px;
+  /* background: linear-gradient(90deg, $color-main 0%, $color-black 90%); */
+  background: $color-main;
+}
+
+.bar_container {
+  background: $color-main;
+  padding:10px 6px;
+  
+}
+
+.back_window>* {
+  border-radius: 8px;
+}
+
+.back_window_wallpaper {
+  box-shadow: 0px 0px 4px 4px transparentize($color-black, 0.6);
+}
+
+.main,
+.sub {
+  /* padding: 5px; */
+  /* margin: 5px; */
+  /* background-color: transparentize($color-main, 0.2); */
+  background-color: $color-main;
+  color: $color-accent;
+  /* background-blend-mode:; */
+}
+
+/* .control, */
+/* .audio_control */
+.canvas {
+  /* margin: 10px; */
+  color: $color-accent;
+  padding: 20px;
+  /* background-color: transparentize($color-main, 0.9); */
+  background-color: transparentize($color-accent, 0.9);
+  /* background-color: red; */
+}
+
+.base {
+  /* margin: 10px; */
+  padding: 10px;
+  background-color: transparentize($color-main, 0.2);
+  /* background-color: $color-main; */
+}
+
+.base:hover {
+  background-color: lighten($color-main, 2%);
+}
+
+.base_alt {
+  padding: 10px;
+  /* background-color: transparentize($color-accent, 0.2); */
+  background-color: transparentize($color-accent, 0.2);
+  color: $color-main;
+}
+
+.player_controls {
+  background-color: transparentize($color-main, 0.8);
+}
+
+.mini_player {
+  /* background-color: $color-main; */
+  /* background-blend-mode: color-dodge; */
+  /* border-width: 10px; */
+}
+
+.mini_player_progress {
+  background-color: transparentize($color-white, 0.9);
+}
+
+.mini_player_progress>* {
+  color: transparentize($color-black, 0.4);
+  /* color: transparentize($color-accent, 0.4); */
+  /* padding: 20px; */
+  /* margin: 20px; */
+
+}
+
+.sinks_section {
+  /* background-color: transparentize($color-main, 0.5); */
+  /* background-color: transparentize($color-accent, 0.4); */
+  background-color: transparentize($color-accent, 0.95);
+  /* background-color: $color-accent; */
+  /* background-color: red; */
+}
+
+.player_container_bg_opacity {
+  /* opacity: 0.6; */
+  /* background-blend-mode: luminosity; */
+  /* background-blend-mode: soft-light; */
+  /* background: red; */
+}
+
+.launcher_item_style {
+  border-width: 8px;
+  /* background-color: $color-egg; */
+  background-color: transparentize($color-accent, 0.8);
+  /* background-color: transparentize($color-main, 0.8); */
+  color: $color-main;
+  /* color: lighten($color-main, 20%); */
+
+}
+
+.launcher_item_style_active {
+  border-width: 8px;
+  /* background-color: $color-main; */
+  /* color: $color-accent; */
+  background-color: $color-accent;
+  color: $color-main;
+}
+
+.launcher_item_style:hover,
+.launcher_item_style_active:hover {
+  animation: select infinite 2s;
+  /* background-color: $color-main; */
+  /* color: $color-accent; */
+}
+
+
+.audio_sinks,
+.audio_sinks_active,
+.audio_sources,
+.audio_sources_active {
+  border-width: 8px;
+  /* background-color: $color-egg; */
+  /* background-color: transparentize($color-accent, 0.8); */
+  background-color: $color-accent-lighter;
+  /* color: lighten($color-main, 20%); */
+  color: $color-main;
+  /* color: $color-main; */
+  /* background-color: lighten($color-main, 20%); */
+}
+
+.inactive {
+  border-width: 8px;
+  background-color: $color-accent-lighter;
+  color: $color-main;
+}
+
+
+.inactive:hover,
+.active:hover {
+  animation: select infinite 2s;
+}
+
+
+.active {
+  background-color: $color-accent-light;
+  color: $color-main;
+}
+
+
+.audio_sinks_active,
+.audio_sources_active {
+  /* background-color: $color-accent; */
+  /* background-color: transparentize($color-accent, 0.4); */
+  background-color: $color-accent-light;
+  /* color: lighten($color-main, 20%); */
+  color: $color-main;
+  /* animation: select infinite 2s; */
+}
+
+.audio_sinks:hover,
+.audio_sinks_active:hover,
+.audio_sources:hover,
+.audio_sources_active:hover {
+  /* background-color: $color-accent; */
+  animation: select infinite 2s;
+  /* background-color: lighten($color-main, 30%); */
+  /* color: $color-main; */
+  /* color: $color-accent; */
+}
+
+.progress_bar {
+  /* background-color: darken($color-main, 10%); */
+  /* background-color: transparentize($color-accent, 0.8); */
+  background-color: transparentize($color-accent, 0.6);
+  /* background-color: red; */
+  /* color: transparentize($color-main, 0.1); */
+  /* color: invert($color-main); */
+  /* color: black; */
+  color: $color-main;
+}
+
+.progress_bar_progress>* {
+  border-radius: inherit;
+
+  background-color: transparentize($color-accent, 0.3);
+  /* background-color: lighten($color-main, 5%) */
+  /* mix-blend-mode: multiply; */
+  /* background-color: $color-accent; */
+}
+
+.progress_bar_progress:hover>* {
+  /* background-color: lighten($color-main, 30%); */
+  animation: select infinite 1s;
+}
+
+@keyframes select {
+  0% {
+    background-color: $color-accent-light;
+    color: $color-main;
+  }
+
+  50% {
+    background-color: $color-accent-lighter;
+    color: $color-main;
+
+  }
+
+  100% {
+    background-color: $color-accent-light;
+    color: $color-main;
+  }
+
+}
+
+@keyframes select_alt {
+  0% {
+    /* background-color: $color-main; */
+    background-color: transparentize($color-main, 0.4);
+    color: $color-main;
+  }
+
+  50% {
+    /* background-color: $color-accent; */
+    background-color: transparentize($color-main, 0.2);
+    color: $color-main;
+
+  }
+
+  100% {
+    /* background-color: $color-main; */
+    background-color: transparentize($color-main, 0.4);
+    color: $color-main;
+  }
+
+}
+
+.action:hover {
+  animation: select infinite 1s;
+  /* background-color: $color-accent; */
+  /* color: $color-main; */
+  /* border-radius: 4px; */
+}
+
+.timer {
+  color: $color-wash;
+}
+
+.timer_running {
+  color: $color-yellow;
+  // background-color: $color-yellow;
+}
+
+.volume:hover {
+  animation: select infinite 1s;
+
+  /* background: $color-accent-select; */
+  /* color: $color-main; */
+}
+
+
+
+/* PLAYER: */
+.player_container>* {
+  opacity: 1;
+}
+
+.button {
+  /* padding: 8px; */
+  /* background-color: transparentize($color-accent, 0.5); */
+  /* background: none; */
+  /* color: $color-main; */
+  border: none;
+}
+
+/* .base button>* { */
+/* background-color: transparentize($color-accent, 0.5); */
+/* } */
+
+.button:hover {
+  /* background: rgba(256, 256, 256, 0.8); */
+  /* background-color: transparentize($color-accent, 0.5); */
+  /* color: black; */
+  /* color: $color-main; */
+  animation: select infinite 2s;
+}
+
+.player_time {
+  background-color: white;
+  opacity: 0.3;
+}
+
+.player_background {
+  animation: load;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes load {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
+}

@@ -1,0 +1,50 @@
+theme = "bootsOtherSwitch"
+
+[editor]
+mouse = false
+line-number = "relative"
+cursorline = true
+completion-replace = false
+true-color = true
+# idle-timeout = 0
+idle-timeout = 50
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+# [editor.search]
+# wrap-around = false
+
+[editor.lsp]
+# display-messages = true
+# display-inlay-hints = true
+
+[keys.normal]
+# X = "extend_line_above"
+[keys.insert]
+j.k =  "normal_mode"
+"C-[" = "normal_mode"
+
+[keys.normal.space]
+l = ":toggle lsp.display-inlay-hints"
+w.w = ":toggle soft-wrap.enable"
+
+[editor.whitespace.render]
+space = "none"
+tab = "all"
+newline = "none"
+
+[editor.indent-guides]
+render = true
+character = "╎"
+# character = "┊"
+# character = "┆"
+# skip-levels = 1
+
+[editor.statusline]
+left = ["mode", "spinner","file-modification-indicator", "file-name", "file-type", "total-line-numbers", "file-encoding"]
+center = []
+right = ["selections", "primary-selection-length", "position", "position-percentage", "spacer", "diagnostics", "workspace-diagnostics", "version-control"]
+separator = "│"

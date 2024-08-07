@@ -1,0 +1,97 @@
+# Syntax highlighting
+# -------------------
+"attribute" = "#dc7759"
+"type" = "salmon"
+"namespace" = "pink"
+# "type.enum.variant" = "blue"
+"constructor" = "pink"
+"keyword" = "yellow"
+"keyword.directive" = "yellow"
+"punctuation" = "yellow"
+"punctuation.delimiter" = "#dc7759"
+"operator" = { fg = "salmon", modifiers = ["bold"] }
+"special" = "salmon"
+"variable.other.member" = "cyan"
+"variable" = "egg"
+"variable.parameter" = "wash"
+"type.builtin" = { fg = "salmon", modifiers = ["bold"] }
+"function" = "wash"
+"function.macro" = { fg = "wash", modifiers = ["bold"] }
+"function.builtin" = { fg = "pink", modifiers = ["bold"] }
+"comment" = "gray"
+"variable.builtin" = "pink"
+"constant" = "egg"
+"constant.builtin" = "#59dcb7"
+"string" = "magenta"
+"string.literal" = "salmon"
+"constant.numeric" = "#59c0dc"
+"constant.character.escape" = { fg = "salmon", modifiers = ["bold"] }
+"label" = "#59c0dc"
+"tag" = { fg = "salmon" , modifiers = ["bold"]}
+
+"module" = "#d32c5d"
+
+# TODO
+"markup.heading" = "wash"
+"markup.list" = "red"
+"markup.bold" = { fg = "yellow", modifiers = ["bold"] }
+"markup.italic" = { fg = "magenta", modifiers = ["italic"] }
+"markup.link.url" = { fg = "yellow", modifiers = ["underlined"] }
+"markup.link.text" = "red"
+"markup.quote" = "cyan"
+"markup.raw" = "green"
+
+"diff.plus" = "#59dcb7"
+"diff.delta" = "#dc7759"
+"diff.minus" = "#dc597f"
+
+"ui.background" = { bg = "background" }
+"ui.linenr" = { fg = "gray" }
+"ui.linenr.selected" = { fg = "yellow" }  # TODO
+"ui.statusline" = { fg = "background", bg = "salmon" }
+"ui.statusline.inactive" = { fg = "white", bg = "grey" }
+"ui.popup" = { bg = "grey"}
+"ui.window" = { bg = "grey" }
+"ui.help" = { bg = "grey", fg = "white" }
+
+"ui.text" = { fg = "white" }
+"ui.text.focus" = { fg = "white", modifiers= ["bold"] }
+
+"ui.selection" = { bg = "grey" , modifiers = ["bold"] }
+# "ui.cursor.match"  # TODO might want to override this because dimmed is not widely supported
+"ui.cursor.match" = { fg = "salmon", modifiers = ["reversed"]}
+"ui.cursor" = { fg = "white", modifiers = ["reversed"] }
+"ui.cursorline" = { bg = "#17191b"}
+"ui.menu.selected" = { fg = "wash"}
+
+"warning" = { fg = "salmon", bg = "dark-gray"}
+"error" = { fg = "red", bg = "dark-gray"}
+"info" = { fg = "wash", bg = "dark-gray"}
+"hint" = { fg = "wash", bg = "dark-gray"}
+
+# make diagnostic underlined, to distinguish with selection text.
+"diagnostic" = { modifiers = ["underlined"] }
+
+"ui.virtual.whitespace" = { fg = "grey"}
+
+
+[palette]
+foreground = "#b7b8b9"
+background = "#0c0d0e"
+#0f0e0e
+white = "#FCFDFE"
+egg = "#c8c8c8"
+black = "#0c0d0e"
+dark-gray = "#242424"
+gray = "#737475"
+grey = "#2c2d2e"
+yellow = "#dca060"
+red = "#e31a1c"
+green = "#5a9e6d"
+blue = "#7aa8c8"
+cyan = "#58dad6"
+wash = "#44e3c6"
+magenta = "#7067aa"
+dark-magenta = "#422d61"
+pink = "#ffd7d7"
+salmon = "#c95c49"

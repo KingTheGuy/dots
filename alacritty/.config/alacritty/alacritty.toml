@@ -1,0 +1,49 @@
+[colors.bright]
+black = "#686868"
+blue = "#44e3c6"
+cyan = "#95E6CB"
+green = "#C2D94C"
+magenta = "#FFEE99"
+red = "#F07178"
+white = "#FFFFFF"
+yellow = "#FFB454"
+
+[colors.normal]
+black = "#0c0d0e"
+blue = "#7aa8c8"
+cyan = "#44e3c6"
+green = "#CCCCFF"
+magenta = "#9270cc"
+red = "#c95c49"
+white = "#FCFDFE"
+yellow = "#dca060"
+
+[colors.primary]
+# background = "#0c0d0e"
+background = "#121311"
+# foreground = "#b7b8b9"
+
+[colors.selection]
+text = "#44e3c6"
+background = "#242424"
+# background = "#17191b"
+# background = "#737475"
+
+[font]
+# size = 16
+# size = 14
+# size = 12
+
+[font.normal]
+family = "Share Tech Mono"
+# family = "Kode Mono"
+# family = "Sometype Mono"
+# family = "Space Mono"
+style = "Regular"
+
+[env]
+  TERM = "xterm-256color"
+  # WINIT_X11_SCALE_FACTOR = '1.0'
+
+[window]
+  opacity = 0.9

@@ -1,0 +1,19 @@
+#!/usr/bin/env hush
+let LEFT = 9
+let START = 2
+let TAG_STATUS = ""
+let ICONS = ["󱂐","󱂏","󱂎","󱂍","󱂌","󱂋","󱂊","󱂉","󱂈"]
+
+function tag()
+  return { herbstclient tag_status | cut -d '	' -f 2}
+end
+
+while ( LEFT > 0 ) do
+  # let tag = { herbstclient tag_status | cut -d '	' -f 2 }
+  let tags = tag()
+
+  std.print("so")
+  # if (tag ) then
+  # end
+
+end

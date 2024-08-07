@@ -1,0 +1,161 @@
+(defwidget io []
+    (box :orientation "v"
+      :class "io"
+      ; :tooltip "ram usage"
+      ; "󰘚"
+      ; "󰚌${round(EWW_RAM.used_mem_perc, 0)}"
+      ; "󰇄"
+      ; ""
+      ""
+      ; "${round(EWW_RAM.used_mem_perc, 0)}"
+      ; "󰚌"
+      (progress_bar 
+        :height 30
+        ; :vexpand true
+        :width 20
+        ; :scroll {"go/audio/volume_level {}"}
+        ; :click {"go/audio/volume_level mute"}
+        :value {EWW_DISK["/"].used_perc}
+        ; :value "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}"
+        :text {EWW_DISK["/"].used_perc}
+      )
+      ; {round(EWW_RAM.used_mem_perc, 0) > 99 ? 99 : round(EWW_RAM.used_mem_perc, 0)}
+    )
+)
+(defwidget ram []
+    (box :orientation "v"
+      :class "ram"
+      ; :tooltip "ram usage"
+      ; "󰘚"
+      ; "󰚌${round(EWW_RAM.used_mem_perc, 0)}"
+      ; "󰇄"
+      ""
+      ; ""
+      ; "${round(EWW_RAM.used_mem_perc, 0)}"
+      ; "󰚌"
+      (progress_bar 
+        :height 30
+        ; :vexpand true
+        :width 20
+        ; :scroll {"go/audio/volume_level {}"}
+        ; :click {"go/audio/volume_level mute"}
+        :value {round(EWW_RAM.used_mem_perc,0)}
+        ; :value "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}"
+        :text {round(EWW_RAM.used_mem_perc,0)}
+      )
+      ; {round(EWW_RAM.used_mem_perc, 0) > 99 ? 99 : round(EWW_RAM.used_mem_perc, 0)}
+    )
+)
+(defwidget cpu []
+    (box :orientation "v"
+      :class "cpu"
+      ; :tooltip "cpu usage"
+      ; "󰒇 ${round(EWW_CPU.avg,0)}"
+      ; "󰍛${round(EWW_CPU.avg,0)}"
+      ""
+      ; "󰍛"
+      ; ""
+      ; "${round(EWW_CPU.avg,0)}"
+      (progress_bar 
+        :height 30
+        ; :vexpand true
+        :width 20
+        ; :scroll {"go/audio/volume_level {}"}
+        ; :click {"go/audio/volume_level mute"}
+        :value {round(EWW_CPU.avg,0)}
+        ; :value "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}"
+        :text {round(EWW_CPU.avg,0)}
+      )
+      ; {round(EWW_CPU.avg,0) > 99 ? 99 : round(EWW_CPU.avg,0)}
+    )
+)
+(defwidget temp []
+    (box :orientation "v"
+      :class "temp"
+      ; :tooltip "sys temp"
+      ; "󰹅"
+      ; "󰈸"
+      ""
+      ; {EWW_TEMPS.CORETEMP_PACKAGE_ID_0 > 99 ? 99 : EWW_TEMPS.CORETEMP_PACKAGE_ID_0}
+      ; "${EWW_TEMPS.CORETEMP_PACKAGE_ID_0}"
+     (progress_bar 
+      :height 30
+      ; :vexpand true
+      :width 20
+      ; :scroll {"go/audio/volume_level {}"}
+      ; :click {"go/audio/volume_level mute"}
+      :value {round(EWW_TEMPS.CORETEMP_PACKAGE_ID_0,0)}
+      ; :value "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}"
+      :text {round(EWW_TEMPS.CORETEMP_PACKAGE_ID_0,0)}
+    )     ; "󰔏 ${EWW_TEMPS.CORETEMP_PACKAGE_ID_0}"
+    )
+)
+
+(defpoll packages_to_update
+  :interval "20m"
+  :initial "00"
+  ; 'pacman -Qu | wc -l') ; arch linux
+  ; 'pacman -Syup | wc -l') ; arch linux
+'xbps-install -Mun | wc -l') ; void linux
+
+(defwidget update []
+  (eventbox
+    :tooltip {packages_to_update > 0 ? "${packages_to_update} packages out of date, click to update" :"${packages_to_update} packages need updating"}
+    ; :onclick "alacritty -e sudo pacman -Syyu" ; arch linux
+    :onclick "alacritty -e $HOME/.config/eww/scripts/update.sh &" ; void linux
+    :class "action"
+    (box
+      :orientation "v"
+      ; :width 3
+      (label
+        ; :halign "start"
+        ; :valign "start"
+        ; :style "padding-left:2px;"
+        ; :text "󰁲"
+        :text ""
+      )
+      (label
+        :text {round(packages_to_update,0)}
+      )
+    )
+  )
+)
+
+(defwidget stats []
+  (box 
+    :orientation "v"
+    :class "stats"
+    :spacing 6
+    :space-evenly false
+    ; (update)
+    (temp)
+    (cpu)
+    ; (io)
+    (ram)
+  )
+)
+
+(defvar toggler false)
+
+(defwidget reveal []
+  (revealer 
+    :transition "slideup"
+    :reveal {!toggler}
+    (stats)
+  )
+)
+
+(defwidget toggle []
+  (eventbox 
+    :halign "center"
+    :tooltip "stats"
+    :cursor "pointer"
+    :width 20
+    :onclick "eww update toggler='${!toggler}'"
+    (box
+      :halign "center"
+      :space-evenly false
+      {!toggler ? "" : "" }
+    )
+  )
+)

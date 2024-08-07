@@ -146,6 +146,13 @@ $color-accent-select-text: darken($color-accent, 50%);
 }
 
 
+.open:hover{
+  background-color:$color-accent;
+  color:$color-main;
+  transition:200ms;
+
+}
+
 .controls {
   /* background-color: $color-accent; */
   background-color: $color-accent;
@@ -441,11 +448,10 @@ $color-accent-select-text: darken($color-accent, 50%);
 }
 
 .button {
-  /* padding: 8px; */
   /* background-color: transparentize($color-accent, 0.5); */
   /* background: none; */
-  /* color: $color-main; */
   border: none;
+  padding:20px;
 }
 
 /* .base button>* { */

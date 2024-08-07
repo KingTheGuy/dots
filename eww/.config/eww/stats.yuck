@@ -29,10 +29,11 @@
       ; "󰘚"
       ; "󰚌${round(EWW_RAM.used_mem_perc, 0)}"
       ; "󰇄"
-      ""
+      ; ""
+      ; "􏿽"
       ; ""
       ; "${round(EWW_RAM.used_mem_perc, 0)}"
-      ; "󰚌"
+      "󰚌"
       (progress_bar 
         :height 30
         ; :vexpand true
@@ -112,7 +113,10 @@
         ; :valign "start"
         ; :style "padding-left:2px;"
         ; :text "󰁲"
-        :text ""
+        ; :text ""
+        ; :text ""
+        ; :text ""
+        :text ""
       )
       (label
         :text {round(packages_to_update,0)}
@@ -127,7 +131,7 @@
     :class "stats"
     :spacing 6
     :space-evenly false
-    ; (update)
+    (update)
     (temp)
     (cpu)
     ; (io)
@@ -148,10 +152,11 @@
 (defwidget toggle []
   (eventbox 
     :halign "center"
-    :tooltip "stats"
+    ; :tooltip "stats"
     :cursor "pointer"
     :width 20
     :onclick "eww update toggler='${!toggler}'"
+    :class "open"
     (box
       :halign "center"
       :space-evenly false

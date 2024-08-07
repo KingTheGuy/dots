@@ -1,0 +1,125 @@
+/* move vivladi bar to the bottom */
+#browser #header {
+  display: none;
+}
+
+.mainbar {
+  position: absolute;
+  background: none !important;
+  border: none !important;
+  bottom: 0;
+  z-index: 1;
+  width: 100%;
+  color:var(--colorHighlightFg);
+}
+
+#webview-container {
+  background-color: var(--colorAccentBg);
+  --transition-duration: 1s !important;
+}
+
+
+/*This fixes up the fullscreen spacing*/
+.fullscreen #webpage-stack {
+  margin: 0px;
+  border-radius: 0px;
+}
+
+#webpage-stack {
+  margin: 10px 10px 40px 40px;
+  border-radius: 10px;
+}
+
+.webpageview {
+  --overflow:scroll;
+  --width: 1000px !important;
+  --left: 35px
+}
+#webpage-stack:hover>.webpageview {
+  --width: 200px !important;
+  --transition: all 500ms ease-out !important;
+  --transform: scalex(0.5);
+  --transform: translate(500px);
+  --transition-duration: 1s;
+}
+
+.tabs-left .tabbar-wrapper,
+.tabs-right .tabbar-wrapper {
+  position: absolute;
+  z-index: 1;
+}
+
+#tabs-tabbar-container {
+  --border-radius: 0 10px 10px 0 !important;
+}
+#tabs-tabbar-container>* {
+  --opacity: 0 !important;
+}
+
+.tabbar-wrapper>#tabs-tabbar-container>* {
+  opacity: 1 !important;
+  
+}
+
+.tabbar-wrapper:hover>#tabs-tabbar-container>* {
+  opacity: 1 !important;
+}
+
+.tabbar-wrapper {
+  transform: translateX(-105px);
+  transition-duration: 200ms;
+  --overflow: hidden;
+  width: 35px !important;
+
+  --width: 250px !important;
+  opacity: 0;
+  --border-radius: 10px;
+  background-color: rgba(1, 1, 1, 0.7) !important;
+  --background-color: #c8c8c830 !important;
+  --background-color: var(--colorAccentBgFaded) !important;
+}
+
+.tabbar-wrapper:hover {
+  transform: translateX(0);
+  --transform: translate(100px);
+  --transition-duration: 500ms;
+  transition-duration: 500ms;
+  opacity: 1;
+  
+  --width: 250px !important;
+  --transition-duration:2s;
+  --background-color:red;
+  --transition: 500ms ease-out !important;
+  --transition: width 4s;
+  --transition-property: transform, width, background-color, font-size, transform, color;
+}
+
+.tabbar-wrapper:hover>#webpage-stack {
+  overflow:hidden !important;
+}
+
+footer .toolbar .button-icon {
+  --color: var(--colorAccentBgDarker);
+  --color: var(--colorBg);
+  color:var(--colorHighlightFg);
+  --color:black;
+  --filter: invert(1);
+  --mix-blend-mode: difference;
+  --backdrop-filter: invert(100%);
+}
+
+footer .toolbar {
+  background-color: var(--colorAccentBgDarker);
+  border:none;
+}
+
+#panels-container {
+  background-color: var(--colorAccentBg);
+  border:none;
+}
+#panels-container .button-icon {
+  --color: var(--colorHighlightBg);
+  color:var(--colorHighlightFg);
+  --color:black;
+  --filter: invert(1);
+}

@@ -7,7 +7,7 @@
 )
 
 (defvar sources_style
-  `(eventbox :onclick "wpctl set-default %v && go/audio/volume_level" :class "audio_sources" (box :style "padding:6px;" "%s"))`
+  `(eventbox :cursor "pointer" :onclick "wpctl set-default %v && go/audio/volume_level" :class "audio_sources" (box :style "padding:6px;" "%s"))`
 )
 
 

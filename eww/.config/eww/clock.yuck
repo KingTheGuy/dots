@@ -39,6 +39,7 @@
     :onhover "eww update clock_show='date'"
     :onhoverlost "eww update clock_show='clock'"
     :onclick "eww update clock_show='weekday'"
+    :cursor "pointer"
     (overlay
       (box 
         :style {clock_show == "clock"? "opacity:1":"opacity:0"}
@@ -49,7 +50,8 @@
         {current_time_s}
         (label
           :halign "center"
-          :text ""
+          ; :text ""
+          :text ""
           ; :text "󱑂"
         )
       )

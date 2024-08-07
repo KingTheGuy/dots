@@ -3,8 +3,8 @@
 (defvar gaps "")
 ; (deflisten apps "ls /bin/ $HOME/.locl/bin/ | head -20")
 
-(defvar launcher_item_style
-  `(eventbox :onclick "eww close launcher" :class "launcher_item_style" (box :style "padding:5px;" "item_name"))`
+(defvar launcher_item_style      
+  `(eventbox :cursor "pointer" :onclick "eww close launcher" :class "launcher_item_style" (box :style "padding:5px;" "item_name"))`
 )
 
 (defwidget launcher_content[]

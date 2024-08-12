@@ -9,6 +9,33 @@ import (
 
 func main() {
 	style, _ := exec.Command("eww", "get", "launcher_item_style").Output()
+
+	fmt.Println(len(os.Args))
+	fmt.Println(len(os.Args))
+	fmt.Println(len(os.Args))
+	fmt.Println(len(os.Args))
+	fmt.Println(len(os.Args))
+	if len(os.Args) >= 1 {
+		// if len(os.Args) == 1 {
+		if os.Args[1] == ":menu" {
+			fmt.Println("start screen")
+			styled_apps := fmt.Sprintf(`(box :class "sinks_section" :spacing 3 :orientation "v" (box "menu stuff"))`)
+			exec.Command("eww", "update", fmt.Sprintf("gaps=%s", styled_apps)).Run()
+			fmt.Println(styled_apps)
+			exec.Command("notify-send", "yes").Run()
+			return
+		}
+		if os.Args[1] == ":p" {
+			fmt.Println("looks like we want to perform some type of power thing")
+			return
+		} else if os.Args[1] == ":r" {
+			fmt.Println("run a program")
+			return
+		}
+	} else {
+		return
+	}
+
 	cmd, _ := exec.Command("ls", "/bin/", "$HOME/.local/bin/").Output()
 	// cmd, _ := exec.Command("ls", "$PATH").Output()
 	fmt.Println(len(os.Args))
@@ -24,14 +51,13 @@ func main() {
 	//TODO: before applying the style, first sort depending on the index of word to query
 	query := os.Args[1]
 	var item_contains []string
-	var storted_items []string
+	// var storted_items []string
 
 	//add items that contain the word into list
+
 	for _, v := range fields {
-		if len(os.Args) == 2 {
-			if strings.Contains(v, query) {
-				item_contains = append(item_contains, v)
-			}
+		if strings.Contains(v, query) {
+			item_contains = append(item_contains, v)
 		}
 	}
 	//sort through the items

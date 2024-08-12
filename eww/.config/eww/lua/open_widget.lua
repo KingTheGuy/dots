@@ -1,6 +1,10 @@
 --NOTE: maybe just do all this in go
 if #arg >= 1 then
 	local widget = arg[1]
+	local var = arg[2]
+	if var ~= nil then
+		os.execute(string.format(var))
+	end
 	local handle = io.popen(string.format("eww active-windows",widget))
 	local output = handle:read("*a")
 	handle:close()

@@ -52,12 +52,13 @@
 
 (defwidget audio_controls[]
   (box
-    :valign "end"
+    :valign "center"
     :halign "center"
     :orientation "h"
     ; :space-evenly false
     :class "player_controls"
-    ; :spacing 3
+    ; :class "base"
+    :spacing 10
     ; :class "padding:20px;"
     (overlay
       :visible false
@@ -71,27 +72,39 @@
       )
     )
     (eventbox
+      :valign "center"
+      :halign "center"
       :cursor "pointer"
       :class "button"
       :onclick "playerctl previous"
+      :style "border-radius:6px;font-size:large;"
       ; ""
       ; ""
-      ""
+      ; ""
+      ""
     )
     (eventbox
+      :valign "center"
+      :halign "center"
       :cursor "pointer"
       :class "button"
       :onclick "playerctl play-pause"
-      {now_playing_status != "Playing"? "":""}
+      :style "border-radius:6px;font-size:large;"
+      ; {now_playing_status != "Playing"? "":""}
+      {now_playing_status != "Playing"? "":""}
       
     )
     (eventbox
+      :valign "center"
+      :halign "center"
       :cursor "pointer"
       :class "button"
       :onclick "playerctl next"
+      :style "border-radius:6px;font-size:large;"
       ; ""
       ; ""
-      ""
+      ; ""
+      ""
     )
   )    
 )

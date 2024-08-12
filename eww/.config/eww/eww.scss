@@ -235,7 +235,8 @@ $color-accent-select-text: darken($color-accent, 50%);
 }
 
 .player_controls {
-  background-color: transparentize($color-main, 0.8);
+  background-color: transparentize($color-main, 0.6);
+  padding:3px;
 }
 
 .mini_player {

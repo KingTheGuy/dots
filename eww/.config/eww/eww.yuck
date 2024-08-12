@@ -20,7 +20,7 @@
 (defpoll volume_level
   :interval "60s"
   :run-while run
-  "go/audio/volume_level"
+  "go/audio/main sink"
 )
 (defpoll volume_muted
   :interval "1s"
@@ -28,7 +28,8 @@
 )
 (defpoll mic_level
   :interval "60s"
-  "wpctl get-volume @DEFAULT_AUDIO_SOURCE@"
+  :run-while run
+  "go/audio/main source"
 )
 
 (defwidget window[]
@@ -46,7 +47,7 @@
     ; :onclick "go/audio/volume_level mute"
     :onclick "lua lua/open_widget.lua audio_control"
     :onrightclick "lua lua/open_widget.lua player_widget"
-    :onscroll "go/audio/volume_level {}"
+    :onscroll "go/audio/main sink {}"
     :cursor "pointer"
     ; :tooltip "${replace(volume_level,"Volume level: ","")}" 
     ; :onhover "eww update expander='true'"
@@ -94,6 +95,55 @@
   )
 )
 
+
+(defwindow brightness_control
+  :namespace "canvas"
+  :monitor 0
+  :stacking "overlay"
+  :windowtype "dock"
+  :exclusive false
+  :geometry (geometry 
+             :x "60px"
+             ; :x "2%"
+             :y "10%"
+             :anchor "left top"
+            )
+  (eventbox
+    :onhoverlost "eww close brightness_control"
+      (box 
+        :orientation "h"
+        :halign "start"
+        :valign "center"
+        :space-evenly false
+        ; :class "audio_control"
+        ; :class "base"
+        :class "canvas"
+        :spacing 10
+        ; (box
+        ;   :orientation "h"
+        ;   :height 100
+        ;   :halign "start"
+        ;   :valign "center"
+        ;   :space-evenly false
+        ;   :spacing 10
+        ;   :class "base"
+        ;   (progress_bar 
+        ;     :width 35
+        ;     :scroll 'lua lua/scroll_handler.lua {} "light -A 0.5" "light -U 0.5" "light -G" "brightness_value"'
+        ;     :click {"light -G"}
+        ;     :value "${round(brightness_value,0)}"
+        ;     ; :value 10
+        ;     :text "${round(brightness_value,0)}"
+        ;   )
+        ;   "backlight"
+        ; )
+        ; (mini_player)
+        (brightness_container)
+        ; (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
+      )
+  )
+)
+
 (defwidget brightness[]
   (eventbox
     :class "volume"
@@ -103,8 +153,9 @@
     ; :onrightclick "lua lua/open_widget.lua player_widget"
     ; :onscroll "go/audio/volume_level {}"
     :onscroll 'lua lua/scroll_handler.lua {} "light -A 2" "light -U 2" "light -G" "brightness_value"'
+    :onclick "lua lua/open_widget.lua brightness_control"
     ; :tooltip "${replace(volume_level,"Volume level: ","")}" 
-    :onclick {"pgrep gamma >/dev/null && pkill gammastep || gammastep -o -O 4000 -b 0.6"}
+    ; :onclick {"pgrep gamma >/dev/null && pkill gammastep || gammastep -o -O 4000 -b 0.6"}
     ; :onhover "eww update expander='true'"
     ; :onhoverlost "eww update expander='false'"
       ; (box
@@ -251,9 +302,9 @@
         :class "sub"
         :spacing 12
         (eventbox
-          :onclick 'go/audio/volume_level mute'
+          :onclick 'go/audio/main sink mute'
           :onrightclick 'lua lua/open_widget.lua player_container'
-          :onscroll 'go/audio/volume_level {}'  
+          :onscroll 'go/audio/main sink {}'  
           (progress
             :value {replace(volume_level,"Volume level: ","") + 0.0}
           )
@@ -381,10 +432,12 @@
         :width 35
         ; :scroll {'if [[ {} == "up" ]];then light -A 3; else ehco hi fi;'}
         :scroll 'lua lua/scroll_handler.lua {} "light -A 0.5" "light -U 0.5" "light -G" "brightness_value"'
-        :click {"pgrep gamma >/dev/null && pkill gammastep || gammastep -o -O 4000 -b 0.5"}
+        ; :click {"pgrep gamma >/dev/null && pkill gammastep || gammastep -o -O 4000 -b 0.5 &"}
+        ; :click "lua lua/open_widget.lua brightness_control"
         :value "${round(brightness_value,0)}"
         :text "${round(brightness_value,0)}"
       )
+
       (box
         :space-evenly false
         :orientation "v"
@@ -393,19 +446,21 @@
         (box
           :orientation "h"
           :spacing 6
-          (_button :icon "eye" :action "notify-send yolo" :size 35 :query "pgrep gamma >/dev/null && echo true || echo false")        
-          (_button :icon "dark" :action "notify-send yolo" :size 35)        
+          (_button :icon "" :action "notify-send yolo" :size 35 :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -o -O 4000 &")
+          (_button :icon "" :action "notify-send yolo" :size 35 :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -o -O 4000 -b 0.5 ")
+          ; (_button :icon "dark" :action "notify-send yolo" :size 35)        
         )
         (box
           :orientation "h"
           :spacing 6
-          (_button :icon "picom" :action "notify-send yolo" :size 35)        
+          (_button :icon "" :action "notify-send yolo" :size 35)        
           (_button :icon "" :action "notify-send yolo" :size 35)        
         )
       )
     )
     (box
-      ""
+      ; ""
+      ""
       ; ""
     )
   )
@@ -429,37 +484,31 @@
     (box
       :halign "start"
       :valign "center"
-      :orientation "v"
+      :orientation "h"
       :spacing {widget_spacing}
       :space-evenly false
       ; :style "background-color:${main_color}0.5);color:${main_text_color};padding:20px;"
       :class "canvas"
-      (player_container)
       (box
-        :orientation "h"
+        :orientation "v"
         :space-evenly false
         :spacing {widget_spacing}
-        (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
-        ; (mini_player)
+        (player_container)
+        (box
+          :orientation "h"
+          :space-evenly false
+          :spacing {widget_spacing}
+          (brightness_container)
+          ; (mini_player)
+        )
       )
       (box
         :orientation "v"
-        :halign "start"
-        :valign "center"
         :space-evenly false
         :spacing {widget_spacing}
-        ; :class "base"
-        ; (progress_bar 
-        ;   :width 35
-        ;   ; :scroll {'if [[ {} == "up" ]];then light -A 3; else ehco hi fi;'}
-        ;   :scroll 'lua lua/scroll_handler.lua {} "light -A 0.5" "light -U 0.5" "light -G" "brightness_value"'
-        ;   :click {"pgrep gamma >/dev/null && pkill gammastep || gammastep -o -O 4000 -b 0.5"}
-        ;   :value "${round(brightness_value,0)}"
-        ;   :text "${round(brightness_value,0)}"
-        ; )
+        (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
         (sources_container)
       )
-      (brightness_container)
     )
   )
 )

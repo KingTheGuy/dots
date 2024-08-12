@@ -22,6 +22,7 @@
         :class "base"
         (input
           ; :onchange "scripts/launcher_apps.sh ${max_lines} {} && go/launcher/main {}"
+          ; :value ":menu"
           :onchange "go/launcher/main {}"
           :onaccept "bash/run_app.sh && eww close launcher"
         )
@@ -56,8 +57,8 @@
 (defwindow launcher
   :namespace "canvas"
   :monitor 0
-  :stacking "overlay"
-  :windowtype "dock"
+  :stacking "fg"
+  :windowtype "dialog"
   :exclusive false
   :focusable true
   :geometry (geometry 

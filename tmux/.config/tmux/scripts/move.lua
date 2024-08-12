@@ -1,14 +1,13 @@
--- i dont know the fuck this shit is, i dont really know the syntax and things aint making sense.
-
 local direction = arg[1]
 if direction == nil then
   return
 end
+-- i dont know the fuck this shit is, i dont really know the syntax and things aint making sense.
 
 local function cmd_output(cmd)
   local handle = io.popen(cmd)
   if handle ~= nil then
-    local file = handle:read('a')
+    local file = handle:read('*a')
     handle:close()
     return file
   end

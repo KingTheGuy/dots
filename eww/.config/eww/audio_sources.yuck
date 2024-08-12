@@ -32,10 +32,11 @@
           ; :height 120
           ; :vexpand true
           :width 35
-          :scroll 'lua lua/scroll_handler.lua {} "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.05+" "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.05-" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@" "mic_level"'
+          ; :scroll 'lua lua/scroll_handler.lua {} "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.05+" "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.05-" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@" "mic_level"'
+          :scroll "go/audio/main source {}"
           ; :click {"pgrep gamma >/dev/null && pkill gammastep || gammastep -o -O 4000 -b 0.5"}
-          :value "${round(replace(mic_level,"Volume: ",""),1) * 100}"
-          :text "${round(replace(mic_level,"Volume: ",""),1) * 100}"
+          :value "${replace(mic_level,"Volume level: ","")}"
+          :text "${replace(mic_level,"Volume level: ","")}"
           ; :value "${round(mic_level,0)}"
           ; :text "${round(mic_level,0)}"
         )

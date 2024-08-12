@@ -11,7 +11,7 @@
 )
 
 (defvar sinks_style
-  `(eventbox :cursor "pointer" :onclick "wpctl set-default %v && go/audio/volume_level" :class "audio_sinks" (box :style "padding:6px;" "%s"))`
+  `(eventbox :cursor "pointer" :onclick "wpctl set-default %v && go/audio/main sink" :class "audio_sinks" (box :style "padding:6px;" "%s"))`
 )
 
 (deflisten usb_devices

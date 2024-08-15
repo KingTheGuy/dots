@@ -87,12 +87,13 @@
 
 .tabbar-wrapper:hover {
   transform: translateX(0);
+  opacity: 1;
+  transition: transform 500ms 300ms ease, opacity 300ms 0s ease;
   --transform: translate(100px);
   --transition-duration: 500ms;
   --transition-duration: 500ms;
   --transition-delay: 2s,0;
-  opacity: 1;
-  transition: transform 500ms 300ms ease, opacity 300ms 0s ease;
+ 
   
   --width: 250px !important;
   --transition-duration:2s;
@@ -100,6 +101,15 @@
   --transition: 500ms ease-out !important;
   --transition: width 4s;
   --transition-property: transform, width, background-color, font-size, transform, color;
+}
+#webview-container {
+  transition: transform 500ms 0ms ease;
+}
+.tabbar-wrapper:hover ~ #webview-container {
+  transform: translateX(155px);
+  --position:absolute;
+  opacity: 1;
+  transition: transform 500ms 300ms ease, opacity 300ms 0s ease;
 }
 
 footer .toolbar .button-icon {
@@ -118,6 +128,7 @@ footer .toolbar {
 }
 footer::after {
   background-color: var(--colorAccentBgDarker) !important;
+  background:none !important;
 }
 
 #panels-container {

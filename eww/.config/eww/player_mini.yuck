@@ -1,0 +1,70 @@
+(defwidget mini_player []
+  ; (box
+  ;   :class "mini_player"
+  ;   :halign "center"
+  ;   :valign "center"
+  ;   :space-evenly false
+  (box
+    :orientation "v"
+    :space-evenly false
+    :halign "center"
+    :valign "center"
+    :tooltip "${now_playing_title} by ${now_playing_artist}"
+    ; NOTE: use style for burred bg image or just use class
+    ; :class "base"
+    :style "background:center no-repeat url('${player_blured_image}');background-size:cover;padding:6;"
+
+     (box
+      :orientation "v"
+      :space-evenly false
+      :halign "center"
+      :valign "center"
+      (eventbox
+        :onscroll 'lua lua/player_scroll.lua {}'      
+        (box
+          :orientation "v"
+          :space-evenly false
+          :halign "center"
+          :valign "center"
+          :height 100
+          (overlay
+            ; :halign "center"
+            ; :valign "end"
+            (box
+              :halign "center"
+              :valign "center"
+              :class "mini_player_progress"
+              ; :style "background-color:white;border-color:red;border-width:20px;margin:4px;opacity:0.5;"
+              ; :style "border-radius:8px;"
+              ; :style "border-radius:100%;margin:20px;"
+              (overlay
+                (box
+                  :halign "center"
+                  :valign "center"
+                  :width 90
+                  :height 90
+                )
+                (revealer
+                  :reveal {replace(now_playing_image,"file://","") == ""? false : true}
+                  :halign "center"
+                  :valign "center"
+                  ; :style "clip-path:inset(200px,200px,200px,200px);"
+                  ; :style "color:red;"
+                  ; :class ""
+                  (circular-progress
+                    :start-at 25
+                    :thickness 70
+                    :value {round(round(now_playing_position / 1000000,0)  / round(now_playing_length / 1000000,0) * 100,0)}
+                  )
+                )
+              )
+
+            )
+            (album_cover)
+          )
+        )
+      )
+      (audio_controls)
+    )
+  )
+)

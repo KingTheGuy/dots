@@ -40,6 +40,10 @@
     :onhoverlost "eww update clock_show='clock'"
     :onclick "eww update clock_show='weekday'"
     :cursor "pointer"
+
+    :dragvalue "clock"
+    :dragtype "text"
+    :ondroppped "notify-send huh {}"
     (overlay
       (box 
         :style {clock_show == "clock"? "opacity:1":"opacity:0"}

@@ -45,7 +45,8 @@
   (eventbox
     :class "volume"
     ; :onclick "go/audio/volume_level mute"
-    :onclick "lua lua/open_widget.lua audio_control"
+    ; :onclick "eww open audio_control --arg pos=${position}"
+    :onclick `bash/open_widget.sh audio_control --arg pos=${position}`
     :onrightclick "lua lua/open_widget.lua player_widget"
     :onscroll "go/audio/main sink {}"
     :cursor "pointer"
@@ -96,14 +97,15 @@
 )
 
 
-(defwindow brightness_control
+(defwindow brightness_control [pos]
   :namespace "canvas"
   :monitor 0
   :stacking "overlay"
   :windowtype "dock"
   :exclusive false
   :geometry (geometry 
-             :x "60px"
+             ; :x "60px"
+              :x pos
              ; :x "2%"
              :y "10%"
              :anchor "left top"
@@ -153,7 +155,9 @@
     ; :onrightclick "lua lua/open_widget.lua player_widget"
     ; :onscroll "go/audio/volume_level {}"
     :onscroll 'lua lua/scroll_handler.lua {} "light -A 2" "light -U 2" "light -G" "brightness_value"'
-    :onclick "lua lua/open_widget.lua brightness_control"
+    ; :onclick "lua lua/open_widget.lua brightness_control"
+    ; :onclick "eww open brightness_control --arg pos=${position}"
+    :onclick `bash/open_widget.sh brightness_control --arg pos=${position}`
     ; :tooltip "${replace(volume_level,"Volume level: ","")}" 
     ; :onclick {"pgrep gamma >/dev/null && pkill gammastep || gammastep -o -O 4000 -b 0.6"}
     ; :onhover "eww update expander='true'"
@@ -226,7 +230,9 @@
     (eventbox
       :class "open"
       :cursor "pointer"
-      :onclick "lua lua/open_widget.lua control"
+      ; :onclick "lua lua/open_widget.lua control"
+      ; :onclick "eww open control --arg pos=${position}"
+      :onclick `bash/open_widget.sh control --arg pos=${position} --arg anchor="left top"`
       ; ""
       ; ""
       ; ""
@@ -303,7 +309,7 @@
         :spacing 12
         (eventbox
           :onclick 'go/audio/main sink mute'
-          :onrightclick 'lua lua/open_widget.lua player_container'
+          :onrightclick `bash/open_widget.sh player_container`
           :onscroll 'go/audio/main sink {}'  
           (progress
             :value {replace(volume_level,"Volume level: ","") + 0.0}
@@ -345,6 +351,8 @@
   )
 
 )
+
+(defvar position  "2%")
 
 (defwindow bar [gap dist]
   :namespace "bar"
@@ -466,21 +474,26 @@
   )
 )
 
-(defwindow control[]
+(defwindow control[pos anchor]
   :namespace "canvas"
   :monitor 0
   :stacking "overlay"
   :windowtype "dock"
+  :focusable true
   :exclusive false
   :geometry (geometry 
-             :x "60px"
+             :x pos
              :y "18px"
               ; :height "99%"
-             :anchor "left top"
+             ; :anchor "left top"
+             :anchor anchor
             )
   (eventbox
-    :onhoverlost "lua lua/open_widget.lua control"
+    ; :onhoverlost "eww close control"
+
+    ; :onhoverlost "lua lua/open_widget.lua control"
     ; :onclick "lua lua/open_widget.lua control"
+    :ondropped "notify-send 'suck ass {}'"
     (box
       :halign "start"
       :valign "center"
@@ -508,10 +521,33 @@
         :spacing {widget_spacing}
         (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
         (sources_container)
+        (placer :ass "")
+        ; (placer :content "")
       )
     )
   )
 )
+
+(defvar space_1 "")
+
+(defwidget placer [ass]
+  (eventbox
+    :ondropped 'bash/get_widget.sh {} space_1'
+    ; :ondropped ""
+    ; :dragtype "text"
+    (box
+      :visible {ass==""?true:false}
+      :orientation "v"
+      :height 100
+      :width 100
+      :class "canvas"
+      (literal
+        :content space_1
+      )
+    )
+  )
+)
+
 (deflisten wallpaper
   ; "tail -f ~/.fehbg"
   "tail -f ~/.eww_wallpaper"

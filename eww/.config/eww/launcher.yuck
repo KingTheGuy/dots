@@ -1,10 +1,14 @@
+; TODO: have this all use STACK when i type :p :r etc. have it pop over the main :menu stack
+; this way its always there and goes back to normal
 (defvar max_lines 20)
 (defvar apps "")
 (defvar gaps "")
+(defvar default "")
+; (deflisten gaps "go/launcher/main")
 ; (deflisten apps "ls /bin/ $HOME/.locl/bin/ | head -20")
 
 (defvar launcher_item_style      
-  `(eventbox :cursor "pointer" :onclick "eww close launcher" :class "launcher_item_style" (box :style "padding:5px;" "item_name"))`
+  `(eventbox :cursor "pointer" :onclick "eww close launcher" :class "launcher_item_style" (box :halign "start" :style "padding:5px;" "item_name"))`
 )
 
 (defwidget launcher_content[]
@@ -24,7 +28,7 @@
           ; :onchange "scripts/launcher_apps.sh ${max_lines} {} && go/launcher/main {}"
           ; :value ":menu"
           :onchange "go/launcher/main {}"
-          :onaccept "bash/run_app.sh && eww close launcher"
+          :onaccept "bash/run_app.sh"
         )
         ; (input
         ;   :style "background-color:gold;color:gold;border:none;"
@@ -43,8 +47,13 @@
         (scroll
           :height 200
           :valign "start"
-          (literal
-            :content {gaps}
+          (overlay
+            (literal
+              :content {gaps}
+            )
+            ; (literal
+            ;   :content {default}
+            ; )
           )
           ; {apps}
         )
@@ -60,7 +69,7 @@
   :stacking "fg"
   :windowtype "dialog"
   :exclusive false
-  :focusable true
+  ; :focusable false
   :geometry (geometry 
              ; :x "5px"
              ; :y "20%"

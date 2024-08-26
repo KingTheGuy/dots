@@ -1,0 +1,154 @@
+(defvar dynamic_grow false)
+(defvar grow_content false)
+(deflisten got_notification 
+	"tail -n1 -f $HOME/.config/eww/notification_incoming"
+)
+(defwidget dynamic []
+	(eventbox
+		; :onclick "eww open dynamic_pop --arg gap=10 --arg dist=10"
+		:onclick "eww update dynamic_grow=true && $(sleep 0.3;eww update grow_content=true) &"
+		:onhoverlost "eww update dynamic_grow=false && eww update grow_content=false"
+		; :class {got_notification == "true" ?"noti_yes":"noti_no"}
+		:class "noti_yes"
+		(box
+      :space-evenly false
+			:orientation "h"
+			:height 80
+			:width 30
+			:halign "center"
+
+			""
+			; (clock)
+			(content)
+			; "yo"
+		)
+	)
+)
+(defwidget content []
+	(revealer
+		:transition "slideright"
+		:reveal {dynamic_grow}
+		(centerbox
+			:orientation "v"
+			:height 80
+			(revealer
+				:transition "slideup"
+				:reveal {dynamic_grow}
+				:duration 800
+				(box :height 10 "top_extend")
+			)
+			(revealer
+				:transition "slideright"
+				:duration 100
+				:reveal {dynamic_grow}
+				(overlay
+					(box :height {dynamic_grow?200:80} :width 240 :style "transition:2s;height:300px;")
+					(box
+			      :orientation "v"
+						:halign "start"
+						:valign "center"
+			      :space-evenly false
+						:visible {grow_content}
+			      ; :spacing 20
+			      ; :class "bar_container"
+						; :style "opacity:0.3;"
+						; (mini_player)
+						(album_cover)
+						(audio_controls)
+							; "content"
+					)				
+				)
+		    
+		  )
+			(revealer
+				:transition "slidedown"
+				:reveal {dynamic_grow}
+				:duration 800
+				(box :height 10 "bottom_extend")
+			)
+		)
+	)
+)
+(defwindow dynamic_pop [gap dist]
+  :namespace "bar"
+  :monitor 0
+  :stacking "fg"
+  :windowtype "dock"
+  :exclusive false
+  :geometry (geometry 
+             :x gap
+             :y "20%"
+             ; :height "5%"
+             ; :width "0px"
+             :anchor "left bottom"
+            )
+  ; :reserve (struts :distance "34px" :side "left")
+  ; :reserve (struts :distance dist :side "left")
+
+  ; (eventbox 
+  ;   :halign "start"
+  ;   :valign "center"
+    ; :onclick "go/audio/volume_level mute"
+    ; :onclick "eww open audio_container"
+    ; :onhover "eww open sub_bar"
+    ; :onhoverlost "eww close sub_bar"
+			(eventbox
+						:onhover "eww update dynamic_grow=true"
+						:onhoverlost "eww update dynamic_grow=false"
+						:onclick "eww update dynamic_grow=true"
+						(box
+							:halign "center"
+							:valign "center"
+				      :space-evenly false
+							:class "base"
+							(box :width 10 :style "border-radius:0;" 
+								"["
+							)
+				
+							(content)
+				
+
+				
+						)
+			
+			
+		)
+  ; )
+)
+(defwindow dynamic [gap dist]
+  :namespace "bar"
+  :monitor 0
+  :stacking "fg"
+  :windowtype "dock"
+  :exclusive false
+  :geometry (geometry 
+             :x gap
+             :y "1%"
+             ; :height "95%"
+             ; :width "0px"
+             :anchor "left bottom"
+            )
+  ; :reserve (struts :distance "34px" :side "left")
+  ; :reserve (struts :distance dist :side "left")
+
+  ; (eventbox 
+  ;   :halign "start"
+  ;   :valign "center"
+    ; :onclick "go/audio/volume_level mute"
+    ; :onclick "eww open audio_container"
+    ; :onhover "eww open sub_bar"
+    ; :onhoverlost "eww close sub_bar"
+    (box
+      ; :orientation {orientation == "v"? "v": "h"}
+      :orientation "h"
+			:halign "center"
+			:valign "end"
+      :space-evenly false
+			; :active false
+      ; :spacing 20
+      ; :class "bar_container"
+			; "ok"
+	    (dynamic)
+    )
+  ; )
+)

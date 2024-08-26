@@ -18,7 +18,7 @@
   "watch lsusb"
 )
 
-(defwidget progress_bar [width ?height ?scroll ?click value ?text ?orientation]
+(defwidget progress_bar [?width ?height ?scroll ?click ?value ?text ?orientation ?hover]
   (box
     :halign "center"
     :valign "end"
@@ -31,6 +31,7 @@
   (eventbox
     ; :onclick "go/audio/volume_level mute"
     ; :onscroll "go/audio/volume_level {}"
+    :onhover {hover}
     :onscroll {scroll}
     :onclick {click}
 
@@ -79,7 +80,7 @@
   )
 )
 
-(defwidget sinks_container[percent]
+(defwidget sinks_container[?percent]
     (eventbox
       ; :dragvalue "sinks_container"
       :dragvalue "mini_player"
@@ -103,9 +104,10 @@
         (progress_bar 
           ; :height 120
           ; :vexpand true
+          :hover "$PWD/bash/update_loaded.sh"
           :width 35
-          :scroll {"go/audio/volume_level {}"}
-          :click {"go/audio/volume_level mute"}
+          :scroll {"go/audio/volume_level {} && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"}
+          :click {"go/audio/volume_level mute && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"}
           :value "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}"
           :text {replace(volume_level,"Volume level: ","") + 0.0}
         )
@@ -143,7 +145,8 @@
         )
       )
       (box
-        {volume_muted == "[MUTED]"? "":""}
+        ; {volume_muted == "[MUTED]"? "":""}
+        {volume_muted == "[MUTED]"? "󰝟":"󰕾"}
         ; ""
       )
       

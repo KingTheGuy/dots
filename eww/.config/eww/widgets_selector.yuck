@@ -1,0 +1,54 @@
+(deflisten loaded_widgets 
+  "go/find_widgets/main"
+)
+; (defvar loaded_widgets 
+;   ""
+; )
+; (defvar all_widgets )
+(defvar style_widgets '(box :space-evenly false :orientation "v" :spacing 20 HERE)')
+
+(defvar slot_id "")
+
+; TODO: when opening scrollable_selector pass in id of the empty space to be filled
+; TODO: when a slot is clicked update slot_id to match the id
+; FIXME: i don't think i should be using so many eww variables.. should write the changes to a file
+(defwidget scrollable_selector []
+  (box
+    :class "canvas"
+    (box
+      :orientation "v"
+      :class "base"
+      ; :style "background-color:;"
+      :width 300
+      :height 200
+      ; {replace(loaded_widgets,"'","")}
+      (scroll
+        :hscroll false
+        :vscroll true
+        (literal
+          :content loaded_widgets
+        )
+      )
+    )
+  )
+)
+
+(defwindow widgets_selector
+  :monitor 0
+  :stacking "overlay"
+  :windowtype "dock"
+  :exclusive false
+  :geometry (geometry 
+             ; :x "30%"
+             ; :y "50%"
+             :anchor "right center"
+            )
+  (eventbox
+    :onhoverlost `bash/open_widget.sh widgets_selector`
+    (box
+      :style "background:none;"
+      (scrollable_selector)
+    )
+  )
+
+)

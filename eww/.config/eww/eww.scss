@@ -134,22 +134,68 @@ $color-accent-select-text: darken($color-accent, 50%);
 *:focus {
   border-color: $color-main;
 }
+
 *:hover {
   /* border-color: $color-accent; */
   /* filter:invert(1); */
   /* animation:select infinite 2s; */
 }
+
 * .canvas:hover {
   /* animation:none infinite 3s; */
   /* animation-fill-mode:none; */
-  
+
+}
+
+.add_padding {
+  margin: 20px;
+
+}
+
+.noti_no,
+.noti_yes {
+  /* opacity: 1; */
+  transition: 300ms;
+  background-color: $color-black;
+  color: $color-white;
+}
+
+.noti_yes {
+  border-color: $color-yellow;
+  border-style: solid;
+  animation: attention infinite ease-out;
+  animation-duration: 800ms;
+}
+
+@keyframes attention {
+  0% {
+    border-width: 4px;
+  }
+
+  50% {
+    border-width: 1px;
+  }
+
+  100% {
+    border-width: 4px;
+  }
+}
+
+.noti_no:hover,
+.noti_yes:hover {
+  background-color: $color-black;
+  border-color: $color-blue;
+  /* opacity: 0.5; */
+  /* background-color: $color-salmon; */
+  /* border-color: $color-black; */
+
 }
 
 
-.open:hover{
-  background-color:$color-accent;
-  color:$color-main;
-  transition:200ms;
+.open:hover {
+  background-color: $color-accent;
+  color: $color-main;
+  transition: 200ms;
 
 }
 
@@ -183,8 +229,8 @@ $color-accent-select-text: darken($color-accent, 50%);
 
 .bar_container {
   background: $color-main;
-  padding:10px 6px;
-  
+  padding: 10px 6px;
+
 }
 
 .back_window>* {
@@ -236,7 +282,7 @@ $color-accent-select-text: darken($color-accent, 50%);
 
 .player_controls {
   background-color: transparentize($color-main, 0.6);
-  padding:3px;
+  padding: 3px;
 }
 
 .mini_player {
@@ -452,7 +498,7 @@ $color-accent-select-text: darken($color-accent, 50%);
   /* background-color: transparentize($color-accent, 0.5); */
   /* background: none; */
   border: none;
-  padding:20px;
+  padding: 20px;
 }
 
 /* .base button>* { */

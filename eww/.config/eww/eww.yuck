@@ -5,6 +5,9 @@
 (include "./notifications.yuck")
 (include "./audio_sinks.yuck")
 (include "./audio_sources.yuck")
+(include "./dynamic.yuck")
+(include "./widgets_selector.yuck")
+(include "./wg_wifi.yuck")
 
 (defvar orientation "v")
 (defvar widget_spacing "16")
@@ -86,7 +89,7 @@
         ; ""
         ; ""
         ; ""
-        {volume_muted == "[MUTED]"? "":""}
+        {volume_muted == "[MUTED]"? "󰝟":"󰕾"}
         
         ; (label
         ;   ; :style "style:striketrough;"
@@ -186,9 +189,12 @@
         )
         ; "bl"
         ; ""
-        ""
+        ; "󰠠"
+        ; ""
         ; ""
         ; ""
+        "󰌬"
+        ; "󱟊"
       )
   )
 )
@@ -222,7 +228,7 @@
 (defwidget main[]
   (box 
     :orientation {orientation}
-    :halign "start"
+    :halign "center"
     :valign "start"
     :space-evenly false
     :class "main"
@@ -236,21 +242,29 @@
       ; ""
       ; ""
       ; ""
-      ""
+      ; ""
       ; ""
       ; ""
+      ; "󱟜"
+      ; "󱔐"
+      "󰛢"
     )
     (clock)
-    (box
-      :orientation "v"
-      :space-evenly false
-      :class "controls"
-      ; :width 15
-      :spacing 6
-      ; :class "base_alt"
-      (volume)
-      (brightness)
+    (eventbox
+      ; :onhover "paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"
+      (box
+            :orientation "v"
+            :space-evenly false
+            :class "controls"
+            ; :width 15
+            :spacing 6
+            ; :class "base_alt"
+            (volume)
+            (brightness)
+          )
+      
     )
+    
     ; (box
     ;   :orientation "v"
     ;   :space-evenly false
@@ -283,8 +297,10 @@
     (eventbox
       :onclick "alacritty -e sudo poweroff now"
       :cursor "pointer"
+        :class "open"
       (box
-        ""
+        ; ""
+        "󰠠"
         ; "PP"
       )
     )
@@ -363,7 +379,7 @@
   :geometry (geometry 
              :x gap
              :y "14px"
-             :height "95%"
+             :height "70%"
              ; :width "0px"
              :anchor "left top"
             )
@@ -378,10 +394,12 @@
     ; :onhover "eww open sub_bar"
     ; :onhoverlost "eww close sub_bar"
     (box
-      :orientation {orientation == "v"? "h": "v"}
+      :orientation {orientation == "v"? "v": "h"}
       :halign "start"
       :valign "start"
       :space-evenly false
+      :spacing 20
+      ; :width 40
       :class "bar_container"
       (main)
     )
@@ -401,21 +419,21 @@
 ;     )
 ;   )
 ; )
-(defwidget _button [icon action size ?query]
-  (box
-    :halign "center"
-    :valign "center"
+(defwidget _button [?icon ?action ?size ?query]
   (eventbox
     ; :class {query?"inactive":"active"}
-    :class "inactive"
     :onclick action
     :cursor "pointer"
+    :class "inactive"
     (box
-      :width size
-      :height size
+      :halign "center"
+      :valign "center"
+      ; :space-evenly false
+      :width {size == ""?35:size}
+      :height {size == ""?35:size}
+      :style "padding:6px;"
       icon
     )
-  )
   )
 )
 
@@ -468,13 +486,14 @@
     )
     (box
       ; ""
-      ""
+      ; ""
+      "󰌬"
       ; ""
     )
   )
 )
 
-(defwindow control[pos anchor]
+(defwindow control[?pos ?anchor]
   :namespace "canvas"
   :monitor 0
   :stacking "overlay"
@@ -512,6 +531,7 @@
           :space-evenly false
           :spacing {widget_spacing}
           (brightness_container)
+          (wg_wifi)
           ; (mini_player)
         )
       )
@@ -529,14 +549,11 @@
 )
 
 (defvar space_1 "")
-
-(defwidget placer [ass]
+(defwidget placer [?ass]
   (eventbox
-    :ondropped 'bash/get_widget.sh {} space_1'
-    ; :ondropped ""
-    ; :dragtype "text"
+    :onclick "eww open widgets_selector && eww update slot_id='space_1'"
     (box
-      :visible {ass==""?true:false}
+      ; :visible {ass==""?true:false}
       :orientation "v"
       :height 100
       :width 100
@@ -564,9 +581,11 @@
 ; "wlr-randr | grep preferred | head -1 | cut -d 'x' -f 1 | awk '{$1=$1};1'"
 ; "wlr-randr | grep -n 'Enabled: yes' -A 2 | tail -1 | cut -d '-' -f2 |  cut -d 'x' -f 1 | awk '{$1=$1};1'"
 
+; (defvar screen_width
 (deflisten screen_width
   `wlr-randr | grep -n 'Enabled: yes' -A 2 | tail -1 | cut -d '-' -f2 |  cut -d 'x' -f 1 | awk '{$1=$1};1'`
   ; "1600"
+  ; "720"
   ; "2560"
 )
 
@@ -597,7 +616,7 @@
   )
 )
 
-(defwidget wallpaper_container [bar_padding screen_padding]
+(defwidget wallpaper_container [?bar_padding ?screen_padding]
   (box
     ; :width {screen_width - screen_padding - bar_padding - bar_padding - 14}
     :halign "center"
@@ -647,7 +666,16 @@
   (wallpaper_container :bar_padding 2 :screen_padding 30) 
 )
 
-(defwindow just_wallpaper[]
+(defwidget wallpaper_widgets []
+  (box
+    :style "padding:70px;"
+    :halign "start"
+    :valign "start"
+    (player_container)
+  )
+)
+
+(defwindow just_wallpaper []
   :monitor 0
   :geometry (geometry 
               ; :x "-40px"
@@ -667,5 +695,8 @@
   :exclusive false
   :focusable false
   :wm-ignore false
-  (wallpaper_container :bar_padding 6 :screen_padding 0) 
+  (overlay
+    (wallpaper_container :bar_padding 6 :screen_padding 0) 
+    (wallpaper_widgets)
+  )
 )

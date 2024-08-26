@@ -9,5 +9,6 @@ if [[ $1 != "" ]]; then
   SELECTED=$(eww get apps | head -1) 
 fi
 
+eww update gaps=' '
+go/launcher/main
 exec $SELECTED
-

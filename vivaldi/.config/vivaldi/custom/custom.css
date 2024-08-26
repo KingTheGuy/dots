@@ -10,7 +10,7 @@
   bottom: 0;
   z-index: 1;
   width: 100%;
-  color:var(--colorHighlightFg);
+  color: var(--colorHighlightFg);
 }
 
 #webview-container {
@@ -18,6 +18,7 @@
   --transition-duration: 1s !important;
   box-shadow: none !important;
 }
+
 .inner {
   background-color: var(--colorAccentBg);
 }
@@ -35,10 +36,11 @@
 }
 
 .webpageview {
-  --overflow:scroll;
+  --overflow: scroll;
   --width: 1000px !important;
   --left: 35px
 }
+
 #webpage-stack:hover>.webpageview {
   --width: 200px !important;
   --transition: all 500ms ease-out !important;
@@ -56,13 +58,14 @@
 #tabs-tabbar-container {
   border-radius: 0 0 10px 0 !important;
 }
+
 .button-toolbar {
   border-radius: 0 10px 0 0 !important;
 }
 
 .tabbar-wrapper>#tabs-tabbar-container>* {
   opacity: 1 !important;
-  
+
 }
 
 .tabbar-wrapper:hover>#tabs-tabbar-container>* {
@@ -78,7 +81,7 @@
   padding: 0 0 35px 0;
 
   --width: 250px !important;
-  
+
   --border-radius: 10px;
   --background-color: rgba(1, 1, 1, 0.7) !important;
   --background-color: #c8c8c830 !important;
@@ -92,22 +95,24 @@
   --transform: translate(100px);
   --transition-duration: 500ms;
   --transition-duration: 500ms;
-  --transition-delay: 2s,0;
- 
-  
+  --transition-delay: 2s, 0;
+
+
   --width: 250px !important;
-  --transition-duration:2s;
-  --background-color:red;
+  --transition-duration: 2s;
+  --background-color: red;
   --transition: 500ms ease-out !important;
   --transition: width 4s;
   --transition-property: transform, width, background-color, font-size, transform, color;
 }
+
 #webview-container {
   transition: transform 500ms 0ms ease;
 }
-.tabbar-wrapper:hover ~ #webview-container {
+
+.tabbar-wrapper:hover~#webview-container {
   transform: translateX(155px);
-  --position:absolute;
+  --position: absolute;
   opacity: 1;
   transition: transform 500ms 300ms ease, opacity 300ms 0s ease;
 }
@@ -115,8 +120,8 @@
 footer .toolbar .button-icon {
   --color: var(--colorAccentBgDarker);
   --color: var(--colorBg);
-  color:var(--colorHighlightFg);
-  --color:black;
+  color: var(--colorHighlightFg);
+  --color: black;
   --filter: invert(1);
   --mix-blend-mode: difference;
   --backdrop-filter: invert(100%);
@@ -124,36 +129,39 @@ footer .toolbar .button-icon {
 
 footer .toolbar {
   background-color: var(--colorAccentBgDarker);
-  
+
 }
+
 footer::after {
   background-color: var(--colorAccentBgDarker) !important;
-  background:none !important;
+  background: none !important;
 }
 
 #panels-container {
   background-color: var(--colorAccentBg);
-  border:none;
+  border: none;
   margin: 0 0 35px 0;
 }
+
 #panels-container .button-icon {
   --color: var(--colorHighlightBg);
-  color:var(--colorHighlightFg);
-  --color:black;
+  color: var(--colorHighlightFg);
+  --color: black;
   --filter: invert(1);
 }
 
-#panels{
-  border:none !important;
+#panels {
+  border: none !important;
 }
+
 .panel-group {
-  border-radius:10px 0 0 10px;
-  --margin:4px;
-  --margin-right:0px;
-  --opacity:0.9;
+  border-radius: 10px 0 0 10px;
+  --margin: 4px;
+  --margin-right: 0px;
+  --opacity: 0.9;
 }
 
 #browser:not(.inner, .narrow-tiling) .tiled.visible>* {
-  background:none !important;
-  box-shadow:none !important;
+  background: none !important;
+  box-shadow: none !important;
 }

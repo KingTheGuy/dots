@@ -7,28 +7,40 @@ import (
 	"strings"
 )
 
-func main() {
-	style, _ := exec.Command("eww", "get", "launcher_item_style").Output()
+var style string
 
-	fmt.Println(len(os.Args))
-	fmt.Println(len(os.Args))
-	fmt.Println(len(os.Args))
-	fmt.Println(len(os.Args))
-	fmt.Println(len(os.Args))
+func main() {
+	sty, _ := exec.Command("eww", "get", "launcher_item_style").Output()
+	style = string(sty)
+
 	if len(os.Args) >= 1 {
 		// if len(os.Args) == 1 {
-		if os.Args[1] == ":menu" {
+		if len(os.Args) == 1 {
 			fmt.Println("start screen")
-			styled_apps := fmt.Sprintf(`(box :class "sinks_section" :spacing 3 :orientation "v" (box "menu stuff"))`)
-			exec.Command("eww", "update", fmt.Sprintf("gaps=%s", styled_apps)).Run()
-			fmt.Println(styled_apps)
-			exec.Command("notify-send", "yes").Run()
+			// styled_apps := fmt.Sprintf(`(box :class "sinks_section" :spacing 3 :orientation "v" (box "menu stuff"))`)
+			// exec.Command("eww", "update", fmt.Sprintf("gaps=%s", styled_apps)).Run()
+			this := []string{":r (run app)", ":p (power menu)"}
+			show_these(this, "exec", "default")
+			// fmt.Println(styled_apps)
+			// exec.Command("notify-send", "this ran..").Run()
 			return
 		}
 		if os.Args[1] == ":p" {
 			fmt.Println("looks like we want to perform some type of power thing")
+			this := []string{"poweroff now", "restart"}
+			show_these(this, "exec", "gaps")
 			return
 		} else if os.Args[1] == ":r" {
+			cmd, _ := exec.Command("ls", "/bin/", "$HOME/.local/bin/").Output()
+			// cmd, _ := exec.Command("ls", "$PATH").Output()
+			// fmt.Println(len(os.Args))
+			// fmt.Println(string(cmd))
+			// return
+			// fields := []string{"ok", "no"}
+			// fmt.Println(string(cmd))
+			fields := strings.Fields(string(cmd))
+
+			show_these(fields, "exec", "gaps")
 			fmt.Println("run a program")
 			return
 		}
@@ -36,41 +48,42 @@ func main() {
 		return
 	}
 
-	cmd, _ := exec.Command("ls", "/bin/", "$HOME/.local/bin/").Output()
-	// cmd, _ := exec.Command("ls", "$PATH").Output()
-	fmt.Println(len(os.Args))
-	// fmt.Println(string(cmd))
-	// return
-	// fields := []string{"ok", "no"}
-	// fmt.Println(string(cmd))
-	fields := strings.Fields(string(cmd))
+}
+
+func show_these(fields []string, cmd_type string, var_to_update string) {
 	var searched_apps_styled string
 	var searched_apps_raw string
 	found := 0
 	first := false
 	//TODO: before applying the style, first sort depending on the index of word to query
-	query := os.Args[1]
-	var item_contains []string
+	// var query string
+	// if len(os.Args) < 2 {
+	// 	query = os.Args[2]
+	// } else {
+	// 	query = os.Args[1]
+	// }
+	// var item_contains []string
 	// var storted_items []string
 
 	//add items that contain the word into list
 
-	for _, v := range fields {
-		if strings.Contains(v, query) {
-			item_contains = append(item_contains, v)
-		}
-	}
+	// for _, v := range fields {
+	// 	if strings.Contains(v, query) {
+	// 		item_contains = append(item_contains, v)
+	// 	}
+	// }
 	//sort through the items
-	for _, v := range item_contains {
-		//sort by the len of the string
+	// for _, v := range item_contains {
+	// 	//sort by the len of the string
 
-		//sort by the index of the query
-		strings.Index(v, query)
-	}
+	// 	//sort by the index of the query
+	// 	strings.Index(v, query)
+	// }
 
 	for _, v := range fields {
-		if len(os.Args) == 2 {
-			if strings.Contains(v, os.Args[1]) {
+		if len(os.Args) > 2 {
+			// if strings.Contains(v, os.Args[2]) {
+			if strings.Contains(v, os.Args[2]) {
 				searched_apps_raw = fmt.Sprintf("%s%s\n", searched_apps_raw, v)
 				found++
 				this_style := style
@@ -104,6 +117,7 @@ func main() {
 	styled_apps := fmt.Sprintf(`(box :class "sinks_section" :spacing 3 :orientation "v" %s)`, searched_apps_styled)
 	fmt.Println(styled_apps)
 	exec.Command("eww", "update", fmt.Sprintf("apps=%s", searched_apps_raw)).Run()
-	exec.Command("eww", "update", fmt.Sprintf("gaps=%s", styled_apps)).Run()
+	exec.Command("eww", "update", fmt.Sprintf("%s=%s", var_to_update, styled_apps)).Run()
 	// exec.Command("eww", "update", "update_query='true'").Run()
+
 }

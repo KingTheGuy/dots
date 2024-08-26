@@ -6,9 +6,9 @@
   ; lua
 
 (defvar player_width 160)
-(defvar player_height 100)
+(defvar player_height 90)
 
-(defvar player_padding "30")
+(defvar player_padding "20")
 (defvar player_background_border_radius "10px")
 
 (defvar load_player_background true)
@@ -57,9 +57,7 @@
     :orientation "h"
     ; :space-evenly false
     :class "player_controls"
-    ; :class "base"
     :spacing 10
-    ; :class "padding:20px;"
     (overlay
       :visible false
       (box
@@ -81,7 +79,9 @@
       ; ""
       ; ""
       ; ""
-      ""
+      ; ""
+      "󰒮"
+
     )
     (eventbox
       :valign "center"
@@ -91,7 +91,7 @@
       :onclick "playerctl play-pause"
       :style "border-radius:6px;font-size:large;"
       ; {now_playing_status != "Playing"? "":""}
-      {now_playing_status != "Playing"? "":""}
+      {now_playing_status != "Playing"? "󰐊":"󰏤"}
       
     )
     (eventbox
@@ -104,7 +104,8 @@
       ; ""
       ; ""
       ; ""
-      ""
+      ; ""
+      "󰒭"
     )
   )    
 )
@@ -292,6 +293,7 @@
     ; :style "border-radius:${player_background_border_radius};background:center no-repeat url('${player_blured_image}');background-size:cover;opacity:0.6;"
     ; :style "border-radius:${player_background_border_radius};background:center no-repeat url('${player_blured_image}');background-size:cover;"
     :class "base"
+    ; :style "padding:0;"
     (overlay
       (revealer
         :reveal {last_image != now_playing_image? false:true}

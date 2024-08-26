@@ -53,10 +53,11 @@
       ; :tooltip "cpu usage"
       ; "󰒇 ${round(EWW_CPU.avg,0)}"
       ; "󰍛${round(EWW_CPU.avg,0)}"
-      ""
-      ; "󰍛"
+      ; ""
+      "󰍛"
       ; ""
       ; "${round(EWW_CPU.avg,0)}"
+      ; ""
       (progress_bar 
         :height 30
         ; :vexpand true
@@ -75,8 +76,8 @@
       :class "temp"
       ; :tooltip "sys temp"
       ; "󰹅"
-      ; "󰈸"
-      ""
+      "󰈸"
+      ; ""
       ; {EWW_TEMPS.CORETEMP_PACKAGE_ID_0 > 99 ? 99 : EWW_TEMPS.CORETEMP_PACKAGE_ID_0}
       ; "${EWW_TEMPS.CORETEMP_PACKAGE_ID_0}"
      (progress_bar 
@@ -116,7 +117,8 @@
         ; :text ""
         ; :text ""
         ; :text ""
-        :text ""
+        ; :text ""
+        :text "󱧕"
       )
       (label
         :text {round(packages_to_update,0)}
@@ -160,7 +162,7 @@
     (box
       :halign "center"
       :space-evenly false
-      {!toggler ? "" : "" }
+      {!toggler ? "󱨊" : "󱨉" }
     )
   )
 )

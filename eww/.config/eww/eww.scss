@@ -280,6 +280,10 @@ $color-accent-select-text: darken($color-accent, 50%);
   /* background-color: $color-main; */
 }
 
+.base a {
+  color: $color_accent;
+}
+
 .base:hover {
   background-color: lighten($color-main, 2%);
 }

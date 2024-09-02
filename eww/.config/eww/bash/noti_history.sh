@@ -5,7 +5,7 @@ num=""
 # noti=$(dunstctl history | jq -c "[. | {name:$what.appname.data, msg:$what.message.data, timestamp:$what.timestamp.data, id:$what.id.data}]")
 what=".data.[].[]"
 # noti=$(dunstctl history | jq -c "[.data.[].[] | {name:.appname.data, msg:.message.data, timestamp:.timestamp.data, id:.id.data}]")
-noti=$(dunstctl history | jq -c "[.data.[].[] | {name:.summary.data, msg:.body.data, timestamp:.timestamp.data, id:.id.data}]")
+noti=$(dunstctl history | jq -c "[.data.[].[] | {name:.summary.data,app:.appname.data, msg:.body.data, timestamp:.timestamp.data, id:.id.data}]")
 # while true ;do
 # for i in $noti;
 # do

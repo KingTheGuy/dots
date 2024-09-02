@@ -27,69 +27,83 @@
           )
           (for entry in to_read
             (eventbox
-                :onclick "dunstctl history-rm ${entry.id} && bash/noti_history.sh"
-                ; :css ":hover ~ :first-child {background-color:cyan;}"
-                :class "text_msg"
-                (box ;container
+              :onclick "dunstctl history-rm ${entry.id} && bash/noti_history.sh"
+              ; :css ":hover ~ :first-child {background-color:cyan;}"
+              :class "text_msg"
+              (box ;container
+                :orientation "h"
+                ; :class "base_alt"
+                :halign "start"
+                :valign "start"
+                :space-evenly false
+                :spacing 3
+                :class "base"
+                (box
                   :orientation "h"
-                  ; :class "base_alt"
-                  :halign "start"
-                  :valign "start"
                   :space-evenly false
                   :spacing 3
-                  :class "base"
-                  (box
-                    :orientation "h"
-                    :space-evenly false
-                    :spacing 3
-                    ; (box ; importance?
-                    ;   :class "noti_text"
-                    ;   :style "background-color:red;color:black;"
-                    ;   ""
-                    ; )
-                    (box ;timestamp
-                      :orientation "v"
-                      :valign "start"
-                      :class "noti_text"
-                      ; :style "background-color:goldenrod;color:black;"
-                      (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%I",)}")
-                      (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%M",)}")
-                      (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%S",)}")
-                      (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%P",)}")
-                    )
+                  :halign "center"
+                  :valign "start"
+                  ; (box ; importance?
+                  ;   :class "noti_text"
+                  ;   :style "background-color:red;color:black;"
+                  ;   ""
+                  ; )
+                  (label 
+                    :halign "start" 
+                    :valign "start" 
+                    :angle 90 
+                    :class "noti_text" 
+                    :limit-width 30 
+                    :text "${entry.app}"
                   )
-                  
-                  (box ;title & message
+                  (box ;timestamp
                     :orientation "v"
                     :valign "start"
-                    :halign "start"
-                    :space-evenly false
-                    ; :class "noti_text"
-                    :spacing 3
-                    (label 
-                      :halign "start" 
-                      :style "font-weight:bold;" 
-                      :wrap true 
-                      :width 20
-                      :limit-width 20
-                      :text "${entry.name}"
-                    )
-                    ; (box ; "date"
-                    ;   :space-evenly true
-                    ;   (label :halign "start" :style "color:#c8c8c8;" :wrap true :text "${formattime(entry.timestamp,"%r","America/New_York")}")
-                    ;   (label :halign "end" :style "color:#c8c8c8;" :wrap true :text "${formattime(entry.timestamp,"%D","America/New_York")}")
-                    ; )
-                    (label
-                      :halign "start" 
-                      :wrap true 
-                      :width 20
-                      ; :limit-width 200
-                      :show-truncated true
-                      :text "${entry .msg }"
-                    )
+                    :class "noti_text"
+                    ; :style "background-color:goldenrod;color:black;"
+                    (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%I",)}")
+                    (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%M",)}")
+                    (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%S",)}")
+                    (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%P",)}")
                   )
                 )
-              )          
+              
+                (box ;title & message
+                  :orientation "v"
+                  :valign "start"
+                  :halign "start"
+                  :space-evenly false
+                  ; :class "noti_text"
+                  ; :width 100
+                  :spacing 3
+                  (label 
+                    :halign "start" 
+                    :style "font-weight:bold;" 
+                    :wrap true 
+                    :width 20
+                    :limit-width 20
+                    :class "base"
+                    :text "${entry.name}"
+                  )
+                  ; (box ; "date"
+                  ;   :space-evenly true
+                  ;   (label :halign "start" :style "color:#c8c8c8;" :wrap true :text "${formattime(entry.timestamp,"%r","America/New_York")}")
+                  ;   (label :halign "end" :style "color:#c8c8c8;" :wrap true :text "${formattime(entry.timestamp,"%D","America/New_York")}")
+                  ; )
+                  (label
+                    :halign "start" 
+                    :wrap true 
+                    ; :width 20
+                    ; :limit-width 200
+                    :class "base"
+                    :truncate true
+                    ; :css "a {text-decoration: none;}"
+                    :markup "${entry.msg}"
+                  )
+                )
+              )
+            )          
           )
         )
       )    

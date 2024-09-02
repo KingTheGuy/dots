@@ -15,9 +15,11 @@
 			:orientation "h"
 			:height 80
 			:width 30
-			:halign "center"
+			:halign "start"
+			:valign "center"
 
-			""
+			; ""
+			"󰎟"
 			; (clock)
 			(content)
 			; "yo"
@@ -38,23 +40,24 @@
 				(box :height 10 "top_extend")
 			)
 			(revealer
-				:transition "slideright"
+				:transition "slidedown"
 				:duration 100
 				:reveal {dynamic_grow}
 				(overlay
-					(box :height {dynamic_grow?200:80} :width 240 :style "transition:2s;height:300px;")
+					(box :height {dynamic_grow?200:80} :width 340 :style "transition:2s;height:300px;")
 					(box
 			      :orientation "v"
-						:halign "start"
+						:halign "center"
 						:valign "center"
-			      :space-evenly false
+			      ; :space-evenly false
 						:visible {grow_content}
 			      ; :spacing 20
 			      ; :class "bar_container"
 						; :style "opacity:0.3;"
 						; (mini_player)
-						(album_cover)
-						(audio_controls)
+						(wg_noti_container :height 140)
+						; (album_cover)
+						; (audio_controls)
 							; "content"
 					)				
 				)
@@ -76,11 +79,11 @@
   :windowtype "dock"
   :exclusive false
   :geometry (geometry 
-             :x gap
+             :x "-0.5%"
              :y "20%"
              ; :height "5%"
              ; :width "0px"
-             :anchor "left bottom"
+             :anchor "top right"
             )
   ; :reserve (struts :distance "34px" :side "left")
   ; :reserve (struts :distance dist :side "left")
@@ -94,17 +97,14 @@
     ; :onhoverlost "eww close sub_bar"
 			(eventbox
 						:onhover "eww update dynamic_grow=true"
-						:onhoverlost "eww update dynamic_grow=false"
+						; :onhoverlost "eww update dynamic_grow=false"
+						:onhoverlost "eww close dynamic_pop && eww update grow_content=true && eww update dynamic_grow=false"
 						:onclick "eww update dynamic_grow=true"
 						(box
-							:halign "center"
+							:halign "end"
 							:valign "center"
 				      :space-evenly false
 							:class "base"
-							(box :width 10 :style "border-radius:0;" 
-								"["
-							)
-				
 							(content)
 				
 
@@ -122,11 +122,12 @@
   :windowtype "dock"
   :exclusive false
   :geometry (geometry 
-             :x gap
-             :y "1%"
+             :x "-0.5%"
+             :y "20%"
              ; :height "95%"
              ; :width "0px"
-             :anchor "left bottom"
+             ; :anchor "left bottom"
+             :anchor "right top"
             )
   ; :reserve (struts :distance "34px" :side "left")
   ; :reserve (struts :distance dist :side "left")
@@ -138,17 +139,26 @@
     ; :onclick "eww open audio_container"
     ; :onhover "eww open sub_bar"
     ; :onhoverlost "eww close sub_bar"
-    (box
-      ; :orientation {orientation == "v"? "v": "h"}
-      :orientation "h"
-			:halign "center"
-			:valign "end"
-      :space-evenly false
-			; :active false
-      ; :spacing 20
-      ; :class "bar_container"
-			; "ok"
-	    (dynamic)
-    )
+		(eventbox
+			:onclick "eww open dynamic_pop --arg gap=0 --arg dist=0"
+			:onhover "eww open dynamic_pop --arg gap=0 --arg dist=0"
+			(box 
+				:width 10
+	      :class "bar_container"
+				"["
+			)
+		)
+   ;  (box
+   ;    ; :orientation {orientation == "v"? "v": "h"}
+   ;    :orientation "h"
+			; :halign "end"
+			; :valign "start"
+   ;    :space-evenly false
+			; ; :active false
+   ;    ; :spacing 20
+   ;    ; :class "bar_container"
+			; ; "ok"
+	  ;   (dynamic)
+   ;  )
   ; )
 )

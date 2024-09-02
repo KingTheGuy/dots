@@ -1,4 +1,12 @@
 /* move vivladi bar to the bottom */
+* {
+  --cs-main-width: 200px;
+  --primary-color: #74d7cb;
+  --colors-secondary: color-mix(in srgb, var(--primary-color) 40%, black 60%);
+  --colors-tertiary: color-mix(in srgb, var(--primary-color) 15%, black 85%);
+  --colors-border: color-mix(in srgb, var(--colors-secondary) 80%, black 20%);
+}
+
 #browser #header {
   display: none;
 }
@@ -14,7 +22,8 @@
 }
 
 #webview-container {
-  background-color: var(--colorAccentBg);
+  --background-color: var(--colorAccentBg);
+  background-color: var(--colors-tertiary);
   --transition-duration: 1s !important;
   box-shadow: none !important;
 }
@@ -33,22 +42,12 @@
 #webpage-stack {
   margin: 10px 10px 35px 40px;
   border-radius: 10px;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: var(--colors-border) !important;
 }
 
-.webpageview {
-  --overflow: scroll;
-  --width: 1000px !important;
-  --left: 35px
-}
-
-#webpage-stack:hover>.webpageview {
-  --width: 200px !important;
-  --transition: all 500ms ease-out !important;
-  --transform: scalex(0.5);
-  --transform: translate(500px);
-  --transition-duration: 1s;
-}
-
+/*
 .tabs-left .tabbar-wrapper,
 .tabs-right .tabbar-wrapper {
   position: absolute;
@@ -62,22 +61,25 @@
 .button-toolbar {
   border-radius: 0 10px 0 0 !important;
 }
-
+/*
 .tabbar-wrapper>#tabs-tabbar-container>* {
   opacity: 1 !important;
-
 }
 
 .tabbar-wrapper:hover>#tabs-tabbar-container>* {
   opacity: 1 !important;
 }
+*/
 
+/*
 .tabbar-wrapper {
+  --width: 200px;
   transform: translateX(-105px);
   opacity: 0.0;
   transition-duration: 200ms;
   --overflow: hidden;
-  width: 35px !important;
+  --width: 35px !important;
+  width: var(--width) !important;
   padding: 0 0 35px 0;
 
   --width: 250px !important;
@@ -88,10 +90,13 @@
   --background-color: var(--colorAccentBgFaded) !important;
 }
 
-.tabbar-wrapper:hover {
+.tabbar-wrapper:hover,
+.tabbar-wrapper:active
+ {
   transform: translateX(0);
   opacity: 1;
-  transition: transform 500ms 300ms ease, opacity 300ms 0s ease;
+  transition: transform 300ms 100ms ease;
+  --transition: transform 500ms 300ms ease, opacity 300ms 0s ease;
   --transform: translate(100px);
   --transition-duration: 500ms;
   --transition-duration: 500ms;
@@ -105,17 +110,76 @@
   --transition: width 4s;
   --transition-property: transform, width, background-color, font-size, transform, color;
 }
+*/
+.tabbar-wrapper {
+  background: none !important;
+}
 
+.tabbar-wrapper>* {
+  border-radius: 0 20px 20px 0 !important;
+  background: none !important;
+}
+
+.tabbar-wrapper:first-of-type {
+  position: absolute !important;
+  z-index: 200;
+  width: var(--cs-main-width) !important;
+  --height: calc(100vh - 40px);
+  height: 100vh;
+  margin-bottom: 100px;
+  --border-radius: 0 20px 20px 0;
+
+  background-color: var(--colors-tertiary) !important;
+  opacity: 0.0;
+  transform: translateX(-160px);
+
+  transition-duration: 200ms !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: var(--colors-border) !important;
+}
+
+.tabbar-wrapper .button-toolbar:first-of-type {
+  width: var(--cs-main-width) !important;
+}
+
+#tabs-tabbar-container {
+  width: var(--cs-main-width) !important;
+}
+
+/*this is the tabbar*/
+.tabbar-wrapper:first-of-type:hover,
+.tabbar-wrapper:first-of-type:active {
+  opacity: 1;
+  transition: transform 200ms 200ms, opacity 100ms 0s ease !important;
+  transform: translateX(0);
+}
+
+/*this is the web content*/
+/*:root:has(.tabbar-wrapper:hover) ~ :root .#webpage-stack:first-of-type {*/
+#webpage-stack {
+  transition-duration: 200ms;
+}
+
+:root:has(.tabbar-wrapper:hover) #webpage-stack {
+  transform: translateX(100px) !important;
+  transition: transform 600ms 200ms ease !important;
+}
+
+/*
 #webview-container {
   transition: transform 500ms 0ms ease;
 }
-
 .tabbar-wrapper:hover~#webview-container {
   transform: translateX(155px);
+  transition: transform 300ms 100ms ease;
   --position: absolute;
   opacity: 1;
-  transition: transform 500ms 300ms ease, opacity 300ms 0s ease;
+  --transition: transform 500ms 300ms ease, opacity 300ms 0s ease;
 }
+*/
+
+
 
 footer .toolbar .button-icon {
   --color: var(--colorAccentBgDarker);
@@ -129,7 +193,6 @@ footer .toolbar .button-icon {
 
 footer .toolbar {
   background-color: var(--colorAccentBgDarker);
-
 }
 
 footer::after {

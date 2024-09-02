@@ -156,8 +156,9 @@ $color-accent-select-text: darken($color-accent, 50%);
 .noti_yes {
   /* opacity: 1; */
   transition: 300ms;
-  background-color: $color-black;
-  color: $color-white;
+  /* background-color: $color-accent; */
+  color: $color-accent;
+  /* padding: 10px; */
 }
 
 .noti_yes {
@@ -183,13 +184,23 @@ $color-accent-select-text: darken($color-accent, 50%);
 
 .noti_no:hover,
 .noti_yes:hover {
-  background-color: $color-black;
-  border-color: $color-blue;
+  background-color: $color-main;
+  border-color: $color-accent;
   /* opacity: 0.5; */
   /* background-color: $color-salmon; */
   /* border-color: $color-black; */
 
 }
+
+.noti_text {
+  background-color: $color_main;
+  color: $color_accent;
+  /* background-color: $color-accent; */
+  /* color: $color-main; */
+  padding: 6px;
+  /* margin: 3px; */
+}
+
 
 
 .open:hover {
@@ -532,4 +543,8 @@ $color-accent-select-text: darken($color-accent, 50%);
   100% {
     opacity: 0.6;
   }
+}
+
+.text_msg:hover> :only-child {
+  background-color: $color_sage;
 }

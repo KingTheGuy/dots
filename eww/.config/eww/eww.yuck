@@ -378,7 +378,8 @@
   :exclusive false
   :geometry (geometry 
              :x gap
-             :y "14px"
+             ; :y "14px"
+             :y "1%"
              :height "70%"
              ; :width "0px"
              :anchor "left top"
@@ -512,7 +513,6 @@
 
     ; :onhoverlost "lua lua/open_widget.lua control"
     ; :onclick "lua lua/open_widget.lua control"
-    :ondropped "notify-send 'suck ass {}'"
     (box
       :halign "start"
       :valign "center"
@@ -521,6 +521,7 @@
       :space-evenly false
       ; :style "background-color:${main_color}0.5);color:${main_text_color};padding:20px;"
       :class "canvas"
+      ; :class "base_alt"
       (box
         :orientation "v"
         :space-evenly false
@@ -534,6 +535,7 @@
           (wg_wifi)
           ; (mini_player)
         )
+        (wg_noti_container)
       )
       (box
         :orientation "v"
@@ -670,8 +672,9 @@
   (box
     :style "padding:70px;"
     :halign "start"
-    :valign "start"
-    (player_container)
+    :valign "end"
+    ; (player_container)
+    (wg_noti_container )
   )
 )
 

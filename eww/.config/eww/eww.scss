@@ -164,21 +164,26 @@ $color-accent-select-text: darken($color-accent, 50%);
 .noti_yes {
   border-color: $color-yellow;
   border-style: solid;
+  border-width: 4px;
+  padding: 4px;
   animation: attention infinite ease-out;
-  animation-duration: 800ms;
+  animation-duration: 1s;
 }
 
 @keyframes attention {
   0% {
-    border-width: 4px;
+    /* border-width: 4px; */
+    border-color: $color-yellow;
   }
 
   50% {
-    border-width: 1px;
+    /* border-width: 1px; */
+    border-color: rgba(0, 0, 0, 0);
   }
 
   100% {
-    border-width: 4px;
+    /* border-width: 4px; */
+    border-color: $color-yellow;
   }
 }
 
@@ -550,5 +555,5 @@ $color-accent-select-text: darken($color-accent, 50%);
 }
 
 .text_msg:hover> :only-child {
-  background-color: $color_sage;
+  background-color: $color-accent;
 }

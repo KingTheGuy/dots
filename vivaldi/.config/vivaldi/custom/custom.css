@@ -124,10 +124,8 @@
   position: absolute !important;
   z-index: 200;
   width: var(--cs-main-width) !important;
-  --height: calc(100vh - 40px);
   height: 100vh;
   margin-bottom: 100px;
-  --border-radius: 0 20px 20px 0;
 
   background-color: var(--colors-tertiary) !important;
   opacity: 0.0;
@@ -137,6 +135,22 @@
   border-width: 1px !important;
   border-style: solid !important;
   border-color: var(--colors-border) !important;
+  /*
+  .is-pinned {
+    --padding-inline: 6px;
+    width:auto;
+    margin:0;
+    padding:0;
+    border-radius:10px;
+    
+    .title {
+      display:none;
+    }
+    .tab-header {
+      padding:6px;
+    }
+  }
+  */
 }
 
 .tabbar-wrapper .button-toolbar:first-of-type {

@@ -9,10 +9,12 @@
     (box
       :orientation "v"
       :space-evenly false
-      :class "base"
+      ; :class "base"
+      ; :class "noti_yes"
+      :class "canvas"
+      :style "padding:10px;"
       :spacing 10
       :width 300
-      		; :class "noti_yes"
       (scroll
         :height {height == ""?"300":height}
         :valign "center"
@@ -36,6 +38,8 @@
                 :halign "start"
                 :valign "start"
                 :space-evenly false
+                :hexpand false
+                ; :width 10
                 :spacing 3
                 :class "base"
                 (box
@@ -44,28 +48,48 @@
                   :spacing 3
                   :halign "center"
                   :valign "start"
+                  :class "base"
+                  :style "padding:0;"
+                  :height 60
+                  ; :height 100
                   ; (box ; importance?
                   ;   :class "noti_text"
                   ;   :style "background-color:red;color:black;"
                   ;   ""
                   ; )
-                  (label 
-                    :halign "start" 
-                    :valign "start" 
-                    :angle 90 
-                    :class "noti_text" 
-                    :limit-width 30 
-                    :text "${entry.app}"
+                  (overlay
+                    (box
+                      :width 25
+                      :height 70
+                      :class "noti_text" 
+                    )
+                    (label 
+                      ; :halign "center" 
+                      ; :valign "end" 
+                      :angle 90 
+                      :limit-width 30 
+                      ; :style "padding-bttom:10px;"
+                      ; :height 60
+                      :text "${entry.app}"
+                    )
                   )
-                  (box ;timestamp
-                    :orientation "v"
-                    :valign "start"
-                    :class "noti_text"
-                    ; :style "background-color:goldenrod;color:black;"
-                    (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%I",)}")
-                    (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%M",)}")
-                    (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%S",)}")
-                    (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%P",)}")
+                                    
+                  
+                  (overlay
+                    (box
+                      :width 25
+                      :height 70
+                    )
+                    (box ;timestamp
+                      :orientation "v"
+                      :valign "start"
+                      :class "noti_text"
+                      ; :style "background-color:goldenrod;color:black;"
+                      (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%I",)}")
+                      (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%M",)}")
+                      (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%S",)}")
+                      (label :halign "start" :wrap true :text "${formattime(entry.timestamp,"%P",)}")
+                    )
                   )
                 )
               
@@ -77,29 +101,42 @@
                   ; :class "noti_text"
                   ; :width 100
                   :spacing 3
-                  (label 
-                    :halign "start" 
-                    :style "font-weight:bold;" 
-                    :wrap true 
+                  :class "base"
+                  :style "padding:0;"
+                  (box
+                    :space-evenly false
                     :width 20
-                    :limit-width 20
                     :class "base"
-                    :text "${entry.name}"
+                    :style "padding:6px;"
+                    (label 
+                      :halign "start" 
+                      :style "font-weight:bold;" 
+                      :wrap true 
+                      :limit-width 20
+                      :text "${entry.name}"
+                    )                
                   )
+                  
                   ; (box ; "date"
                   ;   :space-evenly true
                   ;   (label :halign "start" :style "color:#c8c8c8;" :wrap true :text "${formattime(entry.timestamp,"%r","America/New_York")}")
                   ;   (label :halign "end" :style "color:#c8c8c8;" :wrap true :text "${formattime(entry.timestamp,"%D","America/New_York")}")
                   ; )
-                  (label
-                    :halign "start" 
-                    :wrap true 
-                    ; :width 20
-                    ; :limit-width 200
+                  (box
+                    :space-evenly false
+                    :width 20
                     :class "base"
-                    :truncate true
-                    ; :css "a {text-decoration: none;}"
-                    :markup "${entry.msg}"
+                    :style "padding:6px;"
+                    (label
+                      :halign "start" 
+                      :wrap true 
+                      ; :width 20
+                      ; :limit-width 200
+                      :class "base"
+                      :truncate true
+                      ; :css "a {text-decoration: none;}"
+                      :markup "${entry.msg}"
+                    )
                   )
                 )
               )

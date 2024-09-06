@@ -387,13 +387,6 @@
   ; :reserve (struts :distance "34px" :side "left")
   :reserve (struts :distance dist :side "left")
 
-  (eventbox 
-    :halign "start"
-    :valign "start"
-    ; :onclick "go/audio/volume_level mute"
-    ; :onclick "eww open audio_container"
-    ; :onhover "eww open sub_bar"
-    ; :onhoverlost "eww close sub_bar"
     (box
       :orientation {orientation == "v"? "v": "h"}
       :halign "start"
@@ -404,7 +397,6 @@
       :class "bar_container"
       (main)
     )
-  )
 )
 
 ; (defwidget control_center[]
@@ -427,13 +419,13 @@
     :cursor "pointer"
     :class "inactive"
     (box
+      ; :space-evenly false
       :halign "center"
       :valign "center"
-      ; :space-evenly false
       :width {size == ""?35:size}
       :height {size == ""?35:size}
-      :style "padding:6px;"
-      icon
+      ; :style "margin:6px;"
+      (label :halign "center" :style "font-size:large;" :text icon)
     )
   )
 )
@@ -472,25 +464,27 @@
         :class "sinks_sections"
         (box
           :orientation "h"
+          :space-evenly false
           :spacing 6
-          (_button :icon "" :action "notify-send yolo" :size 35 :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -o -O 4000 &")
-          (_button :icon "" :action "notify-send yolo" :size 35 :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -o -O 4000 -b 0.5 ")
+          (_button :icon "󰈈" :action "notify-send yolo" :action "gammastep -x && pkill gammastep && gammastep -x &")
+          (_button :icon "󰈉" :action "notify-send yolo" :action "gammastep -x && pkill gammastep && gammastep -P -o -O 4000 &")
           ; (_button :icon "dark" :action "notify-send yolo" :size 35)        
         )
         (box
           :orientation "h"
+          :space-evenly false
           :spacing 6
-          (_button :icon "" :action "notify-send yolo" :size 35)        
-          (_button :icon "" :action "notify-send yolo" :size 35)        
+          ; (_button :icon "" :action "notify-send yolo" :size 35)        
+          (_button :icon "" :action "notify-send yolo" :size 35 :action "pgrep gamma >/dev/null && gammastep -x || gammastep -P -o -O 4000 -b 0.5 &")
         )
       )
     )
-    (box
-      ; ""
-      ; ""
-      "󰌬"
-      ; ""
-    )
+    (label :halign "center" :style "font-size:large;" :text "󰌬")
+  )
+)
+
+(defwidget colorer []
+  (color-chooser
   )
 )
 
@@ -508,45 +502,40 @@
              ; :anchor "left top"
              :anchor anchor
             )
-  (eventbox
-    ; :onhoverlost "eww close control"
-
-    ; :onhoverlost "lua lua/open_widget.lua control"
-    ; :onclick "lua lua/open_widget.lua control"
+  (box
+    :halign "start"
+    :valign "center"
+    :orientation "h"
+    :spacing {widget_spacing}
+    :space-evenly false
+    ; :style "background-color:${main_color}0.5);color:${main_text_color};padding:20px;"
+    :class "canvas"
+    ; :class "base_alt"
     (box
-      :halign "start"
-      :valign "center"
-      :orientation "h"
-      :spacing {widget_spacing}
+      :orientation "v"
       :space-evenly false
-      ; :style "background-color:${main_color}0.5);color:${main_text_color};padding:20px;"
-      :class "canvas"
-      ; :class "base_alt"
+      :spacing {widget_spacing}
+      (player_container)
       (box
-        :orientation "v"
+        :orientation "h"
         :space-evenly false
         :spacing {widget_spacing}
-        (player_container)
-        (box
-          :orientation "h"
-          :space-evenly false
-          :spacing {widget_spacing}
-          (brightness_container)
-          (wg_wifi)
-          ; (mini_player)
-        )
-        (wg_noti_container)
+        (brightness_container)
+        (wg_wifi)
+        ; (mini_player)
       )
-      (box
-        :orientation "v"
-        :space-evenly false
-        :spacing {widget_spacing}
-        (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
-        (sources_container)
-        (placer :ass "")
-        ; (placer :content "")
-      )
+      (wg_noti_container)
     )
+    (box
+      :orientation "v"
+      :space-evenly false
+      :spacing {widget_spacing}
+      (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
+      (sources_container)
+      (placer :ass "")
+      ; (placer :content "")
+    )
+    ; (colorer)
   )
 )
 
@@ -669,13 +658,13 @@
 )
 
 (defwidget wallpaper_widgets []
-  (box
-    :style "padding:70px;"
-    :halign "start"
-    :valign "end"
-    ; (player_container)
-    (wg_noti_container )
-  )
+    (box
+      :halign "fill"
+      :valign "end"
+      :style "margin:55px 55px 20px 55px;"
+      :space-evenly false
+      (wg_noti_container )
+    )
 )
 
 (defwindow just_wallpaper []
@@ -700,6 +689,6 @@
   :wm-ignore false
   (overlay
     (wallpaper_container :bar_padding 6 :screen_padding 0) 
-    (wallpaper_widgets)
+    ; (wallpaper_widgets)
   )
 )

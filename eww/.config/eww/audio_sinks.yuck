@@ -106,7 +106,9 @@
           ; :vexpand true
           :hover "$PWD/bash/update_loaded.sh"
           :width 35
-          :scroll {"go/audio/volume_level {} && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"}
+          ; :scroll {"go/audio/volume_level {} && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"}
+          ; :click {"go/audio/volume_level mute && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"}
+          :scroll {"go/audio/volume_level {}"}
           :click {"go/audio/volume_level mute && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"}
           :value "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}"
           :text {replace(volume_level,"Volume level: ","") + 0.0}
@@ -144,13 +146,8 @@
           )
         )
       )
-      (box
-        ; {volume_muted == "[MUTED]"? "":""}
-        {volume_muted == "[MUTED]"? "󰝟":"󰕾"}
-        ; ""
+      (label :halign "center" :style "font-size:large;" :text {volume_muted == "[MUTED]"? "󰝟":"󰕾"})
       )
-      
-    )
     )
     
 )

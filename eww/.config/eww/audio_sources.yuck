@@ -73,10 +73,6 @@
           )
         )
       )
-      (box
-        ; ""
-        ; ""
-        ""
-      )
+      (label :halign "center" :style "font-size:large;" :text "")
     )
 )

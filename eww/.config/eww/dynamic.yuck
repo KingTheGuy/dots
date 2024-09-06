@@ -37,14 +37,14 @@
 				:transition "slideup"
 				:reveal {dynamic_grow}
 				:duration 800
-				(box :height 10 "top_extend")
+				; (box :height 10 "top_extend")
 			)
 			(revealer
 				:transition "slidedown"
 				:duration 100
 				:reveal {dynamic_grow}
 				(overlay
-					(box :height {dynamic_grow?200:80} :width 340 :style "transition:2s;height:300px;")
+					(box :height {dynamic_grow?400:80} :width 340 :style "transition:2s;height:300px;")
 					(box
 			      :orientation "v"
 						:halign "center"
@@ -55,7 +55,7 @@
 			      ; :class "bar_container"
 						; :style "opacity:0.3;"
 						; (mini_player)
-						(wg_noti_container :height 140)
+						(wg_noti_container :height 340)
 						; (album_cover)
 						; (audio_controls)
 							; "content"
@@ -67,7 +67,7 @@
 				:transition "slidedown"
 				:reveal {dynamic_grow}
 				:duration 800
-				(box :height 10 "bottom_extend")
+				; (box :height 10 "bottom_extend")
 			)
 		)
 	)
@@ -79,11 +79,13 @@
   :windowtype "dock"
   :exclusive false
   :geometry (geometry 
-             :x "-0.5%"
-             :y "20%"
+             :x "0.5%"
+             :y "1%"
+             ; :x "-0.5%"
+             ; :y "20%"
              ; :height "5%"
              ; :width "0px"
-             :anchor "top right"
+             :anchor "left bottom"
             )
   ; :reserve (struts :distance "34px" :side "left")
   ; :reserve (struts :distance dist :side "left")
@@ -122,12 +124,13 @@
   :windowtype "dock"
   :exclusive false
   :geometry (geometry 
-             :x "-0.5%"
-             :y "20%"
+             :x "0.5%"
+             :y "1%"
              ; :height "95%"
              ; :width "0px"
              ; :anchor "left bottom"
-             :anchor "right top"
+             ; :anchor "right top"
+             :anchor "left bottom"
             )
   ; :reserve (struts :distance "34px" :side "left")
   ; :reserve (struts :distance dist :side "left")
@@ -144,7 +147,9 @@
 			:onhover "eww open dynamic_pop --arg gap=0 --arg dist=0"
 			(box 
 				:width 10
-	      :class "bar_container"
+	      ; :class "bar_container"
+				:class "noti_yes"
+				:style "background-color:black;"
 				"["
 			)
 		)

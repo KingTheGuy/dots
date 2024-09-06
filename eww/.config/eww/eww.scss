@@ -50,7 +50,8 @@ $color15: #e5e6e2;
 
 * {
   font-family: "Share Tech Mono";
-  border-radius: 8px;
+  /* border-radius: 8px; */
+  border-radius: 0.7rem;
   background: none;
   /* text-shadow: -1px -1px 2px yellow, 1px 1px 2px blue; */
 }
@@ -302,7 +303,11 @@ $color-accent-select-text: darken($color-accent, 50%);
 
 .player_controls {
   background-color: transparentize($color-main, 0.6);
-  padding: 3px;
+  /* padding: 6px; */
+
+  :last-child {
+    padding: 6px;
+  }
 }
 
 .mini_player {
@@ -446,18 +451,18 @@ $color-accent-select-text: darken($color-accent, 50%);
 @keyframes select {
   0% {
     background-color: $color-accent-light;
-    color: $color-main;
+    /* color: $color-main; */
   }
 
   50% {
     background-color: $color-accent-lighter;
-    color: $color-main;
+    /* color: $color-main; */
 
   }
 
   100% {
     background-color: $color-accent-light;
-    color: $color-main;
+    /* color: $color-main; */
   }
 
 }
@@ -554,6 +559,59 @@ $color-accent-select-text: darken($color-accent, 50%);
   }
 }
 
-.text_msg:hover> :only-child {
-  background-color: $color-accent;
+.close_but {
+  /* color: yellow; */
+  opacity: 0;
+}
+
+.text_msg:hover {
+  /* .base { */
+  animation: select infinite 2s;
+
+  /* opacity: 1; */
+  .base:first-child {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .close_but {
+    /* color: yellow; */
+    color: $color-accent;
+    opacity: 1;
+  }
+
+  /* } */
+
+  /* :last-child { */
+  /* background-color: lighten($color-main, 4%); */
+  /* background-color: darken($color-main, 10%); */
+  /* color: $color-black; */
+
+  /* } */
+
+  /* color: darken($color-main, 20%); */
+  /* *:only-child { */
+  /* background-color: mix($color-accent, $color-main, 20%); */
+  /* background-color: darken($color-main, 20%); */
+  /* background-color: lighten($color-main, 10%); */
+  /* } */
+
+  /* background-color: mix($color-main, black, 60%); */
+  /* background-color: scale($color-main, black, 80%); */
+}
+
+.fade_in:nth-child(1) {
+  /* .text_msg:first-child { */
+  opacity: 0;
+  animation: faded 1s normal forwards ease-in-out;
+  /* } */
+}
+
+@keyframes faded {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

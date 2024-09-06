@@ -9,24 +9,26 @@
     (box
       :orientation "v"
       :space-evenly false
-      ; :class "base"
+      :class "base"
       ; :class "noti_yes"
-      :class "canvas"
+      :valign "start"
+      ; :class "canvas"
       :style "padding:10px;"
       :spacing 10
       :width 300
       (scroll
         :height {height == ""?"300":height}
         :valign "center"
-        :valign "start"
+        :valign "fill"
         (box
           :orientation "v"
           :spacing 5
           :space-evenly false
-          (box
-            :visible false
-            {noti_history}
-          )
+          :class "fade_in"
+          (label :visible {arraylength(to_read) > 0?false:true} :style "padding:20px;" 
+          ; "nothing to see here")
+          :markup  "nothing to see here..")
+          ; {}
           (for entry in to_read
             (eventbox
               :onclick "dunstctl history-rm ${entry.id} && bash/noti_history.sh"
@@ -34,45 +36,40 @@
               :class "text_msg"
               (box ;container
                 :orientation "h"
-                ; :class "base_alt"
-                :halign "start"
-                :valign "start"
                 :space-evenly false
-                :hexpand false
-                ; :width 10
+                :halign "fill"
+                :valign "start"
+                ; :class "base_alt"
+                ; :hexpand false
                 :spacing 3
                 :class "base"
+                :width 100
                 (box
                   :orientation "h"
                   :space-evenly false
-                  :spacing 3
                   :halign "center"
-                  :valign "start"
+                  :valign "fill"
+                  :vexpand true
+                  :spacing 3
                   :class "base"
                   :style "padding:0;"
-                  :height 60
+                  ; :height 60
                   ; :height 100
                   ; (box ; importance?
                   ;   :class "noti_text"
                   ;   :style "background-color:red;color:black;"
                   ;   ""
                   ; )
-                  (overlay
-                    (box
-                      :width 25
-                      :height 70
-                      :class "noti_text" 
-                    )
                     (label 
-                      ; :halign "center" 
-                      ; :valign "end" 
+                      :halign "center" 
+                      :valign "start" 
+                      :class "noti_text" 
                       :angle 90 
                       :limit-width 30 
                       ; :style "padding-bttom:10px;"
                       ; :height 60
                       :text "${entry.app}"
                     )
-                  )
                                     
                   
                   (overlay
@@ -95,24 +92,26 @@
               
                 (box ;title & message
                   :orientation "v"
-                  :valign "start"
-                  :halign "start"
                   :space-evenly false
-                  ; :class "noti_text"
+                  :halign "fill"
+                  :valign "fill"
+                  :hexpand true
+                  :vexpand true
                   ; :width 100
                   :spacing 3
                   :class "base"
                   :style "padding:0;"
+                  ; :width 200
                   (box
                     :space-evenly false
-                    :width 20
+                    ; :width 20
                     :class "base"
                     :style "padding:6px;"
                     (label 
                       :halign "start" 
                       :style "font-weight:bold;" 
                       :wrap true 
-                      :limit-width 20
+                      :limit-width 30
                       :text "${entry.name}"
                     )                
                   )
@@ -123,24 +122,47 @@
                   ;   (label :halign "end" :style "color:#c8c8c8;" :wrap true :text "${formattime(entry.timestamp,"%D","America/New_York")}")
                   ; )
                   (box
+                    :orientation "v"
                     :space-evenly false
-                    :width 20
                     :class "base"
                     :style "padding:6px;"
+                    ; :width 20
+                    :halign "fill"
+                    :valign "fill"
+                    :vexpand true
+                    ; (box
+                    ;   :halign "start"
+                    ;   "content:"
+                    ; )
                     (label
+                      ; :orientation "v"
+                      ; :width 30
+                      :valign "start"
                       :halign "start" 
                       :wrap true 
-                      ; :width 20
-                      ; :limit-width 200
-                      :class "base"
-                      :truncate true
+                      ; :truncate-left false
+                      ; :limit-width 80
+                      ; :truncate true
+                      ; :unindent true
+                      ; :show-truncated true
                       ; :css "a {text-decoration: none;}"
+                      :justify "left"
                       :markup "${entry.msg}"
                     )
                   )
                 )
+                (label
+                  :class "close_but"
+                  :style "font-size:small;"
+                  :angle "90"
+                  :text  "clear"
+                )
               )
             )          
+          )
+          (box
+            :visible false
+            {noti_history}
           )
         )
       )    

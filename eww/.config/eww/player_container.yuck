@@ -57,7 +57,8 @@
     :orientation "h"
     ; :space-evenly false
     :class "player_controls"
-    :spacing 10
+    ; :spacing 10
+    :style "font-size:large;"
     (overlay
       :visible false
       (box
@@ -75,7 +76,6 @@
       :cursor "pointer"
       :class "button"
       :onclick "playerctl previous"
-      :style "border-radius:6px;font-size:large;"
       ; ""
       ; ""
       ; ""
@@ -89,7 +89,6 @@
       :cursor "pointer"
       :class "button"
       :onclick "playerctl play-pause"
-      :style "border-radius:6px;font-size:large;"
       ; {now_playing_status != "Playing"? "":""}
       {now_playing_status != "Playing"? "󰐊":"󰏤"}
       
@@ -100,7 +99,6 @@
       :cursor "pointer"
       :class "button"
       :onclick "playerctl next"
-      :style "border-radius:6px;font-size:large;"
       ; ""
       ; ""
       ; ""

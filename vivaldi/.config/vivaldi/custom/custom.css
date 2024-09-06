@@ -111,8 +111,15 @@
   --transition-property: transform, width, background-color, font-size, transform, color;
 }
 */
+:root:has(.tabbar-wrapper:hover) #webpage-stack {
+  transform: translateX(100px) !important;
+  transition: transform 300ms 100ms ease;
+  --transition: transform 600ms 200ms ease !important;
+}
+
 .tabbar-wrapper {
   background: none !important;
+  --transition-duration: 200ms;
 }
 
 .tabbar-wrapper>* {
@@ -130,6 +137,7 @@
   background-color: var(--colors-tertiary) !important;
   opacity: 0.0;
   transform: translateX(-160px);
+
 
   transition-duration: 200ms !important;
   border-width: 1px !important;
@@ -165,7 +173,11 @@
 .tabbar-wrapper:first-of-type:hover,
 .tabbar-wrapper:first-of-type:active {
   opacity: 1;
-  transition: transform 200ms 200ms, opacity 100ms 0s ease !important;
+  --transition: transform 200ms 200ms, opacity 100ms 0s ease !important;
+  --transition: transform 500ms 300ms ease, opacity 300ms 0s ease;
+  transition: transform 200ms 100ms ease !important;
+
+
   transform: translateX(0);
 }
 
@@ -175,10 +187,7 @@
   transition-duration: 200ms;
 }
 
-:root:has(.tabbar-wrapper:hover) #webpage-stack {
-  transform: translateX(100px) !important;
-  transition: transform 600ms 200ms ease !important;
-}
+
 
 /*
 #webview-container {

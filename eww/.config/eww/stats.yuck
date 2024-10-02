@@ -159,10 +159,11 @@
     :width 20
     :onclick "eww update toggler='${!toggler}'"
     :class "open"
-    (box
+    :tooltip "SUPER + T"
+    (label
       :halign "center"
-      :space-evenly false
-      {!toggler ? "󱨊" : "󱨉" }
+      :style "font-size:large;"
+      :text {!toggler ? "󱨊" : "󱨉" }
     )
   )
 )

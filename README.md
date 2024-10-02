@@ -8,7 +8,7 @@
 
 
 ### void linux
-good place auto starting commands:
-```
-  /etc/rc.local
+auto start commands:
+```sh
+/etc/rc.local
 ```

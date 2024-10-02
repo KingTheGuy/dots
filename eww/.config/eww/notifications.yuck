@@ -34,16 +34,16 @@
               :onclick "dunstctl history-rm ${entry.id} && bash/noti_history.sh"
               ; :css ":hover ~ :first-child {background-color:cyan;}"
               :class "text_msg"
+              :halign "fill"
               (box ;container
                 :orientation "h"
                 :space-evenly false
-                :halign "fill"
                 :valign "start"
+                :hexpand false
+                :halign "fill"
                 ; :class "base_alt"
-                ; :hexpand false
                 :spacing 3
                 :class "base"
-                :width 100
                 (box
                   :orientation "h"
                   :space-evenly false
@@ -142,7 +142,7 @@
                       :wrap true 
                       ; :truncate-left false
                       ; :limit-width 80
-                      ; :truncate true
+                      :truncate true
                       ; :unindent true
                       ; :show-truncated true
                       ; :css "a {text-decoration: none;}"

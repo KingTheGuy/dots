@@ -47,6 +47,11 @@
   border-color: var(--colors-border) !important;
 }
 
+[role=dialog] {
+  --position: absolute;
+  z-index: 1000;
+}
+
 /*
 .tabs-left .tabbar-wrapper,
 .tabs-right .tabbar-wrapper {
@@ -111,6 +116,24 @@
   --transition-property: transform, width, background-color, font-size, transform, color;
 }
 */
+/*
+:root:has(.tabbar-wrapper:hover) #webpage-stack::after {
+  position:absolute;
+  background-color:black;
+  --background: linear-gradient(to right, rgba(255, 0, 0, 0.0), rgba(0, 0, 255, 0.5));
+  -webkit-mask-image: -webkit-gradient(linear, right center, left center, 
+    from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+  right:0;
+  width:40%;
+  height:100%;
+  display:block;
+  content:"";
+  --background-color:black;
+
+  backdrop-filter:blur(20px) grayscale(1);
+}
+*/
+
 :root:has(.tabbar-wrapper:hover) #webpage-stack {
   transform: translateX(100px) !important;
   transition: transform 300ms 100ms ease;
@@ -202,7 +225,11 @@
 }
 */
 
-
+.mainbar .toolbar,
+footer .toolbar {
+  --background-color: red;
+  padding: 0 40px;
+}
 
 footer .toolbar .button-icon {
   --color: var(--colorAccentBgDarker);
@@ -215,7 +242,15 @@ footer .toolbar .button-icon {
 }
 
 footer .toolbar {
-  background-color: var(--colorAccentBgDarker);
+  --position: absolute !important;
+  --bottom: 40px;
+  --background-color: var(--colorAccentBgDarker);
+  background-color: var(--colors-tertiary);
+  border: none !important;
+}
+
+footer#footer {
+  border: none !important;
 }
 
 footer::after {

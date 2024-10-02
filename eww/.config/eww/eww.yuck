@@ -493,7 +493,7 @@
   :monitor 0
   :stacking "overlay"
   :windowtype "dock"
-  :focusable true
+  ; :focusable true
   :exclusive false
   :geometry (geometry 
              :x pos
@@ -627,7 +627,8 @@
         ; :width {screen_width}
         ; :halign "center"
         ; :style "background:center no-repeat url(${replace(wallpaper,'/usr/bin/feh --no-fehbg --bg-fill ','')});background-size:cover;background-position: center -500px;"
-        :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -300px;"} 
+        ; :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -300px;"} 
+        :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;"} 
         ; :style "background:center no-repeat url(${replace(wallpaper,'/usr/bin/feh --no-fehbg --bg-fill ','')});background-size:cover;background-position: center -700px;"
         ; :class "back_window_wallpaper"
       )    
@@ -663,7 +664,7 @@
       :valign "end"
       :style "margin:55px 55px 20px 55px;"
       :space-evenly false
-      (wg_noti_container )
+      ; (wg_noti_container )
     )
 )
 

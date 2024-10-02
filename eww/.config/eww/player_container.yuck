@@ -50,6 +50,10 @@
   "null"
 )
 
+(defvar players "")
+
+(defvar selected_player "")
+
 (defwidget audio_controls[]
   (box
     :valign "center"
@@ -200,7 +204,7 @@
     :valign "center"
     :halign "center"
     :orientation "v"
-    :style "margin:10px;background:center no-repeat url('${replace(now_playing_image,"file://","")}')"
+    :style "margin:10px;background:center no-repeat url('${replace(now_playing_image,"file://","")}');"
   )
 )
 
@@ -242,7 +246,7 @@
               :class "mini_player_progress"
               ; :style "background-color:white;border-color:red;border-width:20px;margin:4px;opacity:0.5;"
               ; :style "border-radius:8px;"
-              ; :style "border-radius:100%;margin:20px;"
+              ; :style "border-radius:200%;"
               (overlay
                 (box
                   :halign "center"
@@ -259,7 +263,9 @@
                   ; :class ""
                   (circular-progress
                     :start-at 25
-                    :thickness 70
+                    ; :thickness 70
+                    :thickness 60
+                    ; :style "color:red;"
                     :value {round(round(now_playing_position / 1000000,0)  / round(now_playing_length / 1000000,0) * 100,0)}
                   )
                 )
@@ -284,6 +290,7 @@
     ; :style "border-radius:${player_background_border_radius};opacity:1;background-color:black;"
     ; :style "border-radius:${player_background_border_radius};"
   (box ;player container
+    :spacing 6
     :orientation "v"
     :space-evenly false
     :halign "start"
@@ -293,19 +300,26 @@
     :class "base"
     ; :style "padding:0;"
     (overlay
+      (box
+        :height {player_height * 2}
+        :width {player_width * 2}
+      )
       (revealer
         :reveal {last_image != now_playing_image? false:true}
         :transition "crossfade"
-        :duration "2s"
+        :duration "1s"
         :halign "center"
         :valign "center"
         (box
           :height {player_height * 2}
           :width {player_width * 2}
+          ; :height {player_height}
+          ; :width {player_width}
           ; :style "border-radius:${player_background_border_radius};background:center no-repeat url('${player_blured_image}');background-size:${player_width * 2}px ${player_height * 4}px;opacity:0.6;"
           ; :style "border-radius:${player_background_border_radius};background:center no-repeat url('${player_blured_image}');background-size:cover;"
           ; :class "player_container_bg_opacity"
           :style "opacity:0.9;background:center no-repeat url('${player_blured_image}');background-size:cover;"
+          ; :style "opacity:0.9;background:center no-repeat url('${player_blured_image}');background-size:cover;background-position:${round(round(now_playing_position / 1000000,0)  / round(now_playing_length / 1000000,0) * player_width,0)}px 0;"
           (box
             ;just for the opacity
           )
@@ -327,14 +341,12 @@
           (album_cover)
           (player_info)
         )
-        ; (revealer
-        ;   :reveal {more_info? "true":"false"}
-          (player_progress)
-        ; )
+        (player_progress)
         (audio_controls)
       )
     )    
     )
+    "player"
   )
 )
 

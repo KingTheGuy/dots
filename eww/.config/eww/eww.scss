@@ -48,15 +48,6 @@ $color14: #C2C5BB;
 $color15: #e5e6e2;
 
 
-* {
-  font-family: "Share Tech Mono";
-  /* border-radius: 8px; */
-  border-radius: 0.7rem;
-  background: none;
-  /* text-shadow: -1px -1px 2px yellow, 1px 1px 2px blue; */
-}
-
-
 $color-main: $color-black;
 $color-accent: $color-egg;
 
@@ -116,6 +107,16 @@ $color-accent: $color-egg;
 
 
 
+* {
+  font-family: "Share Tech Mono";
+  /* border-radius: 8px; */
+  border-radius: 0.7rem;
+  background: none;
+  /* text-shadow: -1px -1px 2px yellow, 1px 1px 2px blue; */
+  /* border-width: 1px; */
+  /* border-style: solid; */
+  /* border-color: $color-accent; */
+}
 
 $dark-theme: true;
 
@@ -615,3 +616,23 @@ $color-accent-select-text: darken($color-accent, 50%);
     opacity: 1;
   }
 }
+
+/* .blur_image { */
+/* background: none; */
+/* animation: pan 1s ease-in-out 0s infinite; */
+/* } */
+
+/* @keyframes pan { */
+/* 0% { */
+/* background-position: 0 0; */
+/* } */
+
+/* 50% { */
+/* background-position: 10px 0; */
+/* } */
+
+/* 100% { */
+/* background-size: 100%; */
+/* background-position: 0 0; */
+/* } */
+/* } */

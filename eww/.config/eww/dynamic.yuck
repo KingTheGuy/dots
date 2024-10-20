@@ -3,6 +3,13 @@
 (deflisten got_notification 
 	"tail -n1 -f $HOME/.config/eww/notification_incoming"
 )
+(defpoll noti_history
+  :interval "5s"
+  "bash/noti_history.sh"
+)
+
+(defvar to_read "")
+
 (defwidget dynamic []
 	(eventbox
 		; :onclick "eww open dynamic_pop --arg gap=10 --arg dist=10"
@@ -124,7 +131,7 @@
   :windowtype "dock"
   :exclusive false
   :geometry (geometry 
-             :x "0.5%"
+             :x "0.3%"
              :y "1%"
              ; :height "95%"
              ; :width "0px"
@@ -148,8 +155,10 @@
 			(box 
 				:width 10
 	      ; :class "bar_container"
-				:class "noti_yes"
-				:style "background-color:black;"
+				; :class "noti_yes"
+				:class {arraylength(to_read) > 0?"noti_yes":"noti_no"}
+				; :style {arraylength(to_read) > 0?"":"border-color:red;"}
+				; :style "background-color:black;"
 				"["
 			)
 		)

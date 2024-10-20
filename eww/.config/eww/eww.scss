@@ -24,6 +24,8 @@ $color-grey: #2c2d2e;
 $color-black: #0c0d0e;
 $color-slate: #516572;
 $color-sage: #69796a;
+$color-leaf: #35422F;
+/* $color-leaf: #303D31; */
 
 // Special
 $background: #101010;
@@ -50,6 +52,10 @@ $color15: #e5e6e2;
 
 $color-main: $color-black;
 $color-accent: $color-egg;
+
+/* $color-main: $color-leaf; */
+/* $color-accent: $color-black; */
+/* $color-accent: $color-egg; */
 
 /* $color-main: $color-egg; */
 /* $color-accent: $color-black; */
@@ -160,14 +166,15 @@ $color-accent-select-text: darken($color-accent, 50%);
   transition: 300ms;
   /* background-color: $color-accent; */
   color: $color-accent;
+  border-width: 4px;
+  padding: 4px;
+  border-color: $color-main;
+  border-style: solid;
   /* padding: 10px; */
 }
 
 .noti_yes {
-  border-color: $color-yellow;
-  border-style: solid;
-  border-width: 4px;
-  padding: 4px;
+  /* border-color: $color-yellow; */
   animation: attention infinite ease-out;
   animation-duration: 1s;
 }
@@ -175,7 +182,7 @@ $color-accent-select-text: darken($color-accent, 50%);
 @keyframes attention {
   0% {
     /* border-width: 4px; */
-    border-color: $color-yellow;
+    border-color: $color-accent;
   }
 
   50% {
@@ -185,7 +192,7 @@ $color-accent-select-text: darken($color-accent, 50%);
 
   100% {
     /* border-width: 4px; */
-    border-color: $color-yellow;
+    border-color: $color-accent;
   }
 }
 
@@ -235,8 +242,11 @@ $color-accent-select-text: darken($color-accent, 50%);
   border-radius: 0px;
   /* padding: 20px 0px 20px 20px; */
   /* margin: 100px; */
-  background: linear-gradient(90deg, $color-main 0%, $color-black 90%);
-  /* background-color: $color-slate; */
+  /* background: linear-gradient(90deg, $color-main 0%, $color-black 90%); */
+  /* background: linear-gradient(90deg, $color-main 0%, $color-black 99%); */
+  /* background: linear-gradient(90deg, $color-main 40%, $color-black 99%); */
+  background: linear-gradient(90deg, $color-main 30%, transparentize($color-main, 0.8) 90%);
+  /* background-color: $color-main; */
 }
 
 .main_bar {

@@ -607,7 +607,7 @@
   )
 )
 
-(defwidget wallpaper_container [?bar_padding ?screen_padding]
+(defwidget wallpaper_container [?bar_padding ?screen_padding ?sides]
   (box
     ; :width {screen_width - screen_padding - bar_padding - bar_padding - 14}
     :halign "center"
@@ -615,7 +615,7 @@
     ; :halign "center"
     :class "back_window"
     ; :style "padding: ${bar_padding + 6}px;"
-    :style "padding: ${bar_padding}px;"
+    :style "padding: ${sides}px 0px ${sides}px ${bar_padding}px"
     ; (overlay
       ; (box
       ;   :width {screen_width - screen_padding - bar_padding - bar_padding - 14}
@@ -624,11 +624,10 @@
         :halign "center"
         ; :space-evenly false
         :width {screen_width - bar_padding}
-        ; :width {screen_width}
         ; :halign "center"
         ; :style "background:center no-repeat url(${replace(wallpaper,'/usr/bin/feh --no-fehbg --bg-fill ','')});background-size:cover;background-position: center -500px;"
         ; :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -300px;"} 
-        :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;"} 
+        :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;margin-right:${sides}px;"} 
         ; :style "background:center no-repeat url(${replace(wallpaper,'/usr/bin/feh --no-fehbg --bg-fill ','')});background-size:cover;background-position: center -700px;"
         ; :class "back_window_wallpaper"
       )    
@@ -655,7 +654,7 @@
   :exclusive false
   :focusable false
   :wm-ignore false
-  (wallpaper_container :bar_padding 2 :screen_padding 30) 
+  (wallpaper_container :bar_padding 34 :screen_padding 30 :sides 4) 
 )
 
 (defwidget wallpaper_widgets []

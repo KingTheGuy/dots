@@ -236,6 +236,7 @@
     (eventbox
       :class "open"
       :cursor "pointer"
+      :class {arraylength(to_read) > 0?"noti_yes":"noti_no"}
       ; :onclick "lua lua/open_widget.lua control"
       ; :onclick "eww open control --arg pos=${position}"
       :onclick `bash/open_widget.sh control --arg pos=${position} --arg anchor="left top"`
@@ -368,7 +369,7 @@
 
 )
 
-(defvar position  "2%")
+(defvar position  "3%")
 
 (defwindow bar [gap dist]
   :namespace "bar"
@@ -466,8 +467,8 @@
           :orientation "h"
           :space-evenly false
           :spacing 6
-          (_button :icon "󰈈" :action "notify-send yolo" :action "gammastep -x && pkill gammastep && gammastep -x &")
-          (_button :icon "󰈉" :action "notify-send yolo" :action "gammastep -x && pkill gammastep && gammastep -P -o -O 4000 &")
+          (_button :icon "󰈈" :action "notify-send yolo" :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -x &")
+          (_button :icon "󰈉" :action "notify-send yolo" :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -P -o -O 4000 &")
           ; (_button :icon "dark" :action "notify-send yolo" :size 35)        
         )
         (box
@@ -475,7 +476,7 @@
           :space-evenly false
           :spacing 6
           ; (_button :icon "" :action "notify-send yolo" :size 35)        
-          (_button :icon "" :action "notify-send yolo" :size 35 :action "pgrep gamma >/dev/null && gammastep -x || gammastep -P -o -O 4000 -b 0.5 &")
+          (_button :icon "" :action "notify-send yolo" :size 35 :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -P -o -O 4000 -b 0.5 &")
         )
       )
     )
@@ -502,40 +503,44 @@
              ; :anchor "left top"
              :anchor anchor
             )
-  (box
-    :halign "start"
-    :valign "center"
-    :orientation "h"
-    :spacing {widget_spacing}
-    :space-evenly false
-    ; :style "background-color:${main_color}0.5);color:${main_text_color};padding:20px;"
-    :class "canvas"
-    ; :class "base_alt"
+  (eventbox
+    :onhoverlost "eww close control"
+    ; :onhoverlost {center == ""?"":"eww close control"}
     (box
-      :orientation "v"
-      :space-evenly false
+      :halign "start"
+      :valign "center"
+      :orientation "h"
       :spacing {widget_spacing}
-      (player_container)
+      :space-evenly false
+      ; :style "background-color:${main_color}0.5);color:${main_text_color};padding:20px;"
+      :class "canvas"
+      ; :class "base_alt"
       (box
-        :orientation "h"
+        :orientation "v"
         :space-evenly false
         :spacing {widget_spacing}
-        (brightness_container)
-        (wg_wifi)
-        ; (mini_player)
+        (player_container)
+        (box
+          :orientation "h"
+          :space-evenly false
+          :spacing {widget_spacing}
+          (brightness_container)
+          (wg_wifi)
+          ; (mini_player)
+        )
+        (wg_noti_container)
       )
-      (wg_noti_container)
+      (box
+        :orientation "v"
+        :space-evenly false
+        :spacing {widget_spacing}
+        (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
+        (sources_container)
+        (placer :ass "")
+        ; (placer :content "")
+      )
+      ; (colorer)
     )
-    (box
-      :orientation "v"
-      :space-evenly false
-      :spacing {widget_spacing}
-      (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
-      (sources_container)
-      (placer :ass "")
-      ; (placer :content "")
-    )
-    ; (colorer)
   )
 )
 

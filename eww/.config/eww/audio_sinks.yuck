@@ -194,8 +194,8 @@
         ;   )
         ;   "backlight"
         ; )
-        (mini_player)
         (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
+        (mini_player)
       )
   )
 )

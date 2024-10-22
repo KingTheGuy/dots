@@ -7,6 +7,7 @@
       :valign "start"
       ; :class "canvas"
       :style "padding:10px;"
+      ; :class {arraylength(to_read) > 0?"noti_yes":"noti_no"}
       :spacing 10
       :width 300
       (scroll

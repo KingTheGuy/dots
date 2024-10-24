@@ -413,20 +413,32 @@
 ;     )
 ;   )
 ; )
-(defwidget _button [?icon ?action ?size ?query]
+(defwidget _button [?icon ?text ?action ?size ?query]
+  ; (eventbox
+  ;   ; :class {query?"inactive":"active"}
+  ;   :onclick action
+  ;   :cursor "pointer"
+  ;   :class "inactive"
+  ;   (box
+  ;     ; :space-evenly false
+  ;     :halign "center"
+  ;     :valign "center"
+  ;     :width {size == ""?35:size}
+  ;     :height {size == ""?35:size}
+  ;     ; :style "margin:6px;"
+  ;     (label :halign "center" :style "font-size:large;" :text icon)
+  ;   )
+  ; )
   (eventbox
-    ; :class {query?"inactive":"active"}
-    :onclick action
-    :cursor "pointer"
-    :class "inactive"
+    :class "button_container"
     (box
-      ; :space-evenly false
-      :halign "center"
-      :valign "center"
-      :width {size == ""?35:size}
-      :height {size == ""?35:size}
-      ; :style "margin:6px;"
-      (label :halign "center" :style "font-size:large;" :text icon)
+      :class "button_in"
+      :space-evenly false
+      :spacing 6
+      (box
+        icon
+      )
+      text
     )
   )
 )
@@ -632,7 +644,7 @@
         ; :halign "center"
         ; :style "background:center no-repeat url(${replace(wallpaper,'/usr/bin/feh --no-fehbg --bg-fill ','')});background-size:cover;background-position: center -500px;"
         ; :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -300px;"} 
-        :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;margin-right:${sides}px;"} 
+        :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center ;margin-right:${sides}px;"} 
         ; :style "background:center no-repeat url(${replace(wallpaper,'/usr/bin/feh --no-fehbg --bg-fill ','')});background-size:cover;background-position: center -700px;"
         ; :class "back_window_wallpaper"
       )    
@@ -659,7 +671,10 @@
   :exclusive false
   :focusable false
   :wm-ignore false
+  ; (eventbox
+  ; :onrightclick "notify-send open_a_damn_menu"
   (wallpaper_container :bar_padding 34 :screen_padding 30 :sides 4) 
+  ; )
 )
 
 (defwidget wallpaper_widgets []
@@ -692,8 +707,8 @@
   :exclusive false
   :focusable false
   :wm-ignore false
-  (overlay
-    (wallpaper_container :bar_padding 6 :screen_padding 0) 
-    ; (wallpaper_widgets)
-  )
+    (overlay
+      (wallpaper_container :bar_padding 6 :screen_padding 0) 
+      ; (wallpaper_widgets)
+    )
 )

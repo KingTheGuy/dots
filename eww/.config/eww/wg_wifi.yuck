@@ -5,12 +5,12 @@
     ; :style "padding:20px;"
     (box
       :style "padding:10px;"
-      (_button :icon "󰤨 WIFI" :action "eww close control && kitty -e nmtui")
+      (_button :icon "󰤨 " :text "WIFI" :action "eww close control && kitty -e nmtui")
       ; (box "-")
     )
     (box
       :style "padding:10px;"
-      (_button :icon "󰤨 BT" :action "eww close control && blueman-manager")
+      (_button :icon "󰤨 " :text "BT" :action "eww close control && blueman-manager")
       ; (box "-")
     )
   )

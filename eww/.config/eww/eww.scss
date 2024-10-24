@@ -549,6 +549,18 @@ $color-accent-select-text: darken($color-accent, 50%);
   /* background-color: transparentize($color-accent, 0.5); */
   /* color: black; */
   /* color: $color-main; */
+}
+
+.button_container {
+  background-color: $color_main;
+}
+
+.button_in {
+  /* padding: 8px 20px 8px 20px; */
+  padding: 12px;
+}
+
+.button_container:hover {
   animation: select infinite 2s;
 }
 

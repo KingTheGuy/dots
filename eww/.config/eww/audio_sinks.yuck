@@ -161,7 +161,11 @@
           )
         )
       )
-      (label :halign "center" :style "font-size:large;" :text {volume_muted == "[MUTED]"? "󰝟":"󰕾"})
+      (eventbox
+        :class "button_container"
+        :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        (label :halign "center" :style "font-size:large;" :text {volume_muted == "[MUTED]"? "󰝟":"󰕾"})
+      )
       )
     )
     

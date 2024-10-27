@@ -431,6 +431,9 @@
   ; )
   (eventbox
     :class "button_container"
+    :onclick action
+    :cursor "pointer"
+    :class "inactive"
     (box
       :class "button_in"
       :space-evenly false
@@ -463,7 +466,8 @@
       (progress_bar 
         :width 35
         ; :scroll {'if [[ {} == "up" ]];then light -A 3; else ehco hi fi;'}
-        :scroll 'lua lua/scroll_handler.lua {} "light -A 0.5" "light -U 0.5" "light -G" "brightness_value"'
+        ; :scroll 'lua lua/scroll_handler.lua {} "light -A 0.5" "light -U 0.5" "light -G" "brightness_value"'
+        :scroll 'light -S {} && eww update brightness_value={}'
         ; :click {"pgrep gamma >/dev/null && pkill gammastep || gammastep -o -O 4000 -b 0.5 &"}
         ; :click "lua lua/open_widget.lua brightness_control"
         :value "${round(brightness_value,0)}"
@@ -481,6 +485,7 @@
           :spacing 6
           (_button :icon "󰈈" :action "notify-send yolo" :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -x &")
           (_button :icon "󰈉" :action "notify-send yolo" :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -P -o -O 4000 &")
+          ; (_button :icon "󰈉" :action "notify-send yolo" :action "pkill gammastep || gammastep -P -o -O 4000 &")
           ; (_button :icon "dark" :action "notify-send yolo" :size 35)        
         )
         (box

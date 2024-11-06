@@ -642,9 +642,22 @@ $color-accent-select-text: darken($color-accent, 50%);
   }
 }
 
-/* .blur_image { */
-/* background: none; */
-/* animation: pan 1s ease-in-out 0s infinite; */
+/* scale { */
+/* all: unset; */
+/* color: $color-main; */
+/* padding: 0; */
+
+/* trough { */
+/* slider {} */
+
+/* background-color: $color-accent; */
+
+/* highlight { */
+/* background-color: $color-accent; */
+/* min-width: 30px; */
+/* } */
+/* } */
+
 /* } */
 
 /* @keyframes pan { */

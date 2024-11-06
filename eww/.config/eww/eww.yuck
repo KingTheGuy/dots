@@ -649,7 +649,7 @@
         ; :halign "center"
         ; :style "background:center no-repeat url(${replace(wallpaper,'/usr/bin/feh --no-fehbg --bg-fill ','')});background-size:cover;background-position: center -500px;"
         ; :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -300px;"} 
-        :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center ;margin-right:${sides}px;"} 
+        :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -1200px;margin-right:${sides}px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center ;margin-right:${sides}px;"} 
         ; :style "background:center no-repeat url(${replace(wallpaper,'/usr/bin/feh --no-fehbg --bg-fill ','')});background-size:cover;background-position: center -700px;"
         ; :class "back_window_wallpaper"
       )    

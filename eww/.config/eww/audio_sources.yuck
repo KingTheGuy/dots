@@ -33,7 +33,8 @@
           ; :vexpand true
           :width 35
           ; :scroll 'lua lua/scroll_handler.lua {} "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.05+" "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.05-" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@" "mic_level"'
-          :scroll "go/audio/main source {}"
+          ; :scroll "go/audio/main source {}"
+          :scroll "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ {}%"
           :click "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
           :value "${replace(mic_level,"Volume level: ","")}"
           :text "${replace(mic_level,"Volume level: ","")}"

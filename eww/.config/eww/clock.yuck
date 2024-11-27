@@ -57,9 +57,11 @@
           :halign "center"
           :spacing -5
           "${current_time_h}"
-          "··"
+          ; "··"
+          "∙∙"
           "${current_time_m}"
-          "··"
+          ; "··"
+          "∙∙"
           "${current_time_s}"
         )
         (label
@@ -78,9 +80,12 @@
           :spacing -5
           :halign "center"
           {date_m}
-          "─"
+          ; "─"
+          "—"
           {date_d}
-          "─"
+          ; "─"
+          ; "–"
+          "—"
           {date_y}
         )
         (label

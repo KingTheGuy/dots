@@ -164,8 +164,12 @@
       )
       (eventbox
         :class "button_container"
-        :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        (label :halign "center" :style "font-size:large;" :text {volume_muted == "[MUTED]"? "󰝟":"󰕾"})
+        ; :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && wpctl get-volume @DEFAULT_AUDIO_SINK@ | "
+        :onclick `exec ./mute_audio.sh`
+        ; (label :halign "center" :style "font-size:large;" :text {volume_muted == "[MUTED]"? "󰝟":"󰕾"})
+        ; :class "button_passive"
+        (label :halign "center" :text {mute_audio? "󰝟":"󰕾"})
+        ; (label :halign "center" :style "font-size:large;" :text {mute_audio? "󰝟":"󰕾"})
       )
       )
     )

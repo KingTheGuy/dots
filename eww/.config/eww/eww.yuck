@@ -8,6 +8,7 @@
 (include "./dynamic.yuck")
 (include "./widgets_selector.yuck")
 (include "./wg_wifi.yuck")
+(include "./power_widget.yuck")
 
 (defvar orientation "v")
 (defvar widget_spacing "16")
@@ -25,10 +26,10 @@
   :run-while run
   "go/audio/main sink"
 )
-(defpoll volume_muted
-  :interval "1s"
-  "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d ' ' -f3"
-)
+; (defpoll volume_muted
+;   :interval "1s"
+;   "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d ' ' -f3"
+; )
 (defpoll mic_level
   :interval "60s"
   :run-while run
@@ -89,7 +90,7 @@
         ; ""
         ; ""
         ; ""
-        {volume_muted == "[MUTED]"? "󰝟":"󰕾"}
+        {mute_audio ? "󰝟":"󰕾"}
         
         ; (label
         ;   ; :style "style:striketrough;"
@@ -99,6 +100,8 @@
   )
 )
 
+(defvar mute_audio false)
+; (deflisten mute_audio './mute_audio.sh get_mute')
 
 (defwindow brightness_control [pos]
   :namespace "canvas"
@@ -296,18 +299,61 @@
     (toggle)
     (reveal)
     (eventbox
-      :onclick "alacritty -e sudo poweroff now"
+      ; :onclick "alacritty -e sudo poweroff now"
+      ; :onclick "loginctl poweroff"
+      ; :onclick "eww update toggle_power=true"
+      :onclick "eww update toggle_power=true"
+      :onhoverlost "eww update toggle_power=false"
       :cursor "pointer"
-        :class "open"
+      ; :class "open"
+      :class {toggle_power?"":"open"}
       (box
         ; ""
-        "󰠠"
+        :orientation "v"
+        ; "󰠠"
+        ; {toggle_power?"Y":""}
         ; "PP"
+        (box
+          :visible {toggle_power?"false":"true"}
+          :orientation "v"
+          "󰠠"
+        )
+        (box
+          :visible {toggle_power?"true":"false"}
+          :orientation "v"
+          :spacing 6
+          (eventbox
+            ; :onclick "notify-send no"
+            ; :onclick "eww update toggle_power=false"
+            :onclick "loginctl hibernate"
+            :class "open"
+            "H"
+            ; ""
+            ; ""
+          )
+          (eventbox
+            ; :onclick "notify-send no"
+            ; :onclick "eww update toggle_power=false"
+            ; :onclick "loginctl poweroff"
+            :onclick "./bash/power.sh 'power-off'"
+            :class "open"
+            "P"
+          )
+          (eventbox
+            ; :onclick "loginctl reboot"
+            ; :onclick "notify-send yes"
+            :onclick "./bash/power.sh 'reboot'"
+            :class "open"
+            "R"
+          )
+        )
       )
     )
     ; (workspace)   
   )
 )
+
+(defvar toggle_power false)
 
 (defwidget sub[]
   (box

@@ -1,0 +1,30 @@
+(defwindow power_widget [msg]
+  :monitor 0
+  :geometry (geometry 
+              :width "80%"
+              :height "300px"
+              :anchor "center"
+            )
+  :stacking "fg"
+  :exclusive false
+  :focusable false
+  :wm-ignore false  
+  (eventbox
+  :onclick "eww close power_widget"
+  ; :class "canvas"
+  :class "base"
+    (box
+      :orientation "h"
+      :halign "start"
+      :valign "center"
+      :space-evenly false
+      :class "base"
+      ; :spacing 10
+      :halign "center"
+      :valign "center"
+      "...${msg}..."
+      ; "...POWERING OFF..."
+    )  
+  )
+  
+)

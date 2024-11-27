@@ -97,7 +97,11 @@ use std "path add"
 # path add ($env.HOME | path join ".local" "bin")
 path add "~/.nix-profile/bin/"
 path add "~/.local/bin/"
+path add '/var/lib/flatpak/exports/bin:/var/lib/flatpak/exports/share'
+alias dusty = ssh ubuntu@129.213.27.12
+# $env.HELIX_RUNTIME = "~/.config/helix/runtime"
 # $env.PATH = ($env.PATH | uniq)
 
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
+zoxide init nushell | save -f ~/.zoxide.nu

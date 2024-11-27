@@ -11,6 +11,7 @@
     (box
       :style "padding:10px;"
       (_button :icon "󰤨 " :text "BT" :action "eww close control && blueman-manager")
+      ; (_button :icon "󰤨 " :text "BT" :action "eww close control && exec scripts/rofi-bluetooth")
       ; (box "-")
     )
   )

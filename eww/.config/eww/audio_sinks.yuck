@@ -186,7 +186,7 @@
              ; :x "60px"
               :x pos
              ; :x "2%"
-             :y "5%"
+             :y "12%"
              :anchor "left top"
             )
   (eventbox
@@ -198,7 +198,7 @@
         :space-evenly false
         ; :class "audio_control"
         ; :class "base"
-        :class "canvas"
+        :class "canvas grid"
         :spacing 10
         ; (box
         ;   :orientation "h"

@@ -1,3 +1,22 @@
+$background: #151515;
+$foreground: #EAE7E7;
+$color0: #3C3C3C;
+$color1: #151514;
+$color2: #881812;
+$color3: #525421;
+$color4: #746C70;
+$color5: #CA7A40;
+$color6: #C2BBB9;
+$color7: #D8D5D4;
+$color8: #979594;
+$color9: #151514;
+$color10: #881812;
+$color11: #525421;
+$color12: #746C70;
+$color13: #CA7A40;
+$color14: #C2BBB9;
+$color15: #D8D5D;
+
 $color-foreground: #b7b8b9;
 $color-background: #0c0d0e;
 $color-white: #FCFDFE;
@@ -288,20 +307,29 @@ $color-accent-select-text: darken($color-accent, 50%);
 
 /* .control, */
 /* .audio_control */
+.grid {
+  /* background-color: transparent; */
+  background-image: radial-gradient(transparent 1px, transparentize($color-main, 0.2) 1px);
+  background-size: 4px 4px;
+}
+
 .canvas {
   /* margin: 10px; */
   color: $color-accent;
-  padding: 20px;
+  padding: 14px;
   /* background-color: transparentize($color-main, 0.9); */
   background-color: transparentize($color-accent, 0.9);
   /* background-color: red; */
+  /* background-image: radial-gradient(transparent 1px, transparentize($color-main, 0.2) 1px); */
+  /* background-size: 4px 4px; */
 }
 
 .base {
   /* margin: 10px; */
   padding: 10px;
-  background-color: transparentize($color-main, 0.2);
-  /* background-color: $color-main; */
+  background-color: transparentize($color-main, 0.1);
+
+  /* background-color: transparentize($color13, 0.1); */
 }
 
 .base a {
@@ -417,6 +445,7 @@ $color-accent-select-text: darken($color-accent, 50%);
 .active {
   background-color: $color-accent-light;
   color: $color-main;
+
 }
 
 
@@ -450,6 +479,7 @@ $color-accent-select-text: darken($color-accent, 50%);
   /* color: invert($color-main); */
   /* color: black; */
   color: $color-main;
+
 }
 
 .progress_bar_progress>* {
@@ -459,6 +489,13 @@ $color-accent-select-text: darken($color-accent, 50%);
   /* background-color: lighten($color-main, 5%) */
   /* mix-blend-mode: multiply; */
   /* background-color: $color-accent; */
+
+  /* padding: 10px; */
+  /* width: 300px; */
+  /* height: auto; */
+  /* mask: linear-gradient(rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 100%); */
+
+
 }
 
 .progress_bar_progress:hover>* {

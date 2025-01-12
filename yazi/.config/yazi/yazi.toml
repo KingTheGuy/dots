@@ -4,3 +4,4 @@ prepend_previewers = [
 ]
 [manager]
 show_hidden = true
+ratio = [1,2,4]

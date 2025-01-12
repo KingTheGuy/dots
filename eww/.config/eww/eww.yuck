@@ -51,6 +51,7 @@
     ; :onclick "go/audio/volume_level mute"
     ; :onclick "eww open audio_control --arg pos=${position}"
     :onclick `bash/open_widget.sh audio_control --arg pos=${position}`
+    ; :onclick `bash/open_widget.sh control --arg pos=${position} --arg anchor="left top"`
     :onrightclick "lua lua/open_widget.lua player_widget"
     :onscroll "go/audio/main sink {}"
     :cursor "pointer"
@@ -113,7 +114,7 @@
              ; :x "60px"
               :x pos
              ; :x "2%"
-             :y "10%"
+             :y "12%"
              :anchor "left top"
             )
   (eventbox
@@ -125,7 +126,7 @@
         :space-evenly false
         ; :class "audio_control"
         ; :class "base"
-        :class "canvas"
+        :class "canvas grid"
         :spacing 10
         ; (box
         ;   :orientation "h"
@@ -152,7 +153,7 @@
   )
 )
 
-(defwidget brightness[]
+(defwidget brightness []
   (eventbox
     :class "volume"
     :cursor "pointer"
@@ -234,7 +235,7 @@
     :halign "center"
     :valign "start"
     :space-evenly false
-    :class "main"
+    :class "main grid"
     :spacing 15
     (eventbox
       :class "open"
@@ -265,10 +266,8 @@
             ; :class "base_alt"
             (volume)
             (brightness)
-          )
-      
+      )
     )
-    
     ; (box
     ;   :orientation "v"
     ;   :space-evenly false
@@ -552,7 +551,7 @@
   )
 )
 
-(defwindow control[?pos ?anchor]
+(defwindow control [?pos ?anchor]
   :namespace "canvas"
   :monitor 0
   :stacking "overlay"
@@ -576,7 +575,7 @@
       :spacing {widget_spacing}
       :space-evenly false
       ; :style "background-color:${main_color}0.5);color:${main_text_color};padding:20px;"
-      :class "canvas"
+      :class "canvas grid"
       ; :class "base_alt"
       (box
         :orientation "v"
@@ -675,7 +674,7 @@
   )
 )
 
-(defwidget wallpaper_container [?bar_padding ?screen_padding ?sides]
+(defwidget wallpaper_container [?bar_padding ?screen_padding ?sides ?width]
   (box
     ; :width {screen_width - screen_padding - bar_padding - bar_padding - 14}
     :halign "center"
@@ -683,7 +682,7 @@
     ; :halign "center"
     :class "back_window"
     ; :style "padding: ${bar_padding + 6}px;"
-    :style "padding: ${sides}px 0px ${sides}px ${bar_padding}px"
+    :style {width == ""? "padding: ${sides}px 0px ${sides}px ${bar_padding}px": "padding:${sides}px;"}
     ; (overlay
       ; (box
       ;   :width {screen_width - screen_padding - bar_padding - bar_padding - 14}
@@ -692,10 +691,13 @@
         :halign "center"
         ; :space-evenly false
         :width {screen_width - bar_padding}
+        :width {width == ""? screen_width - bar_padding : width}
         ; :halign "center"
         ; :style "background:center no-repeat url(${replace(wallpaper,'/usr/bin/feh --no-fehbg --bg-fill ','')});background-size:cover;background-position: center -500px;"
         ; :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -300px;"} 
-        :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -1200px;margin-right:${sides}px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center ;margin-right:${sides}px;"} 
+        ; :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -1200px;margin-right:${sides}px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -240px;margin-right:${sides}px;"} 
+        :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -1200px;margin-right:${sides}px;": "background:center no-repeat url('${wallpaper}');background-size: cover;background-position: center -570px;margin-right:${sides}px;background-color:white;"} 
+        ; :style {width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -1200px;margin-right:${sides}px;": "background:center no-repeat url('${wallpaper}');background-size: cover;background-position: center -570px;margin-right:${sides}px;background-color:white;"} 
         ; :style "background:center no-repeat url(${replace(wallpaper,'/usr/bin/feh --no-fehbg --bg-fill ','')});background-size:cover;background-position: center -700px;"
         ; :class "back_window_wallpaper"
       )    
@@ -718,14 +720,10 @@
               :anchor "left center"
             )
   :stacking "bg"
-  ; :windowtype "desktop"
   :exclusive false
   :focusable false
   :wm-ignore false
-  ; (eventbox
-  ; :onrightclick "notify-send open_a_damn_menu"
   (wallpaper_container :bar_padding 34 :screen_padding 30 :sides 4) 
-  ; )
 )
 
 (defwidget wallpaper_widgets []
@@ -739,7 +737,7 @@
 )
 
 (defwindow just_wallpaper []
-  :monitor 0
+  :monitor 1
   :geometry (geometry 
               ; :x "-40px"
               ; :y "0%"
@@ -751,15 +749,11 @@
               ; :y "0%"
               ; :width "100%"
               :height "100%"
-              :anchor "center"
+              :anchor "left center"
             )
-  :stacking "bottom"
-  ; :windowtype "desktop"
+  :stacking "bg"
   :exclusive false
   :focusable false
   :wm-ignore false
-    (overlay
-      (wallpaper_container :bar_padding 6 :screen_padding 0) 
-      ; (wallpaper_widgets)
-    )
+  (wallpaper_container :bar_padding 34 :screen_padding 0 :sides 4 :width 2560) 
 )

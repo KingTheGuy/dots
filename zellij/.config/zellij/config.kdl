@@ -299,7 +299,7 @@ theme "dracula"
 // The name of the default layout to load on startup
 // Default: "default"
 //
-default_layout "clean"
+// default_layout "clean"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal

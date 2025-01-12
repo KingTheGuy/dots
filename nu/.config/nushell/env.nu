@@ -3,7 +3,7 @@
 # version = "0.98.0"
 
 def create_left_prompt [] {
-    let dir = match (do --ignore-shell-errors { $env.PWD | path relative-to $nu.home-path }) {
+    let dir = match (do --ignore-errors { $env.PWD | path relative-to $nu.home-path }) {
         null => $env.PWD
         '' => '~'
         $relative_pwd => ([~ $relative_pwd] | path join)
@@ -98,6 +98,9 @@ use std "path add"
 path add "~/.nix-profile/bin/"
 path add "~/.local/bin/"
 path add '/var/lib/flatpak/exports/bin:/var/lib/flatpak/exports/share'
+path add "~/.cargo/bin"
+path add "~/.zvm/self/"
+path add "~/.zvm/bin/"
 alias dusty = ssh ubuntu@129.213.27.12
 # $env.HELIX_RUNTIME = "~/.config/helix/runtime"
 # $env.PATH = ($env.PATH | uniq)

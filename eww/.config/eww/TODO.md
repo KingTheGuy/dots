@@ -1,5 +1,16 @@
 > Don't do this blind, use something like penpot to draw out what i want first
 
+## FIXME:
+
+- [ ] fix the freezing/crashing very annoying
+
+- [ ] the player blinking is because it is a for loop
+  - figure out another way to go about it
+
+## TODO:
+
+- [ ] per source player (having just one kinda sucks)
+
 - [ ] get source widget working
 
 widgets to add:

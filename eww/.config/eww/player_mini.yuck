@@ -60,11 +60,11 @@
               )
 
             )
-            (album_cover)
+            ; (album_cover)
           )
         )
       )
-      (audio_controls)
+      ; (audio_controls)
     )
   )
 )

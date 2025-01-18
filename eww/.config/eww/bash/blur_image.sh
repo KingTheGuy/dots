@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
 IMAGE=""
+PLAYER=$(eww get focused_player)
 
 while true ;do
-  NEW_IMAGE=$(playerctl metadata mpris:artUrl)
+  NEW_IMAGE=$(playerctl -p $PLAYER metadata mpris:artUrl)
   # NEW_IMAGE=$(eww get now_playing_image)
   if [[ $IMAGE != $NEW_IMAGE ]];then
     eww update load_player_background=false

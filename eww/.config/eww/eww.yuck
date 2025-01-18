@@ -91,7 +91,8 @@
         ; ""
         ; ""
         ; ""
-        {mute_audio ? "󰝟":"󰕾"}
+        {mute_audio == ""? "󰝟":"${mute_audio?"󰝟":"󰕾"}"}
+        ; {mute_audio?"󰝟":"󰕾"}
         
         ; (label
         ;   ; :style "style:striketrough;"
@@ -101,7 +102,8 @@
   )
 )
 
-(defvar mute_audio false)
+; (defvar mute_audio true)
+(deflisten mute_audio './scripts/volume update')
 ; (deflisten mute_audio './mute_audio.sh get_mute')
 
 (defwindow brightness_control [pos]
@@ -188,7 +190,7 @@
           :thickness 3
           :start-at 45.0
           ; :value {replace(volume_level,"Volume level: ","") + 0.0}
-          :value "${round(brightness_value,0)}"
+          :value {brightness_value == "" ? "100":"${round(brightness_value,0)}"}
     ;     :text "${round(brightness_value,0)}"
         )
         ; "bl"

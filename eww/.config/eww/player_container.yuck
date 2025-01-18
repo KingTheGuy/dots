@@ -1,9 +1,17 @@
 ;REQUIREMENTS:
   ; convert :convert between image formats as well as resize an image, blur, crop, despeckle, dither, draw on, flip, join, re-sample, and much more.
+  ; ffmpeg
   ; playerctl
   ; material icons(FONT)
 ;OPTIONAL:
   ; lua
+
+; (defvar all_players 'none')
+(defpoll all_players :interval "500ms"
+  "go/players/main"
+)
+
+(defvar focused_player "none")
 
 (defvar player_width 160)
 (defvar player_height 90)
@@ -40,6 +48,7 @@
 (deflisten now_playing_position
   "playerctl --follow position --format '{{ position }}'"
 )
+
 (defvar last_image "")
 
 (deflisten update_player_blurred_image
@@ -54,7 +63,7 @@
 
 (defvar selected_player "")
 
-(defwidget audio_controls[]
+(defwidget audio_controls[player status]
   (box
     :valign "center"
     :halign "center"
@@ -79,7 +88,7 @@
       :halign "center"
       :cursor "pointer"
       :class "button"
-      :onclick "playerctl previous"
+      :onclick "playerctl -p ${player} previous"
       ; ""
       ; ""
       ; ""
@@ -92,9 +101,10 @@
       :halign "center"
       :cursor "pointer"
       :class "button"
-      :onclick "playerctl play-pause"
+      ; :onclick "playerctl play-pause"
+      :onclick "playerctl -p ${player} play-pause"
       ; {now_playing_status != "Playing"? "":""}
-      {now_playing_status != "Playing"? "󰐊":"󰏤"}
+      {status != "Playing"? "󰐊":"󰏤"}
       
     )
     (eventbox
@@ -102,7 +112,8 @@
       :halign "center"
       :cursor "pointer"
       :class "button"
-      :onclick "playerctl next"
+      ; :onclick "playerctl next"
+      :onclick "playerctl -p ${player} next"
       ; ""
       ; ""
       ; ""
@@ -111,6 +122,7 @@
     )
   )    
 )
+
 (defwidget player_volume []
   (overlay
     (eventbox
@@ -135,7 +147,7 @@
   )
 )
 
-(defwidget player_progress []
+(defwidget player_progress [play_pos play_length]
     (box
       ; :visible {more_info? "true":"false"}
       :halign "center"
@@ -162,7 +174,7 @@
           :style "background-color:white;opacity:0.4;"
           :halign "start"
           :height 6
-          :width {round(round(now_playing_position / 1000000,0)  / round(now_playing_length / 1000000,0) * player_width,0)}
+          :width {round(round(play_pos / 1000000,0)  / round(play_length/ 1000000,0) * player_width,0)}
         )
 
       )
@@ -174,37 +186,37 @@
     )
 )
 
-(defwidget player_info[]
+(defwidget player_info[title artist]
   (box
     :space-evenly false
     :orientation "v"
     :valign "center"
     :halign "start"
     :spacing 6
-    :tooltip "${now_playing_title} by ${now_playing_artist}"
+    ; :tooltip "${title} by ${artist}"
     (label
       :halign "start"
       :limit-width {player_width - player_padding}
-      :text {now_playing_title}
+      :text title
       :style "color:white;font-size:xx-large;"
     )
     (label
       :halign "start"
       :limit-width 300
       :style "color:white;font-size:large;"
-      :text {now_playing_artist}
+      :text artist
     )
   )
 )
 
-(defwidget album_cover []
+(defwidget album_cover [album_art]
   (box
     :height 100
     :width 100
     :valign "center"
     :halign "center"
     :orientation "v"
-    :style "margin:10px;background:center no-repeat url('${replace(now_playing_image,"file://","")}');"
+    :style "margin:10px;background:center no-repeat url('${replace(album_art,"file://","")}');"
   )
 )
 
@@ -272,11 +284,11 @@
               )
 
             )
-            (album_cover)
+            ; (album_cover)
           )
         )
       )
-      (audio_controls)
+      ; (audio_controls)
     )
   )
 )
@@ -290,7 +302,7 @@
     ; :style "border-radius:${player_background_border_radius};opacity:1;background-color:black;"
     ; :style "border-radius:${player_background_border_radius};"
   (box ;player container
-    :spacing 6
+    :spacing 2
     :orientation "v"
     :space-evenly false
     :halign "start"
@@ -325,28 +337,90 @@
           )
         )
       )
-    (eventbox
-      :onscroll 'lua lua/player_scroll.lua {}'
-      :onhover 'eww update more_info="true"'
-      :onhoverlost 'eww update more_info="false"'
       (box
-        :orientation "v"
-        :spacing 8
-        :space-evenly false
-        :valign "start"
-        :style "padding:${player_padding}px;"
-        (box
-          :space-evenly false
-          :spacing 6
-          (album_cover)
-          (player_info)
+        (for player in all_players
+          (eventbox
+            :visible {"${player.name}" == "${focused_player}"? "true":"false"} 
+            :onscroll '
+            if [ "{}" = "up" ]; then
+              playerctl -p ${player.name} position 3+
+            fi
+            if [ "{}" = "down" ]; then
+              playerctl -p ${player.name} position 3-
+            fi
+            ; notify-send {}
+             '
+            ; :onhover 'eww update more_info="true"'
+            ; :onhoverlost 'eww update more_info="false"'
+            ; :onhover 'eww update all_players="\$(go/players/main)"'
+            ; :onhoverlost 'eww update more_info="false"'
+            (box
+                ; (revealer
+                ;   :transition "crossfade"
+                ;   ; :reveal true
+                ;   :reveal {"${player.player}" == "${focused_player}"? "true":"false"}
+                (box ;the-player
+                  :orientation "v"
+                  :spacing 8
+                  :space-evenly false
+                  :valign "start"
+                  :style "padding:${player_padding}px;"
+                  ; "${player.name}"
+                  (box
+                    :space-evenly false
+                    :spacing 6
+                    (album_cover :album_art "${player.meta.album_art}")
+                    (player_info :title "${player.meta.title}" :artist "${player.meta.artist}")
+                  )
+                  (player_progress :play_pos "${player.meta.play_pos}" :play_length "${player.meta.play_length}" )
+                  (audio_controls :player "${player.name}" :status "${player.meta.status}")
+                )              
+            
+            )
+            ; (box
+            ;   :orientation "v"
+            ;   :spacing 8
+            ;   :space-evenly false
+            ;   :valign "start"
+            ;   :style "padding:${player_padding}px;"
+            ;   (box
+            ;     :space-evenly false
+            ;     :spacing 6
+            ;     ; (album_cover)
+            ;     ; (player_info)
+            ;   )
+            ;   ; (player_progress)
+            ;   ; (audio_controls)
+            ; )
+          )    
         )
-        (player_progress)
-        (audio_controls)
       )
-    )    
     )
-    "player"
+    (scroll ;FIXME: clicking items in this box is odd af
+      :hscroll true
+      :vscroll false
+      (box
+        :orientation "h"
+        :space-evenly false
+        :spacing 2
+        :halign "start"
+        :valign "center"
+        (for player in all_players
+          (eventbox
+            :onclick "eww update focused_player='${player.name}' && bash/blur_image.sh"
+            :class {player.name == focused_player ? "player_tab in_focus":"player_tab"}
+            :width 80
+            :height 24
+            :tooltip "${player.name}"
+            (box
+              {player.name =~ '^firefox.+$'? "󰈹":"󰝚"} ;the the player firefox?
+            )
+          )
+        )  
+      )
+    )
+    
+    ; "player"
   )
 )
 

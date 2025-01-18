@@ -733,3 +733,21 @@ $color-accent-select-text: darken($color-accent, 50%);
 .button_active:hover {
   animation: select infinite 2s;
 }
+
+.player_tab {
+  background-color: lighten($color-main, 10%);
+  color: $color-accent;
+  border-radius: 6;
+  /* padding: 20px; */
+}
+
+.player_tab:hover {
+  background-color: $color-accent;
+  color: $color-main;
+}
+
+.in_focus {
+  background-color: $color-accent;
+  color: $color-main;
+  /* border-radius: 0px 0px 6px 6px; */
+}

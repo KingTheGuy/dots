@@ -28,6 +28,7 @@ func main() {
 		}
 		if user_args[0] == "update" {
 			isMute()
+			return
 		}
 		update()
 	}
@@ -60,11 +61,13 @@ func isMute() {
 		// icon := "󰓃"
 		// icon := os.Args[1]
 		exec.Command("eww", "update", fmt.Sprintf("volume_icon=%v", icon)).Run()
+		fmt.Println(false)
 	} else {
 		// icon := "󰖁"
 		icon := ""
 		// icon := "󰓄"
 		// icon := os.Args[1]
 		exec.Command("eww", "update", fmt.Sprintf("volume_icon=%v", icon)).Run()
+		fmt.Println(true)
 	}
 }

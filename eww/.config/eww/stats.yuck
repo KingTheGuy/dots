@@ -127,6 +127,15 @@
   )
 )
 
+(defwidget tray []
+  (systray
+    :spacing 6
+    :orientation "v"
+    :icon-size 16
+    :style "background-color:rgba(100,100,100,0.4);padding:2px;"
+  )
+)
+
 (defwidget stats []
   (box 
     :orientation "v"
@@ -138,6 +147,7 @@
     (cpu)
     ; (io)
     (ram)
+    (tray)
   )
 )
 

@@ -2,7 +2,7 @@
 
 ## FIXME:
 
-- [ ] fix the freezing/crashing very annoying
+- [.] fix the freezing/crashing very annoying
 
 - [ ] the player blinking is because it is a for loop
   - figure out another way to go about it

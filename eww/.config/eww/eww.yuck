@@ -9,6 +9,7 @@
 (include "./widgets_selector.yuck")
 (include "./wg_wifi.yuck")
 (include "./power_widget.yuck")
+(include "./selector_list.yuck")
 
 (defvar orientation "v")
 (defvar widget_spacing "16")
@@ -231,7 +232,7 @@
   )
 )
 
-(defwidget main[]
+(defwidget main []
   (box 
     :orientation {orientation}
     :halign "center"
@@ -599,6 +600,7 @@
         :space-evenly false
         :spacing {widget_spacing}
         (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
+        (selector_list :items '["iems-kz10","laptop-eq"]' :action 'flatpak run com.github.wwmm.easyeffects -l')
         (sources_container)
         (placer :ass "")
         ; (placer :content "")
@@ -698,7 +700,7 @@
         ; :style "background:center no-repeat url(${replace(wallpaper,'/usr/bin/feh --no-fehbg --bg-fill ','')});background-size:cover;background-position: center -500px;"
         ; :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -300px;"} 
         ; :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -1200px;margin-right:${sides}px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -240px;margin-right:${sides}px;"} 
-        :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -1200px;margin-right:${sides}px;": "background:center no-repeat url('${wallpaper}');background-size: cover;background-position: center -570px;margin-right:${sides}px;background-color:white;"} 
+        :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -1200px;margin-right:${sides}px;": "background:center no-repeat url('${wallpaper}');background-size: cover;background-position: center ;margin-right:${sides}px;background-color:white;"} 
         ; :style {width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -1200px;margin-right:${sides}px;": "background:center no-repeat url('${wallpaper}');background-size: cover;background-position: center -570px;margin-right:${sides}px;background-color:white;"} 
         ; :style "background:center no-repeat url(${replace(wallpaper,'/usr/bin/feh --no-fehbg --bg-fill ','')});background-size:cover;background-position: center -700px;"
         ; :class "back_window_wallpaper"

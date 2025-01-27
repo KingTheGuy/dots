@@ -21,6 +21,7 @@
 
 (defvar load_player_background true)
 (defvar more_info false)
+(defvar refresh true)
 
 ; NOTE: parse these myself instead of having multiples
 (deflisten now_playing_artist
@@ -317,7 +318,9 @@
         :width {player_width * 2}
       )
       (revealer
-        :reveal {last_image != now_playing_image? false:true}
+        ;FIXME: it should fade when the player switches and when the images updates
+        ; :reveal {last_image != now_playing_image? false:true}
+        :reveal {refresh ? true:false}
         :transition "crossfade"
         :duration "1s"
         :halign "center"
@@ -409,6 +412,7 @@
           (eventbox
             :onclick "eww update focused_player='${player.name}' && bash/blur_image.sh"
             :class {player.name == focused_player ? "player_tab in_focus":"player_tab"}
+            :style {player.name == focused_player ? "background:center no-repeat url('${player_blured_image}');background-size:cover;": ""}
             :width 80
             :height 24
             :tooltip "${player.name}"
@@ -427,13 +431,12 @@
 
 (defwindow player_widget
   :monitor 0
-  :stacking "overlay"
-  :windowtype "dock"
-  :exclusive false
+  :stacking "fg"
+  :windowtype "normal"
   :geometry (geometry 
              :x "3%"
              :y "3%"
-             :anchor "left top"
+             ; :anchor "left top"
             )
   (box
     :style "background:none;"

@@ -95,7 +95,7 @@
   )
 )
 
-(defwidget sinks_container[?percent]
+(defwidget sinks_container [?percent]
     (eventbox
       ; :dragvalue "sinks_container"
       :dragvalue "mini_player"

@@ -1,0 +1,36 @@
+(defwidget selector_list [items action]
+  (box
+    :orientation "v"
+    :halign "center"
+    :valign "center"
+    :space-evenly false
+    :spacing 6
+    :class "base"
+    :width 200
+    
+    (scroll
+      :vscroll true
+      :hscroll false
+      :class "sinks_section"
+      :height 70
+      (box
+        :space-evenly false
+        :orientation "v"
+        :spacing 2
+        :valign "start"
+        (for item in items
+          (eventbox
+            :cursor "pointer"
+            :class "audio_sinks"
+            :onclick "${action} ${item}"
+            (box
+              :style "padding:6px;"
+              item
+            )
+          )
+        )
+      )
+    )
+    "EQ PRESETS"
+  )
+)

@@ -1,4 +1,4 @@
-#!/bin/env lua
+#!/usr/bin/env lua
 ---@module 'Utils'
 -- require("scripts.formatter")
 local tick = tonumber(arg[1])

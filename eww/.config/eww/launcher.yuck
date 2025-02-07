@@ -1,5 +1,6 @@
 ; TODO: have this all use STACK when i type :p :r etc. have it pop over the main :menu stack
 ; this way its always there and goes back to normal
+; TODO: add a file that stores recently used apps.. 
 (defvar max_lines 20)
 (defvar apps "")
 (defvar gaps "")
@@ -16,7 +17,7 @@
     (box
       :width 400
       :orientation "v"
-      :class "base_alt"
+      :class "grid"
       ; :class "base"
       ; :class "canvas"
       :space-evenly false
@@ -47,14 +48,15 @@
         (scroll
           :height 200
           :valign "start"
-          (overlay
-            (literal
-              :content {gaps}
-            )
+          ; :class "launcher-scroll"
+            ; (selector_list  :items '[ "kitty", "ghostty" ]' :action 'exec nohup ')
+            (selector_list  :items "${apps}" :action 'exec nohup ' :height 150 :width 350 :classes '["","launcher-scroll"]')
+            ; (literal
+            ;   :content {gaps}
+            ; )
             ; (literal
             ;   :content {default}
             ; )
-          )
           ; {apps}
         )
       )
@@ -69,7 +71,7 @@
   :stacking "fg"
   :windowtype "dialog"
   :exclusive false
-  ; :focusable false
+  :focusable true
   :geometry (geometry 
              ; :x "5px"
              ; :y "20%"

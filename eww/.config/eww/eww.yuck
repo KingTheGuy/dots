@@ -246,7 +246,7 @@
       :class {arraylength(to_read) > 0?"noti_yes":"noti_no"}
       ; :onclick "lua lua/open_widget.lua control"
       ; :onclick "eww open control --arg pos=${position}"
-      :onclick `bash/open_widget.sh control --arg pos=${position} --arg anchor="left top"`
+      :onclick `bash/open_widget.sh control --arg pos=${position} --arg anchor="top left"`
       ; ""
       ; ""
       ; ""
@@ -426,12 +426,12 @@
   :windowtype "dock"
   :exclusive false
   :geometry (geometry 
-             :x gap
-             ; :y "14px"
-             :y "1%"
-             :height "70%"
-             ; :width "0px"
-             :anchor "left top"
+              :x gap
+              ; :y "14px"
+              :y "1%"
+              :height "70%"
+              ; :width "0px"
+              :anchor "left top"
             )
   ; :reserve (struts :distance "34px" :side "left")
   :reserve (struts :distance dist :side "left")
@@ -562,11 +562,12 @@
   ; :focusable true
   :exclusive false
   :geometry (geometry 
-             :x pos
-             :y "18px"
+              :x pos
+              :y "18px"
               ; :height "99%"
-             ; :anchor "left top"
-             :anchor anchor
+              ; :anchor "left top"
+              ; :height "100%"
+              :anchor anchor
             )
   (eventbox
     :onhoverlost "eww close control"
@@ -600,7 +601,7 @@
         :space-evenly false
         :spacing {widget_spacing}
         (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
-        (selector_list :items '["iems-kz10","laptop-eq"]' :action 'flatpak run com.github.wwmm.easyeffects -l')
+        (selector_list :title "EQ PRESETS" :items '["fakepods-eq","laptop-eq","iems-kz10"]' :action 'easyeffects -l' :list-height 24 :classes '["sinks_section","audio_sinks"]')
         (sources_container)
         (placer :ass "")
         ; (placer :content "")
@@ -700,7 +701,7 @@
         ; :style "background:center no-repeat url(${replace(wallpaper,'/usr/bin/feh --no-fehbg --bg-fill ','')});background-size:cover;background-position: center -500px;"
         ; :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -700px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -300px;"} 
         ; :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -1200px;margin-right:${sides}px;": "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -240px;margin-right:${sides}px;"} 
-        :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -1200px;margin-right:${sides}px;": "background:center no-repeat url('${wallpaper}');background-size: cover;background-position: center ;margin-right:${sides}px;background-color:white;"} 
+        :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -1200px;margin-right:${sides}px;": "background:center no-repeat url('${wallpaper}');background-size: 102%;background-position: -30px;margin-right:${sides}px;background-color:white;"} 
         ; :style {width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -1200px;margin-right:${sides}px;": "background:center no-repeat url('${wallpaper}');background-size: cover;background-position: center -570px;margin-right:${sides}px;background-color:white;"} 
         ; :style "background:center no-repeat url(${replace(wallpaper,'/usr/bin/feh --no-fehbg --bg-fill ','')});background-size:cover;background-position: center -700px;"
         ; :class "back_window_wallpaper"

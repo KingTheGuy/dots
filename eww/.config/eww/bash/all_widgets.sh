@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # NOTE: may be better to write this in go
 
 # raw_items=$(ls $HOME/.config/eww/ | grep .yuck)

@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 #
 NEW_IMAGE=$(playerctl metadata mpris:artUrl)
 

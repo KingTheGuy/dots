@@ -10,7 +10,11 @@ name = "markdown"
 # soft-wrap.enable = true
 auto-format = true
 formatter = { command = 'prettier', args = ["--parser", "markdown"] }
-language-servers = [ "marksman" , "typos" ]
+language-servers = [ "mdpls", "marksman" , "typos"]
+
+[language-server.mdpls]
+command = "mdpls"
+config = { markdown.preview.auto = false } 
 
 [[language]]
 name = "bash"
@@ -30,6 +34,12 @@ file-types = ["java", "jav", "pde"]
 roots = ["pom.xml", "build.gradle", "build.gradle.kts"]
 language-servers = [ "jdtls" ]
 indent = { tab-width = 2, unit = "  " }
+
+# [language-server.ruff-lsp]
+# command = "ruff-lsp"
+# [[language]]
+# name = "python"
+# language-servers = [ "pylsp", "ruff-lsp" ]
 
 # [language-server.jdtls]
 # command = "jdt-language-server"

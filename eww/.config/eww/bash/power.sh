@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 if [[ "$1" == "power-off" ]];then
   eww open power_widget --arg msg="powering off"
   sleep 2

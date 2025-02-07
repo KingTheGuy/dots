@@ -57,6 +57,7 @@
 "markup.quote" = {fg="hot-pink"}
 "markup.raw" = {fg="purple"}
 # "markup.raw.inline" = "salmon"
+# "markup.raw.inline" = "salmon"
 # "markup.raw.block" = "salmon"
 # "markup.other" = "salmon"
 
@@ -65,8 +66,9 @@
 "diff.minus" = "salmon"
 
 
-"ui.background" = { bg = "background" }
-# "ui.background" = {}
+# "ui.background" = { bg = "background" }
+"ui.background" = {}
+
 "ui.linenr" = { fg = "gray" }
 "ui.linenr.selected" = { fg = "yellow" }  # TODO
 "ui.statusline" = { fg = "background", bg = "salmon" }
@@ -86,6 +88,8 @@
 "ui.cursorline" = { bg = "#17191b"}
 "ui.menu.selected" = { fg = "wash"}
 
+"ui.virtual.jump-label" = { fg = "hot-pink", modifiers = ["underlined", "bold"] }
+
 "warning" = { fg = "wash"}
 "error" = { fg = "red"}
 "info" = { fg = "wash"}
@@ -101,8 +105,8 @@
 [palette]
 foreground = "#b7b8b9"
 # foreground = "#c8c8c8"
-# background = "#0c0d0e"
-background = "#121311" #not as dark
+background = "#0c0d0e"
+# background = "#121311" #not as dark
 #0f0e0e
 
 ##BRIGHT

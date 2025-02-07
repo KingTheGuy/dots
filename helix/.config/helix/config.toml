@@ -8,6 +8,11 @@ completion-replace = false
 true-color = true
 # idle-timeout = 0
 idle-timeout = 50
+middle-click-paste = false
+# end-of-line-diagnostics = "none"
+
+[editor.inline-diagnostics]
+cursor-line = "info" # show warnings and errors on the cursorline inline
 
 [editor.cursor-shape]
 insert = "bar"
@@ -23,6 +28,12 @@ select = "underline"
 
 [keys.normal]
 # X = "extend_line_above"
+R = ":reflow 70"
+t.n = ":pipe $HOME/Scripts/md_date.sh"
+t.t = ":pipe $HOME/Scripts/md_date.sh time"
+t.d = ":pipe $HOME/Scripts/md_date.sh date"
+t.j = ":pipe $HOME/Scripts/md_date.sh jour"
+
 [keys.insert]
 j.k =  "normal_mode"
 "C-[" = "normal_mode"

@@ -1,4 +1,4 @@
-(defwidget selector_list [items action]
+(defwidget selector_list [items action ?list-height ?title ?height ?width ?classes]
   (box
     :orientation "v"
     :halign "center"
@@ -6,13 +6,13 @@
     :space-evenly false
     :spacing 6
     :class "base"
-    :width 200
+    :width {width == ""? 200: width} 
     
     (scroll
       :vscroll true
       :hscroll false
-      :class "sinks_section"
-      :height 70
+      :class {classes[0] == ""? "sinks_section": "${classes[0]}"}
+      :height {height == ""? 70: height} 
       (box
         :space-evenly false
         :orientation "v"
@@ -21,8 +21,9 @@
         (for item in items
           (eventbox
             :cursor "pointer"
-            :class "audio_sinks"
-            :onclick "${action} ${item}"
+            :onclick "${action} ${item} &"
+            ; :height list-height
+            :class {classes[1] == ""? "audio_sinks": "${classes[1]}"}
             (box
               :style "padding:6px;"
               item
@@ -31,6 +32,9 @@
         )
       )
     )
-    "EQ PRESETS"
+    (box
+      :visible {title == ""? false:true}
+      title
+    )
   )
 )

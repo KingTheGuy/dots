@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 WIN=$(eww active-windows)
 if [[ $WIN == *"$1"* ]]
 then 

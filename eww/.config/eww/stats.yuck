@@ -6,7 +6,9 @@
       ; "󰚌${round(EWW_RAM.used_mem_perc, 0)}"
       ; "󰇄"
       ; ""
-      ""
+      ; ""
+      ; ""
+      "df"
       ; "${round(EWW_RAM.used_mem_perc, 0)}"
       ; "󰚌"
       (progress_bar 
@@ -15,9 +17,11 @@
         :width 20
         ; :scroll {"go/audio/volume_level {}"}
         ; :click {"go/audio/volume_level mute"}
-        :value {EWW_DISK["/"].used_perc}
+        ; :value {EWW_DISK["/"].used_perc}
+        :value {round(EWW_DISK["/"].used_perc,0)}
         ; :value "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}"
-        :text {EWW_DISK["/"].used_perc}
+        ; :text {EWW_DISK["/"].used_perc}
+        :text {round(EWW_DISK["/"].used_perc,0)}
       )
       ; {round(EWW_RAM.used_mem_perc, 0) > 99 ? 99 : round(EWW_RAM.used_mem_perc, 0)}
     )
@@ -143,9 +147,9 @@
     :spacing 6
     :space-evenly false
     (update)
+    (io)
     (temp)
     (cpu)
-    ; (io)
     (ram)
     (tray)
   )

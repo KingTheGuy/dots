@@ -751,3 +751,15 @@ $color-accent-select-text: darken($color-accent, 50%);
   color: $color-main;
   /* border-radius: 0px 0px 6px 6px; */
 }
+
+.launcher-scroll {
+  padding: 6px;
+  background-color: transparentize($color-accent, 0.4);
+  color: $color-main;
+}
+
+.launcher-scroll:first-child {
+  background-color: $color-accent;
+  /* background-color: gold; */
+  /* color: black; */
+}

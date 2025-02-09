@@ -19,7 +19,7 @@ egg="#c8c8c8"
 purple="#9270cc"
 black="#0c0d0e"
 
-COLOR=$yellow
+COLOR=$periwinkle
 COLOR_MISC=$black
 COLOR_NONE="#11111100"
 
@@ -51,17 +51,17 @@ hc attr settings.update_dragged_clients true
 # pkill herbstluftwm
 # exit
 
-herbstclient detect_monitors
+# herbstclient detect_monitors
 ##DISPLAY
-# ~/.config/herbstluftwm/screen.sh
+~/.config/herbstluftwm/screen.sh
 
 ##WALLPAPPER
 # feh --bg-center ~/Pictures/wallpapers/annie-spratt-kxhPtZZLi0k-unsplash.jpg
-# feh --bg-fill ~/Pictures/wallpapers/annie-spratt-v6asLq_dYzw-unsplash.jpg
+feh --bg-fill ~/Pictures/wallpapers/annie-spratt-v6asLq_dYzw-unsplash.jpg
 # feh --bg-fill ~/Pictures/wallpapers/annie-spratt-kbl64Hj_K9c-unsplash.jpg
 # feh --bg-fill -g +0-1500 ~/Pictures/wallpapers/gabriele-catalano-ioLsN803LWw-unsplash.jpg
 # feh --bg-fill Pictures/anime/xenotrip2.avif
-feh --bg-fill -g +0-0 Pictures/anime/xenotrip2.avif
+# feh --bg-fill -g +0-0 Pictures/anime/xenotrip2.avif
 # feh --bg-fill -g +0-1100 ~/Pictures/anime/xenotrip20.jpeg
 # feh --bg-fill -g +0-1480 ~/Pictures/anime/xenotrip14.jpeg
 # feh --bg-fill -g +0-900 ~/Pictures/anime/xenotrip31.jpeg 
@@ -69,6 +69,10 @@ feh --bg-fill -g +0-0 Pictures/anime/xenotrip2.avif
 # feh --bg-fill -g +0-800 ~/Pictures/anime/xenotrip23.jpeg
 # feh --bg-fill -g +0-0 ~/Pictures/GPIMrQNacAAj9_J.jpeg
 # feh --bg-fill -g +0-1800 ~/Pictures/anime/GIEcBJEbsAAjTWG.jpeg
+
+# feh --bg-fill -g +0-1800 ~/Pictures/anime/Timeless_aiart.jpeg
+
+# feh --bg-fill -g +0-1800 ~/Pictures/wallpapers/annie-spratt-277558.jpg
 
 # keybindings
 # if you have a super key you will be much happier with Mod set to Mod4
@@ -101,10 +105,14 @@ hc keybind $Mod-t spawn ~/.config/herbstluftwm/stats.sh
 rm .cache/dmenu_run
 # hc keybind $Mod-space spawn dmenu_run -fn "Share Tech Mono" -nb "#c95c49" -nf "#c8c8c8" -sf "#0c0d0e" -sb "#c8c8c8" #SALMON
 # hc keybind $Mod-space spawn dmenu_run -fn "Share Tech Mono" -nb "#242424" -nf "#c8c8c8" -sf "#0c0d0e" -sb "#44e3c6"  #DARK
-hc keybind $Mod-Shift-space spawn rofi -show combi -show-icons -modes combi -combi-modes "window,drun,run" -font "share tech mono 14"
+hc keybind $Mod-space spawn rofi -show combi -show-icons -modes combi -combi-modes "window,drun,run" -font "share tech mono 14"
 # hc keybind $Mod-Shift-space spawn ~/STUFF/eww/target/release/eww open launcher
 # hc keybind $Mod-space spawn ~/.config/herbstluftwm/dmenu_run_hlwm
-hc keybind $Mod-space spawn lua ~/.config/eww/lua/open_widget.lua launcher
+# hc keybind $Mod-Shift-space spawn $HOME/.config/eww/go/launcher/main :menu
+# hc keybind $Mod-Shift-space spawn lua ~/.config/eww/lua/open_widget.lua launcher && $HOME/.config/eww/go/launcher/main :menu 
+hc keybind $Mod-Shift-space spawn $HOME/.config/eww/bash/open_widget.sh launcher && $HOME/.config/eww/.config/eww/go/launcher/main
+# hc keybind $Mod-n spawn $HOME/.config/eww/bash/open_widget.sh control --arg pos=$(eww get position)
+hc keybind $Mod-n spawn $HOME/.config/eww/bash/open_widget.sh control --arg pos=0% --arg anchor="bottom center"
 hc keybind $Mod-e spawn thunar
 hc keybind $Mod-Shift_R spawn betterlockscreen -l dimblur
 
@@ -283,8 +291,14 @@ hc set tree_style '╾│ ├└╼─┐'
 ##BAR
 # killall eww
 # eww reload
-pgrep eww >/dev/null || \
-eww open bar --arg gap=6px --arg dist=36px
+# pgrep eww >/dev/null || \
+
+# POS="860"
+POS="3"
+# notify-send "yo ${POS}px"
+eww open bar --arg gap=${POS}px --arg dist=34px
+eww update position=$(($POS + 40))px
+
 # eww open main_wallpaper
 
 ##PICOM

@@ -83,7 +83,7 @@
 
 "ui.selection" = { bg = "grey", modifiers = ["bold"]}
 # "ui.cursor.match" = { fg = "salmon", modifiers = ["reversed"]}
-"ui.cursor" = { fg = "slate", modifiers = ["reversed"] }
+"ui.cursor" = { bg= "yellow", fg = "black"}
 "ui.cursor.match" = { fg = "gray", modifiers = ["reversed"]}
 "ui.cursorline" = { bg = "#17191b"}
 "ui.menu.selected" = { fg = "wash"}

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+  
 VALUE=$(eww get toggler)
 # notify-send -t 1000 "$(date)" ## show time and date
 if [[ $VALUE == "true" ]];then

@@ -8,8 +8,8 @@
 
 # NOTE: i suck with bash scripts. im debating setting this script up with ZIG.
 
-INTERNAL_DISPLAY="DP-0"
-EXTERNAL_DISPLAY="HDMI-0"
+INTERNAL_DISPLAY="eDP-1-1"
+EXTERNAL_DISPLAY="HDMI-1-1"
 
 DISPLAYS=($(xrandr | grep connected | cut -d ' ' -f '1'))
 # myarray=($DISPLAYS)
@@ -19,7 +19,7 @@ split=(${EXTERNAL[0]})
 # echo "is this split? ${split[1]}"
 # echo $EXTERNAL
 # echo $"${split[1]}"
-# exit
+exit
 
   echo yes
 if [[ "${split[1]}" == "connected" ]]; then

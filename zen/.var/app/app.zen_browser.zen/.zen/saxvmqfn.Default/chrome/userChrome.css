@@ -1,0 +1,75 @@
+/*
+this
+*/
+#zen-sidebar-splitter {
+  width: 0 !important;
+  min-width: 0 !important;
+}
+
+* {
+  --gap: 25px;
+  --toolbox-width: calc(300px + var(--gap));
+  --space: var(--toolbox-width);
+  --space-back: calc(var(--space) * -1);
+  --toolbox-full: calc(var(--toolbar-width) + var(--gap));
+  --anim-hover: 200ms 300ms, opacity 300ms 100ms ease-out;
+  --anim: 100ms 100ms, opacity 100ms 100ms;
+}
+#zen-sidebar-top-buttons {
+  margin-top: 40px !important;
+}
+#navigator-toolbox {
+  transform: translateX(calc(var(--space-back) + var(--gap)));
+  opacity: 0;
+  position: absolute !important;
+  height: 100%;
+  width: var(--toolbox-width) !important;
+  max-width: inherit !important;
+  --z-index: -1000 !important;
+  transition: var(--anim) !important;
+}
+
+#nav-bar {
+  position: inherit !important;
+  width: 100% !important;
+  max-width: inherit !important;
+  --background-color: red !important;
+}
+
+#urlbar {
+  position: inherit !important;
+  min-width: var(--toolbox-width) !important;
+  max-width: 80vw !important;
+  width: 80vw !important;
+  --background-color: red;
+  left: 0 !important;
+}
+
+#urlbar[open][zen-floating-urlbar="true"] {
+  position: absolute !important;
+  left: 50% !important; 
+  right: 0 !important;
+  width: 80vw !important;
+}
+
+#zen-appcontent-wrapper {
+  margin-left: var(--gap);
+  transition: var(--anim) !important;
+}
+
+#navigator-toolbox:hover~#zen-appcontent-wrapper,
+#navigator-toolbox:active~#zen-appcontent-wrapper,
+#navigator-toolbox:focus~#zen-appcontent-wrapper {
+  transform: translateX(var(--space));
+  --margin-left: 0;
+  transition: var(--anim-hover) !important;
+}
+
+#urlbar[open][zen-floating-urlbar="true"] ~ #navigator-toolbox,
+#navigator-toolbox:hover,
+#navigator-toolbox:active,
+#navigator-toolbox:focus {
+  transition: var(--anim-hover) !important;
+  transform: translateX(0);
+  opacity: 1;
+}

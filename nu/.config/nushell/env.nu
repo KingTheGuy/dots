@@ -101,7 +101,6 @@ path add '/var/lib/flatpak/exports/bin:/var/lib/flatpak/exports/share'
 path add "~/.cargo/bin"
 path add "~/.zvm/self/"
 path add "~/.zvm/bin/"
-alias dusty = ssh ubuntu@129.213.27.12
 # $env.HELIX_RUNTIME = "~/.config/helix/runtime"
 # $env.PATH = ($env.PATH | uniq)
 

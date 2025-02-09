@@ -1,11 +1,11 @@
 # BEGIN_KITTY_THEME
-# Alucard
-include current-theme.conf
+# Rosé Pine
+# include current-theme.conf
 # END_KITTY_THEME
 
 confirm_os_window_close 0
 
-background_opacity 0.9
+background_opacity 0.8
 # background_tint 1.0
 
 font_family Share Tech Mono
@@ -13,5 +13,48 @@ font_size 12.0
 
 # dynamic_background_opacity yes
 
+selection_foreground     #FCFDFE
+selection_background     #9270cc
 
+color0 #121311
+color8 #737475
+# color0 #0c0d0e
+# color8 #767676
+#: black
+
+color1 #c95c49
+color9 #c95c49
+# color9 #e31a1c
+
+#: red
+
+color2  #CCCCFF
+color10 #44e3c6
+
+#: green
+
+color3  #dca060
+color11 #eba832
+
+#: yellow
+
+color4  #39aaf0
+color12 #FEE12B
+
+#: blue
+
+color5  #9270cc
+color13 #9270cc
+
+#: magenta
+
+color6  #44e3c6
+color14 #44e3c6
+
+#: cyan
+
+color7  #FCFDFE
+color15 #c8c8c8
+
+#: white
 

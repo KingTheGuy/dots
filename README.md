@@ -59,6 +59,7 @@
 - thunar
 - thunar-volman
 - thunar-archive-plugin
+- file-roller
 - tumbler
 - gvfs
 - gnome-disk-utility

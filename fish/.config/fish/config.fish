@@ -8,7 +8,7 @@ fish_vi_key_bindings
 bind -M insert -m default jk cancel repaint-mode
 set -g fish_sequence_key_delay_ms 200
 
-source ~/.profile
+# source ~/.profile
 
 # fish_add_path ~/.zvm/self/
 # fish_add_path ~/.zvm/bin/

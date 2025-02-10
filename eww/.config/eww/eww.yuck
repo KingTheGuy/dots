@@ -630,7 +630,7 @@
 
 (deflisten wallpaper
   ; "tail -f ~/.fehbg"
-  "tail -f ~/.eww_wallpaper"
+  "tail -f ~/.config/eww/eww_wallpaper.txt"
 )
 
 ; (defvar bar_padding

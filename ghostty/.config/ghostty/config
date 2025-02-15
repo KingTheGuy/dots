@@ -12,7 +12,9 @@ font-family = "Share Tech Mono"
 
 shell-integration = none
 
-background-opacity = 0.8
+background-opacity = 0.6
 window-decoration = false
 
 confirm-close-surface = false
+
+alpha-blending = linear

@@ -10,7 +10,7 @@ gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"   # for GTK
 # exec systemctl --user import-environment &
 
 ##AUDIO
-# pgrep pipewire >/dev/null || pipewire &
+pgrep pipewire >/dev/null || pipewire &
 # alias eww="eww_wayland"
 
 # eval $(gnome-keyring-daemon --start)
@@ -18,7 +18,9 @@ gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"   # for GTK
 
 # exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec /usr/libexec/polkit-mate-authentication-agent-1 &
-exec /nix/store/$(ls -la /nix/store | grep 'mate-polkit' | grep '4096' | awk '{print $9}' | sed -n '$p')/libexec/polkit-mate-authentication-agent-1 &
+exec /usr/libexec/polkit-mate-authentication-agent-1 &
+
+# exec /nix/store/$(ls -la /nix/store | grep 'mate-polkit' | grep '4096' | awk '{print $9}' | sed -n '$p')/libexec/polkit-mate-authentication-agent-1 &
 
 
 # Use the "logo" key as the primary modifier
@@ -32,8 +34,8 @@ wash="44e3c6"
 periwinkle="CCCCFF"
 egg="c8c8c8"
 
-COLOR=$periwinkle
-ALT_COLOR=$salmon
+COLOR=$yellow
+ALT_COLOR=$wash
 
 ##########
 
@@ -153,8 +155,8 @@ riverctl map normal $mod Shift_R spawn hyprlock
 riverctl map normal $mod Return spawn kitty
 # riverctl map normal $mod Return spawn ghostty
 # riverctl map normal $mod Space spawn 'wofi --show drun --allow-images'
-riverctl map normal $mod+Shift Space spawn 'fuzzel --list-executables-in-path -w 70 -D no -b 111111ff -t c8c8c8ff -s 242424ff -S c8c8c8ff -B 0'
-riverctl map normal $mod Space spawn "$HOME/.config/eww/bash/open_widget.sh launcher"
+riverctl map normal $mod Space spawn 'fuzzel --list-executables-in-path -w 70 -D no -b 111111ff -t c8c8c8ff -s 242424ff -S c8c8c8ff -B 0'
+riverctl map normal $mod+Shift Space spawn "$HOME/.config/eww/bash/open_widget.sh launcher"
 # riverctl map normal $mod Space spawn 'rofi -m -4 -show drun -show-icons'
 
 riverctl map normal $mod E spawn thunar
@@ -178,7 +180,7 @@ riverctl map normal $mod+Shift R spawn "~/.config/river/init"
 riverctl map normal $mod+Shift Q exit
 
 # eww stats
-riverctl map normal $mod T spawn ~/.config/herbstluftwm/stats.sh
+riverctl map normal $mod T spawn ~/.config/eww/bash/stats.sh
 
 riverctl map normal $mod B spawn "pkill eww && eww open main_wallpaper && eww open bar --arg gap=0px --arg dist=36px"
  # && eww open dynamic --arg gap=0px --arg dist=0px
@@ -403,7 +405,7 @@ riverctl border-color-unfocused 0x2c2c2c
 # killall swaybg ; swaybg -i ~/Pictures/anime/xenotrip14_crop.png -m fill &
 # killall swaybg ; swaybg -i ~/Pictures/anime/crown.avif -m fill &
 
-# dunst &
+dunst &
 # eww open main_bar
 # eww open main_wallpaper
 # eww open just_wallpaper

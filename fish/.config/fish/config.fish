@@ -8,14 +8,17 @@ fish_vi_key_bindings
 bind -M insert -m default jk cancel repaint-mode
 set -g fish_sequence_key_delay_ms 200
 
-# source ~/.profile
+if test -f ~/.profile
+    source ~/.profile
+end
 
 # fish_add_path ~/.zvm/self/
 # fish_add_path ~/.zvm/bin/
 
-fish_add_path ~/.local/bin/
-# fish_add_path $HOME/.nix-profile/bin/
+fish_add_path $HOME/.nix-profile/bin/
 # fish_add_path $HOME/.nix-profile/bin
+# 
+fish_add_path $HOME/.local/bin/
 
 set -gx EDITOR hx
 
@@ -60,13 +63,6 @@ end
 # zoxide init --cmd cd fish | source
 zoxide init fish | source
 
-# Source .fex.fish if it's present
-[ -f ~/.fex.fish ] && source ~/.fex.fish
-
-alias fex $HOME/.fex/bin/fex
-
-# bind --mode insert \cf fex
-
 # bind --mode insert \cf xplr
 # bind --mode insert \cf yazi
 
@@ -86,3 +82,8 @@ bind --mode insert \cz zellij
 bind --mode insert \cp xplr
 
 bind --mode insert \cr "source ~/.config/fish/config.fish && echo 'sourced config'"
+
+# ZVM
+set -gx ZVM_INSTALL "$HOME/.zvm/self"
+set -gx PATH $PATH "$HOME/.zvm/bin"
+set -gx PATH $PATH "$ZVM_INSTALL/"

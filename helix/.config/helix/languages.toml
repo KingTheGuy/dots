@@ -11,6 +11,7 @@ name = "markdown"
 auto-format = true
 formatter = { command = 'prettier', args = ["--parser", "markdown"] }
 language-servers = [ "mdpls", "marksman" , "typos"]
+comment-tokens = ["-", "+", "*", "- [ ]", ">"]
 
 [language-server.mdpls]
 command = "mdpls"

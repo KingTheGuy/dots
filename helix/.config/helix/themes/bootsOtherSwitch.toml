@@ -30,7 +30,8 @@
 # "comment"                   = { fg ="periwinkle"}
 # "comment"                   = { fg ="#0d8aff"}
 # "comment"                   = { fg ="slate"}
-"comment"                   = { fg ="gray"}
+"comment"                   = { fg ="slate",bg="dark-blue"}
+# "comment"                   = { fg ="grey"}
 # "comment"                   = { fg ="white"}
 
 # "ui.virtual.inlay-hint.type	" = "gray"
@@ -73,8 +74,8 @@
 "ui.linenr.selected" = { fg = "yellow" }  # TODO
 "ui.statusline" = { fg = "background", bg = "salmon" }
 "ui.statusline.inactive" = { fg = "egg", bg = "grey" }
-"ui.popup" = { bg = "grey"}
-"ui.window" = { bg = "background" }
+"ui.popup" = { fg="egg",bg = "dark-blue"}
+"ui.window" = { fg = "grey" }
 "ui.help" = { bg = "background", fg = "white" }
 
 # NOTE: this seems to apply to raw text in a MD file
@@ -85,8 +86,10 @@
 # "ui.cursor.match" = { fg = "salmon", modifiers = ["reversed"]}
 "ui.cursor" = { bg= "yellow", fg = "black"}
 "ui.cursor.match" = { fg = "gray", modifiers = ["reversed"]}
-"ui.cursorline" = { bg = "#17191b"}
-"ui.menu.selected" = { fg = "wash"}
+"ui.cursorline" = { bg = "dark-blue"}
+# "ui.cursorline" = { bg="sage"}
+"ui.menu" = { fg = "egg"}
+"ui.menu.selected" = { fg = "yellow"}
 
 "ui.virtual.jump-label" = { fg = "hot-pink", modifiers = ["underlined", "bold"] }
 
@@ -130,6 +133,7 @@ pineapple = "#FEE12B"
 # blue = "#7aa8c8"
 # blue = "#1faaf0"
 blue = "#39aaf0"
+dark-blue = "#17191b"
 green = "#5a9e6d"
 plant = "#4a855b"
 plant2 = "#2a5235"

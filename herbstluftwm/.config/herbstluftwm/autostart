@@ -98,7 +98,7 @@ hc keybind XF86MonBrightnessUp spawn ~/.config/eww/scripts/light up
 hc keybind XF86MonBrightnessDown spawn ~/.config/eww/scripts/light down
 # hc keybind XF86MonBrightnessUp-XF86MonBrightnessDown spawn ~/.config/eww/scripts/redshift.sh
 
-hc keybind $Mod-t spawn ~/.config/herbstluftwm/stats.sh
+hc keybind $Mod-t spawn ~/.config/eww/bash/stats.sh
 # notify-send "mic muted" -t 1000
 
 # hc keybind $Mod-space spawn dmenu_run

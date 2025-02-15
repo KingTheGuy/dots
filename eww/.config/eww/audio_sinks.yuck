@@ -18,7 +18,7 @@
   "watch lsusb"
 )
 
-(defwidget progress_bar [?width ?height ?scroll ?click ?value ?text ?orientation ?hover]
+(defwidget progress_bar [?max-value ?width ?height ?scroll ?click ?value ?text ?orientation ?hover]
   (box
     :halign "center"
     :valign "end"
@@ -58,13 +58,14 @@
           :height {height == ""? "${value <= 30? 30 : value }" : "${value <= 30? round((30 / 100) * height,0) : round((value / 100) * height,0) }" }
           :width {width}
           :style "opacity:${value/70}"
+          ; :style {max-value > 100? "background-color:red;": ""}
         )
       )
       (scale
         :visible {scroll==""?"false":"true"}
         :min 0
         ; :max {height == ""? 100 : height }
-        :max 130
+        :max {max-value == ""? 100 : max-value }
         :value {height == ""? "${value <= 30? 30 : value }" : "${value <= 30? round((30 / 100) * height,0) : round((value / 100) * height,0) }" }
         :orientation "v"
         :flipped true
@@ -86,6 +87,7 @@
         :orientation "v"
         (label
           ; :style {!matches(volume_muted,"[MUTED]")?"":"text-decoration:line-through;"}
+          ; :text {text}
           :text {text}
           ; :text {replace(volume_level,"Volume level: ","") /100}
         )
@@ -117,6 +119,7 @@
         ; :vexapnd false
         ; :height 100
         (progress_bar 
+          :max-value 130
           ; :height 120
           ; :vexpand true
           :hover "$PWD/bash/update_loaded.sh"

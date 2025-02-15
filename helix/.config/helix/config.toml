@@ -10,9 +10,10 @@ true-color = true
 idle-timeout = 50
 middle-click-paste = false
 # end-of-line-diagnostics = "none"
+popup-border = "all"
 
 [editor.inline-diagnostics]
-cursor-line = "info" # show warnings and errors on the cursorline inline
+cursor-line = "hint" # show warnings and errors on the cursorline inline
 
 [editor.cursor-shape]
 insert = "bar"
@@ -49,9 +50,9 @@ newline = "none"
 
 [editor.indent-guides]
 render = true
-character = "╎"
+# character = "╎"
+character = "┆"
 # character = "┊"
-# character = "┆"
 # skip-levels = 1
 
 [editor.statusline]

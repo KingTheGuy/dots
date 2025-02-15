@@ -110,6 +110,7 @@
     ; :onclick "alacritty -e sudo pacman -Syyu" ; arch linux
     :onclick "alacritty -e $HOME/.config/eww/scripts/update.sh &" ; void linux
     :class "action"
+    :style {packages_to_update > 60? "color:red;":""}
     (box
       :orientation "v"
       ; :width 3

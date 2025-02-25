@@ -327,6 +327,15 @@
           (eventbox
             ; :onclick "notify-send no"
             ; :onclick "eww update toggle_power=false"
+            :onclick "loginctl lock-session"
+            :class "open"
+            "L"
+            ; ""
+            ; ""
+          )
+          (eventbox
+            ; :onclick "notify-send no"
+            ; :onclick "eww update toggle_power=false"
             :onclick "loginctl hibernate"
             :class "open"
             "H"
@@ -485,11 +494,12 @@
     (box
       :class "button_in"
       :space-evenly false
+      :halign "center"
       :spacing 6
       (box
         icon
       )
-      text
+      {text == ""? "":text}
     )
   )
 )
@@ -506,7 +516,7 @@
       :orientation "h"
       :height 100
       :halign "start"
-      :valign "center"
+      :valign "end"
       :space-evenly false
       :spacing {widget_spacing}
       :spacing 6
@@ -521,7 +531,6 @@
         :value "${round(brightness_value,0)}"
         :text "${round(brightness_value,0)}"
       )
-
       (box
         :space-evenly false
         :orientation "v"
@@ -531,8 +540,8 @@
           :orientation "h"
           :space-evenly false
           :spacing 6
-          (_button :icon "󰈈" :action "notify-send yolo" :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -x &")
-          (_button :icon "󰈉" :action "notify-send yolo" :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -P -o -O 4000 &")
+          (_button :icon "󰈈" :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -x &")
+          (_button :icon "󰈉" :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -P -o -O 4000 &")
           ; (_button :icon "󰈉" :action "notify-send yolo" :action "pkill gammastep || gammastep -P -o -O 4000 &")
           ; (_button :icon "dark" :action "notify-send yolo" :size 35)        
         )
@@ -541,9 +550,16 @@
           :space-evenly false
           :spacing 6
           ; (_button :icon "" :action "notify-send yolo" :size 35)        
-          (_button :icon "" :action "notify-send yolo" :size 35 :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -P -o -O 4000 -b 0.5 &")
+          (_button :icon "" :size 35 :action "pgrep gamma >/dev/null && pkill gammastep || gammastep -P -o -O 4000 -b 0.5 &")
         )
       )
+    )
+    (box
+      :orientation "v"
+      :space-evenly true
+      :spacing 6
+      (_button :icon "POM" :size 35 :action "flatpak run org.jousse.vincent.Pomodorolm")
+      (_button :icon "REC" :size 35 :action "flatpak run com.dec05eba.gpu_screen_recorder")
     )
     (label :halign "center" :style "font-size:large;" :text "󰌬")
   )

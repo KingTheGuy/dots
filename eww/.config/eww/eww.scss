@@ -118,8 +118,8 @@ $color-accent: $color-egg;
 /* $color-main: $color-yellow; */
 /* $color-accent: $color-black; */
 
-/* $color-main: $color-black; */
-/* $color-accent: $color-yellow; */
+$color-main: $color-black;
+$color-accent: $color-yellow;
 
 /* $color-main: $color-black; */
 /* $color-accent: $color-blue; */
@@ -132,6 +132,9 @@ $color-accent: $color-egg;
 
 /* $color-main: $color-gray; */
 /* $color-accent: $color-black; */
+
+/* $color-main: $color-black; */
+/* $color-accent: $color-gray; */
 
 
 
@@ -366,6 +369,10 @@ $color-accent-select-text: darken($color-accent, 50%);
   background-color: transparentize($color-white, 0.9);
 }
 
+/* .mini_player_progress:hover { */
+/* animation: select infinite 2s; */
+/* } */
+
 .mini_player_progress>* {
   color: transparentize($color-black, 0.4);
   /* color: transparentize($color-accent, 0.4); */
@@ -494,13 +501,6 @@ $color-accent-select-text: darken($color-accent, 50%);
   /* width: 300px; */
   /* height: auto; */
   /* mask: linear-gradient(rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 100%); */
-
-
-}
-
-.progress_bar_progress:hover>* {
-  /* background-color: lighten($color-main, 30%); */
-  animation: select infinite 1s;
 }
 
 @keyframes select {

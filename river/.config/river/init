@@ -5,7 +5,10 @@ gsettings set org.gnome.desktop.interface icon-theme "Adwaita"
 gsettings set org.gnome.desktop.interface cursor-theme "Adwaita"
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"   # for GTK4 apps
 
-# exec dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY &
+
+# this line gets lorien and other stuff working correctly
+# exec dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY &
+exec dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY &
 
 # exec systemctl --user import-environment &
 
@@ -101,7 +104,7 @@ mod="Super"
 
 
 #other
-riverctl focus-follows-cursor normal
+riverctl focus-follows-cursor disabled
 
 
 #set resolution
@@ -163,7 +166,7 @@ riverctl map normal $mod E spawn thunar
 # riverctl map normal $mod+Shift E spawn cosmic-files
 # riverctl map normal $mod P spawn 'grim -g "$(slurp)" "$HOME/Pictures/screenshots/$(date +%F_[%R]).png" && notify-send "SCREENSHOT saved"'
 riverctl map normal $mod P spawn "~/Scripts/shot_to_clipboard.sh"
-riverctl map normal $mod+Shift P spawn  'grim "$HOME/Pictures/screenshots/$(date +%F_[%R]).png" && notify-send "SCREENSHOT saved"'
+riverctl map normal $mod+Shift P spawn  'grim "$HOME/Pictures/screenshots/$(date +%F_[%T]).png" && notify-send "SCREENSHOT saved"'
 
 riverctl map normal $mod N spawn '$HOME/.config/eww/bash/open_widget.sh control --arg pos=0% --arg anchor="center"'
 
@@ -315,7 +318,7 @@ riverctl map -repeat normal None XF86AudioRaiseVolume spawn "~/.config/eww/scrip
 riverctl map -repeat normal None XF86AudioLowerVolume spawn "~/.config/eww/scripts/volume down"
 riverctl map normal None XF86AudioMute spawn "~/.config/eww/mute_audio.sh"
 
-riverctl map normal None XF86MediaPlayPause spawn "notify-send hello"
+riverctl map normal None XF86AudioPlay spawn "bash -c 'playerctl play-pause && notify-send $(playerctl status)'"
 
 # riverctl map -repeat normal None XF86MonBrightnessUp   spawn light -A 5
 # riverctl map -repeat normal None XF86MonBrightnessDown spawn light -U 5
@@ -405,7 +408,8 @@ riverctl border-color-unfocused 0x2c2c2c
 # killall swaybg ; swaybg -i ~/Pictures/anime/xenotrip14_crop.png -m fill &
 # killall swaybg ; swaybg -i ~/Pictures/anime/crown.avif -m fill &
 
-dunst &
+exec hypridle &
+exec dunst &
 # eww open main_bar
 # eww open main_wallpaper
 # eww open just_wallpaper

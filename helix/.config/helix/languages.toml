@@ -1,16 +1,29 @@
 [language-server.typos]
 command = "typos-lsp"
 
+[language-server.harper-ls]
+command = "harper-ls"
+args = ["--stdio"]
+
+# https://writewithharper.com/docs/rules
+[language-server.harper-ls.config.harper-ls.linters]
+sentence_capitalization = false
+
 [[language]]
 name = "svelte"
-language-servers = [ "svelteserver", "typos"]
+language-servers = [ "svelteserver", "harper-ls"]
+
+[language-server.iwe]
+command = "iwes"
 
 [[language]]
 name = "markdown"
 # soft-wrap.enable = true
 auto-format = true
 formatter = { command = 'prettier', args = ["--parser", "markdown"] }
-language-servers = [ "mdpls", "marksman" , "typos"]
+# language-servers = [ "iwe" ]
+# language-servers = [ "marksman" , "typos"]
+language-servers = [ "marksman" , "harper-ls"]
 comment-tokens = ["-", "+", "*", "- [ ]", ">"]
 
 [language-server.mdpls]
@@ -19,7 +32,7 @@ config = { markdown.preview.auto = false }
 
 [[language]]
 name = "bash"
-language-servers = [ "bash-language-server", "typos"]
+language-servers = [ "bash-language-server", "harper-ls"]
 
 [language-server]
 jdtls = { command = "jdtls" }

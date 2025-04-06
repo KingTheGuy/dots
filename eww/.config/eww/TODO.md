@@ -9,6 +9,7 @@
 
 ## TODO:
 
+- [ ] EQ menu should be within the Sinks menu with a button
 - [ ] per source player (having just one kinda sucks)
 
 - [ ] get source widget working

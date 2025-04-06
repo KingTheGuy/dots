@@ -22,6 +22,11 @@
   "light -G"
 )
 
+; (defpoll easyeffect-eq
+;   :interval "5s"
+;   "ls /home/olrak/.config/easyeffects/output/ | sed 's/\.json$//'"
+; )
+
 (defpoll volume_level
   :interval "60s"
   :run-while run
@@ -428,7 +433,7 @@
 
 (defvar position  "3%")
 
-(defwindow bar [gap dist]
+(defwindow bar [gap dist ]
   :namespace "bar"
   :monitor 0
   :stacking "fg"
@@ -580,7 +585,6 @@
   :geometry (geometry 
               :x pos
               :y "18px"
-              ; :height "99%"
               ; :anchor "left top"
               ; :height "100%"
               :anchor anchor
@@ -597,6 +601,16 @@
       ; :style "background-color:${main_color}0.5);color:${main_text_color};padding:20px;"
       :class "canvas grid"
       ; :class "base_alt"
+      (box
+        ; :visible {show_clock == true? true:false}
+        :orientation "v"
+        :space-evenly false
+        :spacing {widget_spacing}
+        :class "base"
+        (digital_clock :on true)
+        (digital_date :on true)
+        (digital_day :on true)
+      )
       (box
         :orientation "v"
         :space-evenly false
@@ -617,7 +631,7 @@
         :space-evenly false
         :spacing {widget_spacing}
         (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
-        (selector_list :title "EQ PRESETS" :items '["fakepods-eq","laptop-eq","iems-kz10"]' :action 'easyeffects -l' :list-height 24 :classes '["sinks_section","audio_sinks"]')
+        (selector_list :title "EQ PRESETS" :items '["iems-zsn-x","laptop-eq-2","laptop-eq","iems-kz10","fakepods-eq"]' :action 'easyeffects -l' :list-height 24 :classes '["sinks_section","audio_sinks"]')
         (sources_container)
         (placer :ass "")
         ; (placer :content "")
@@ -626,6 +640,7 @@
     )
   )
 )
+
 
 (defvar space_1 "")
 (defwidget placer [?ass]

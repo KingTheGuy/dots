@@ -44,68 +44,54 @@ ALT_COLOR=$wash
 
 mod="Super"
 
-# TILER="river"
-# if [[ "$TILER" eq "river" ]]; then
-    #river TILE
+riverctl map normal $mod+Alt H send-layout-cmd rivercarro "main-ratio -0.05"
+riverctl map normal $mod+Alt L send-layout-cmd rivercarro "main-ratio +0.05"
 
-    # pkill stacktile
-    riverctl map normal $mod+Alt H send-layout-cmd rivercarro "main-ratio -0.05"
-    riverctl map normal $mod+Alt L send-layout-cmd rivercarro "main-ratio +0.05"
+riverctl map normal $mod+Shift H send-layout-cmd rivercarro "main-count +1"
+riverctl map normal $mod+Shift L send-layout-cmd rivercarro "main-count -1"
 
-    riverctl map normal $mod+Shift H send-layout-cmd rivercarro "main-count +1"
-    riverctl map normal $mod+Shift L send-layout-cmd rivercarro "main-count -1"
+riverctl map normal $mod Up    send-layout-cmd rivercarro "main-location top"
+riverctl map normal $mod Right send-layout-cmd rivercarro "main-location right"
+riverctl map normal $mod Down  send-layout-cmd rivercarro "main-location bottom"
+riverctl map normal $mod Left  send-layout-cmd rivercarro "main-location left"
 
-    riverctl map normal $mod Up    send-layout-cmd rivercarro "main-location top"
-    riverctl map normal $mod Right send-layout-cmd rivercarro "main-location right"
-    riverctl map normal $mod Down  send-layout-cmd rivercarro "main-location bottom"
-    riverctl map normal $mod Left  send-layout-cmd rivercarro "main-location left"
+# Cycle through layout
+riverctl map normal $mod M send-layout-cmd rivercarro "main-location-cycle left,monocle"
 
-    # And for monocle
-    # riverctl map normal $mod M send-layout-cmd rivercarro "main-location monocle"
-    # Cycle through layout
-    riverctl map normal $mod M send-layout-cmd rivercarro "main-location-cycle left,monocle"
+pkill rivercarro
+riverctl output-layout rivercarro
 
-    pkill rivercarro
-    # riverctl default-layout rivercarro
-    # riverctl spawn rivercarro
-    riverctl output-layout rivercarro
+pgrep rivercarro >/dev/null || exec rivercarro -main-ratio 0.58 -inner-gaps 6 -outer-gaps 16 -no-smart-gaps -per-tag -width-ratio 0.985 -width-ratio-centered &
 
-    # pgrep rivercarro >/dev/null || exec rivercarro -inner-gaps 6 -outer-gaps 12 -no-smart-gaps -per-tag -width-ratio 0.976 &
-    pgrep rivercarro >/dev/null || exec rivercarro -main-ratio 0.58 -inner-gaps 6 -outer-gaps 16 -no-smart-gaps -per-tag -width-ratio 0.985 -width-ratio-centered &
+riverctl default-attach-mode bottom
 
-    # riverctl map -repeat normal $mod g send-layout-cmd rivercarro "outer-gaps +1"
-    # riverctl map -repeat normal $mod+Shift g send-layout-cmd rivercarro "outer-gaps -1"
-    
-#     #stack TILE
-#     pkill rivertile
-#     # Mod+H and Mod+L to decrease/increase the main ratio of stacktile(1)
-#     riverctl map normal $mod+Control H send-layout-cmd stacktile "primary_ratio -0.05"
-#     riverctl map normal $mod+Control L send-layout-cmd stacktile "primary_ratio +0.05"
+# riverctl map -repeat normal $mod g send-layout-cmd rivercarro "outer-gaps +1"
+# riverctl map -repeat normal $mod+Shift g send-layout-cmd rivercarro "outer-gaps -1"
 
-#     # Mod+Shift+H and Mod+Shift+L to increment/decrement the main count of stacktile(1)
-#     riverctl map normal $mod+Shift H send-layout-cmd stacktile "primary_count +1"
-#     riverctl map normal $mod+Shift L send-layout-cmd stacktile "primary_count -1"
 
-#     riverctl map normal $mod Up    send-layout-cmd stacktile "primary_position top"
-#     riverctl map normal $mod Right send-layout-cmd stacktile "primary_position right"
-#     riverctl map normal $mod Down  send-layout-cmd stacktile "primary_position bottom"
-#     riverctl map normal $mod Left  send-layout-cmd stacktile "primary_position left"
 
-#     riverctl map normal $mod m send-layout-cmd stacktile "primary_sublayout rows,stack,full,dwindle"
-#     riverctl map normal $mod+Shift f send-layout-cmd stacktile "all_primary toggle"
+# riverctl map normal $mod+Alt H send-layout-cmd stacktile "primary-ratio -0.05"
+# riverctl map normal $mod+Alt L send-layout-cmd stacktile "primary-ratio +0.05"
 
-#     riverctl default-layout stacktile
-#     riverctl attach-mode bottom
+# riverctl map normal $mod+Shift H send-layout-cmd stacktile "primary-count +1"
+# riverctl map normal $mod+Shift L send-layout-cmd stacktile "primary-count -1"
 
-#     pkill stacktile
-#     pgrep stacktile >/dev/null || exec stacktile --remainder-sublayout stack --per-tag-config &
-#     # -view-padding 3 -outer-padding 3 &
-# fi
+# riverctl map normal $mod Up    send-layout-cmd stacktile "main-location top"
+# riverctl map normal $mod Right send-layout-cmd stacktile "main-location right"
+# riverctl map normal $mod Down  send-layout-cmd stacktile "main-location bottom"
+# riverctl map normal $mod Left  send-layout-cmd stacktile "main-location left"
+
+# # Cycle through layout
+# riverctl map normal $mod M send-layout-cmd stacktile "main-location-cycle left,monocle"
+
+# pkill stacktile
+# riverctl output-layout stacktile
+
+# pgrep stacktile >/dev/null || exec stacktile --primary-ratio 0.58 --inner-padding 6 --outer-padding 16 --per-tag-config &
 
 
 #other
 riverctl focus-follows-cursor disabled
-
 
 #set resolution
 
@@ -114,7 +100,8 @@ riverctl focus-follows-cursor disabled
 # wlr-randr --output HDMI-A-1 --mode 1920x1080@60Hz --pos 0,0 --scale 1
 
 
-# wlr-randr --output HDMI-A-1 --on --mode 2560x1080@60Hz --pos 0,0 --scale 1
+# wlr-randr --output HDMI-A-1 --on --mode 2560x1080@60Hz --pos 1600,0 --scale 1
+wlr-randr --output HDMI-A-1 --custom-mode 2128x900@60Hz --pos 1600,0 --scale 1
 
 # wlr-randr --output HDMI-A-1 --on --custom-mode 2128x900@60Hz --pos 1600,0 --scale 1
 # wlr-randr --output HDMI-A-1 --on --mode 2560x1080 --pos 0,0 --scale 1

@@ -197,7 +197,7 @@
   (eventbox
     :onhoverlost "eww close audio_control"
       (box 
-        :orientation "h"
+        :orientation "v"
         :halign "start"
         :valign "center"
         :space-evenly false
@@ -223,8 +223,21 @@
         ;   )
         ;   "backlight"
         ; )
-        (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
-        (mini_player)
+        (box
+          :orientation "h"
+          :halign "start"
+          :valign "center"
+          :space-evenly false
+          (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
+          (mini_player)
+        )
+        (box
+          :orientation "h"
+          :halign "start"
+          :valign "center"
+          :space-evenly false
+          (selector_list :title "EQ PRESETS" :items '["iems-zsn-x","laptop-eq-2","laptop-eq","iems-kz10","fakepods-eq"]' :action 'easyeffects -l' :list-height 24 :classes '["sinks_section","audio_sinks"]')
+        )
       )
   )
 )

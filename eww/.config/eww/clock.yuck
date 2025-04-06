@@ -32,6 +32,80 @@
               :initial "000"
 `date +%g`)
 
+(defwidget digital_clock[?on]
+  (box 
+    :style "${clock_show == "clock"? "opacity:1;":"opacity:0;"} margin-bottom:-10px; ${on == true? "opacity:1;":""}"
+    :halign "center"
+    :orientation "v"
+    :class "clock"
+    (box
+      :style "margin-bottom:-10px;"
+      :orientation "v"
+      :halign "center"
+      :spacing -5
+      "${current_time_h}"
+      ; "··"
+      "∙∙"
+      "${current_time_m}"
+      ; "··"
+      "∙∙"
+      "${current_time_s}"
+    )
+    (label
+      :halign "center"
+      :text "󱑂"
+    )
+  )
+)
+
+(defwidget digital_date[?on]
+  (box 
+    :style "${clock_show == "date"? "opacity:1;":"opacity:0;"} margin-bottom:-10px; ${on == true? "opacity:1;":""}"
+    :orientation "v"
+    :class "clock"
+    :halign "center"
+    (box
+      :style "margin-bottom:-10px;"
+      :orientation "v"
+      :spacing -5
+      :halign "center"
+      {date_m}
+      ; "─"
+      "—"
+      {date_d}
+      ; "─"
+      ; "–"
+      "—"
+      {date_y}
+    )
+    (label
+      :halign "center"
+      :text ""
+    )
+  )
+)
+(defwidget digital_day[?on]
+  (box 
+    :style "${clock_show == "weekday"? "opacity:1;":"opacity:0;"} margin-bottom:-10px; ${on == true? "opacity:1;":""}"
+    :orientation "v"
+    :halign "center"
+    ; :space-evenly false
+    :class "clock"
+    (box
+      :style "margin-bottom:-10px;"
+      :orientation "v"
+      :spacing -5
+      :halign "center"
+      {date_weekday_1}
+      {date_weekday_2}
+      {date_weekday_3}
+    )
+    (label
+      :halign "center"
+      :text ""
+    )
+  )
+)
 
 (defvar clock_show "clock")
 (defwidget clock[]
@@ -46,73 +120,9 @@
     :ondroppped "notify-send huh {}"
     :halign "center"
     (overlay
-      (box 
-        :style "${clock_show == "clock"? "opacity:1;":"opacity:0;"} margin-bottom:-10px;"
-        :halign "center"
-        :orientation "v"
-        :class "clock"
-        (box
-          :style "margin-bottom:-10px;"
-          :orientation "v"
-          :halign "center"
-          :spacing -5
-          "${current_time_h}"
-          ; "··"
-          "∙∙"
-          "${current_time_m}"
-          ; "··"
-          "∙∙"
-          "${current_time_s}"
-        )
-        (label
-          :halign "center"
-          :text "󱑂"
-        )
-      )
-      (box 
-        :style "${clock_show == "date"? "opacity:1;":"opacity:0;"} margin-bottom:-10px;"
-        :orientation "v"
-        :class "clock"
-        :halign "center"
-        (box
-          :style "margin-bottom:-10px;"
-          :orientation "v"
-          :spacing -5
-          :halign "center"
-          {date_m}
-          ; "─"
-          "—"
-          {date_d}
-          ; "─"
-          ; "–"
-          "—"
-          {date_y}
-        )
-        (label
-          :halign "center"
-          :text ""
-        )
-      )
-      (box 
-        :style "${clock_show == "weekday"? "opacity:1;":"opacity:0;"} margin-bottom:-10px;"
-        :orientation "v"
-        :halign "center"
-        ; :space-evenly false
-        :class "clock"
-        (box
-          :style "margin-bottom:-10px;"
-          :orientation "v"
-          :spacing -5
-          :halign "center"
-          {date_weekday_1}
-          {date_weekday_2}
-          {date_weekday_3}
-        )
-        (label
-          :halign "center"
-          :text ""
-        )
-      )
+      (digital_clock)
+      (digital_date)
+      (digital_day)
     )  
   )
 )

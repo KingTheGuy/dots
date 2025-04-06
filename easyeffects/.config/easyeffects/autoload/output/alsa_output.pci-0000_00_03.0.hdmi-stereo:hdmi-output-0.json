@@ -1,0 +1,6 @@
+{
+    "device": "alsa_output.pci-0000_00_03.0.hdmi-stereo",
+    "device-description": "Built-in Audio Digital Stereo (HDMI)",
+    "device-profile": "hdmi-output-0",
+    "preset-name": "master"
+}

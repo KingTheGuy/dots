@@ -35,7 +35,7 @@
 # "comment"                   = { fg ="white"}
 
 # "ui.virtual.inlay-hint.type	" = "gray"
-"ui.virtual.inlay-hint"     = { fg = "black" ,bg ="salmon", modifiers = ["bold"] }
+"ui.virtual.inlay-hint"     = { fg = "slate", modifiers = ["italic"] }
 
 "variable.builtin"          = "hot-pink"
 "constant.builtin"          = "hot-pink"

@@ -1,0 +1,64 @@
+(defcfg)
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
+
+(defvar
+  ;; Note: consider using different time values for your different fingers.
+  ;; For example, your pinkies might be slower to release keys and index
+  ;; fingers faster.
+  tap-time 200
+  hold-time 200 
+  hold-time-slow 300 
+)
+
+(defalias
+  alts (layer-while-held less)
+  meh  (multi ctl alt lsft)
+  tmeh (tap-hold $tap-time $hold-time spc @meh)
+  l_num (layer-while-held num)
+  f (tap-hold $tap-time $hold-time f @l_num)
+  semi_s (tap-hold $tap-time $hold-time ; lmet)
+  e (tap-hold $tap-time $hold-time e lmet)
+  j (tap-hold $tap-time $hold-time j lctl)
+  ;; [ (tap-hold $tap-time $hold-time bspc [)
+  rem (multi ctl bspc)
+  [ (tap-hold $tap-time $hold-time bspc @rem)
+)
+
+(deflayer main
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    @e   r    t    y    u    i    o    p   @[  ]    \
+  caps a    s    d    @f   g    h    @j    k    l   @semi_s  ret  ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           @tmeh            @alts rmet rctl
+)
+
+(deflayer num
+  XX   XX   XX   XX   XX  XX   XX   XX   XX   XX   XX    XX   XX    XX
+  XX   XX   XX   @e   XX  XX   XX   7    8    9    0    XX   XX    XX
+  XX   XX   XX   XX   XX  XX   XX   4    5    6    XX    XX   XX
+  XX   XX   XX   XX   XX  XX   XX   1    2    3    XX    XX
+  XX   XX   XX         XX         XX XX XX
+)
+
+(deflayer less
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  esc  w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
+
+
+(deflayer dvorak
+  grv  1    2    3    4    5    6    7    8    9    0    [    ]    bspc
+  tab  '    ,    .    p    y    f    g    c    r    l    /    =    \
+  caps a    o    e    u    i    d    h    t    n    s    -    ret
+  lsft ;    q    j    k    x    b    m    w    v    z    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)

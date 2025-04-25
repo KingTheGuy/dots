@@ -9,6 +9,9 @@
 
 ## TODO:
 
+- [ ] volume/bars: should use an array.
+    - instead of executing the command every time the user makes a change, instead have it run ever few ms and grab the last know.
+    - or maybe not, this may make it feel slow??
 - [ ] EQ menu should be within the Sinks menu with a button
 - [ ] per source player (having just one kinda sucks)
 

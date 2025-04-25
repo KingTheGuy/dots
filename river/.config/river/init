@@ -118,6 +118,9 @@ riverctl input pointer-5426-285-Synaptics_s3203 tap enabled
 riverctl input pointer-5426-285-Synaptics_s3203 natural-scroll enabled
 riverctl input pointer-1386-828-Wacom_Intuos_PT_S_2_Finger natural-scroll enabled
 
+# wacom tablet on main display only
+riverctl input tablet-1386-828-Wacom_Intuos_PT_S_2_Pen map-to-output eDP-1
+
 riverctl input pointer-5426-285-Synaptics tap enabled 
 riverctl input pointer-5426-285-Synaptics natural-scroll enabled
 
@@ -172,7 +175,8 @@ riverctl map normal $mod+Shift Q exit
 # eww stats
 riverctl map normal $mod T spawn ~/.config/eww/bash/stats.sh
 
-riverctl map normal $mod B spawn "pkill eww && eww open main_wallpaper && eww open bar --arg gap=0px --arg dist=36px"
+# riverctl map normal $mod B spawn "pkill eww && eww open main_wallpaper && eww open bar --arg gap=0px --arg dist=36px"
+riverctl map normal $mod B spawn "pkill eww && $HOME/.config/eww/bar.sh"
  # && eww open dynamic --arg gap=0px --arg dist=0px
 
 # Mod+J and Mod+K to focus the next/previous view in the layout stack
@@ -395,7 +399,7 @@ riverctl border-color-unfocused 0x2c2c2c
 # killall swaybg ; swaybg -i ~/Pictures/anime/xenotrip14_crop.png -m fill &
 # killall swaybg ; swaybg -i ~/Pictures/anime/crown.avif -m fill &
 
-exec hypridle &
+# exec hypridle &
 exec dunst &
 # eww open main_bar
 # eww open main_wallpaper

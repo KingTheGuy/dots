@@ -1,4 +1,6 @@
-(defcfg)
+(defcfg
+  linux-dev /dev/input/by-id/usb-Razer_Razer_Blade-if01-event-kbd
+)
 (defsrc
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
@@ -17,14 +19,21 @@
 )
 
 (defalias
+  sw_main (tap-hold $tap-time $hold-time (layer-switch main)(layer-switch default))
+  sw_cole (tap-hold $tap-time $hold-time (layer-switch colemakdh)(layer-switch default))
   alts (layer-while-held less)
   meh  (multi ctl alt lsft)
   tmeh (tap-hold $tap-time $hold-time spc @meh)
   l_num (layer-while-held num)
   f (tap-hold $tap-time $hold-time f @l_num)
   semi_s (tap-hold $tap-time $hold-time ; lmet)
-  e (tap-hold $tap-time $hold-time e lmet)
+  ;; e (tap-hold $tap-time $hold-time e lmet)
   j (tap-hold $tap-time $hold-time j lctl)
+  s (tap-hold $tap-time $hold-time s @alts)
+
+  r (tap-hold $tap-time $hold-time r @alts)
+  t (tap-hold $tap-time $hold-time t @alts)
+  n (tap-hold $tap-time $hold-time n @alts)
   ;; [ (tap-hold $tap-time $hold-time bspc [)
   rem (multi ctl bspc)
   [ (tap-hold $tap-time $hold-time bspc @rem)
@@ -32,15 +41,15 @@
 
 (deflayer main
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    @e   r    t    y    u    i    o    p   @[  ]    \
-  caps a    s    d    @f   g    h    @j    k    l   @semi_s  ret  ret
+  tab  q    w    e    r    t    y    u    i    o    p    [  ]    \
+  caps a    @s   d    @f   g    h    @j    k    l   @semi_s  ' ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           @tmeh            @alts rmet rctl
+  lctl lmet lalt           @tmeh            @sw_cole rmet rctl
 )
 
 (deflayer num
   XX   XX   XX   XX   XX  XX   XX   XX   XX   XX   XX    XX   XX    XX
-  XX   XX   XX   @e   XX  XX   XX   7    8    9    0    XX   XX    XX
+  XX   XX   XX   XX   XX  XX   XX   7    8    9    0    XX   XX    XX
   XX   XX   XX   XX   XX  XX   XX   4    5    6    XX    XX   XX
   XX   XX   XX   XX   XX  XX   XX   1    2    3    XX    XX
   XX   XX   XX         XX         XX XX XX
@@ -48,8 +57,8 @@
 
 (deflayer less
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  esc  w    e    r    t    y    u    i    o    p    [    ]    \
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  tab  esc  w    e    r    tab  y    u    i    @[    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    ret    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           spc            ralt rmet rctl
 )
@@ -61,4 +70,20 @@
   caps a    o    e    u    i    d    h    t    n    s    -    ret
   lsft ;    q    j    k    x    b    m    w    v    z    rsft
   lctl lmet lalt           spc            ralt rmet rctl
+)
+
+(deflayer colemakdh
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    f    p    b    j    l    u    y    ;    [  ]    \
+  caps a    @r   s    @t   g    m    @n   e    i   o  ret  ret
+  lsft x    c    d    v    z    k    h    ,    .    /    rsft
+  lctl lmet lalt           @tmeh            @sw_main rmet rctl
+)
+
+(deflayer default
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            (layer-switch main) rmet rctl
 )

@@ -1,5 +1,4 @@
 #!/bin/sh
-
 gsettings set org.gnome.desktop.interface gtk-theme "Juno"
 gsettings set org.gnome.desktop.interface icon-theme "Adwaita"
 gsettings set org.gnome.desktop.interface cursor-theme "Adwaita"
@@ -20,7 +19,6 @@ pgrep pipewire >/dev/null || pipewire &
 # export SSH_AUTH_SOCK
 
 # exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-# exec /usr/libexec/polkit-mate-authentication-agent-1 &
 exec /usr/libexec/polkit-mate-authentication-agent-1 &
 
 # exec /nix/store/$(ls -la /nix/store | grep 'mate-polkit' | grep '4096' | awk '{print $9}' | sed -n '$p')/libexec/polkit-mate-authentication-agent-1 &
@@ -95,13 +93,14 @@ riverctl focus-follows-cursor disabled
 
 #set resolution
 
-# wlr-randr --output eDP-1 --off --custom-mode 1600x900@60Hz --pos 0,0 --scale 1
+wlr-randr --output eDP-1 --on --custom-mode 1600x900@60Hz --pos 0,0 --scale 1
 # wlr-randr --output HDMI-A-1 --custom-mode 2128x900@60Hz --pos 0,0 --scale 1
 # wlr-randr --output HDMI-A-1 --mode 1920x1080@60Hz --pos 0,0 --scale 1
 
 
-# wlr-randr --output HDMI-A-1 --on --mode 2560x1080@60Hz --pos 1600,0 --scale 1
-wlr-randr --output HDMI-A-1 --custom-mode 2128x900@60Hz --pos 1600,0 --scale 1
+# wlr-randr --output eDP-1 --on --custom-mode 1200x900@60Hz --pos 0,0 --scale 1
+wlr-randr --output HDMI-A-1 --on --mode 2560x1080@60Hz --pos 1600,0 --scale 1
+# wlr-randr --output HDMI-A-1 --custom-mode 2128x900@60Hz --pos 1600,0 --scale 1
 
 # wlr-randr --output HDMI-A-1 --on --custom-mode 2128x900@60Hz --pos 1600,0 --scale 1
 # wlr-randr --output HDMI-A-1 --on --mode 2560x1080 --pos 0,0 --scale 1
@@ -386,7 +385,8 @@ riverctl border-width 3
 riverctl background-color 0x0b0b0b
 # riverctl border-color-focused 0xdca060
 riverctl border-color-focused 0x$COLOR
-riverctl border-color-unfocused 0x2c2c2c
+# riverctl border-color-unfocused 0x2c2c2c
+riverctl border-color-unfocused 0x2c2c2c00
 
 # killall waybar ; waybar &
 # killall swaybg ; swaybg -i ~/Pictures/wallpapers/baptiste-pKK5mGlB-iw-unsplash.jpg -m fill &
@@ -406,7 +406,11 @@ exec dunst &
 # eww open just_wallpaper
 # eww open main_wallpaper
 # eww open bar --arg gap=0px --arg dist=36px
-$HOME/.config/eww/bar.sh &
+
+# $HOME/.config/eww/bar.sh &
+pkill eww
+eww open desktop
+eww open bar
 
 # exec blueman-applet &
 exec easyeffects &

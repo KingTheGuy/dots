@@ -107,23 +107,37 @@
   )
 )
 
-(defvar clock_show "clock")
+(defvar clock_show 0)
+; (defvar lets_go 0)
+
 (defwidget clock[]
   (eventbox
-    :onhover "eww update clock_show='date'"
-    :onhoverlost "eww update clock_show='clock'"
-    :onclick "eww update clock_show='weekday'"
+    ; :onhover "eww update clock_show='date'"
+    ; :onhoverlost "eww update clock_show='clock'"
+    ; :onclick "eww update clock_show='weekday'"
+    :onhover "eww update clock_show='1'"
+    :onhoverlost "eww update clock_show='0'"
+    :onclick "eww update clock_show='2'"
     :cursor "pointer"
 
     :dragvalue "clock"
     :dragtype "text"
     :ondroppped "notify-send huh {}"
     :halign "center"
-    (overlay
-      (digital_clock)
-      (digital_date)
-      (digital_day)
-    )  
+    ; (overlay
+    ;   (digital_clock)
+    ;   (digital_date)
+    ;   (digital_day)
+    ; )  
+    (stack
+      :selected {clock_show}
+      :transition "slidedown" ; slideright", "slideleft", "slideup", "slidedown", "crossfade", "none"
+      :same-size true
+      (digital_clock :on true)
+      (digital_date :on true)
+      (digital_day :on true)
+      
+    )
   )
 )
 

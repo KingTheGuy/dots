@@ -256,6 +256,9 @@ load_plugins {
 // Default: default
 // 
 // theme "dracula"
+// theme "ao"
+// theme "vesper"
+theme "cyber-noir"
  
 // Choose the base input mode of zellij.
 // Default: normal

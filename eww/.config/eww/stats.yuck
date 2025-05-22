@@ -8,7 +8,11 @@
       ; ""
       ; ""
       ; ""
-      "df"
+      ; "df"
+      ""
+      ; "󰉉"
+      ; ""
+
       ; "${round(EWW_RAM.used_mem_perc, 0)}"
       ; "󰚌"
       (progress_bar 

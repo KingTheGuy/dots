@@ -10,6 +10,7 @@
 (include "./wg_wifi.yuck")
 (include "./power_widget.yuck")
 (include "./selector_list.yuck")
+; (include "./workspaces.yuck")
 
 (defvar orientation "v")
 (defvar widget_spacing "16")
@@ -211,31 +212,31 @@
   )
 )
 
-(defvar workspace_icon
-  `(box
-    ""
-  )`
-)
+; (defvar workspace_icon
+;   `(box
+;     ""
+;   )`
+; )
 
-(defwidget workspace []
-  (box
-    :orientation "v"
-    :space-evenly false
-    :spacing 3
-    (literal
-      :content {workspace_icon}
-    )
-    (literal
-      :content {workspace_icon}
-    )
-    (literal
-      :content {workspace_icon}
-    )
-    (literal
-      :content {workspace_icon}
-    )
-  )
-)
+; (defwidget workspace []
+;   (box
+;     :orientation "v"
+;     :space-evenly false
+;     :spacing 3
+;     (literal
+;       :content {workspace_icon}
+;     )
+;     (literal
+;       :content {workspace_icon}
+;     )
+;     (literal
+;       :content {workspace_icon}
+;     )
+;     (literal
+;       :content {workspace_icon}
+;     )
+;   )
+; )
 
 (defwidget main []
   (box 
@@ -276,6 +277,7 @@
             (brightness)
       )
     )
+    ; (workspaces)
     ; (box
     ;   :orientation "v"
     ;   :space-evenly false
@@ -433,7 +435,7 @@
 
 (defvar position  "3%")
 
-(defwindow bar [gap dist ]
+(defwindow bar [gap dist]
   :namespace "bar"
   :monitor 0
   :stacking "fg"
@@ -575,6 +577,23 @@
   )
 )
 
+(defwidget wm_control []
+  (box
+    :orientation "v"
+    :space-evenly false
+    :spacing 6
+    :halign "end"
+    (box
+      :orientation "h"
+      :space-evenly false
+      :spacing 6
+      (_button :icon "[]" :action "riverctl toggle-fullscreen")
+      (_button :icon ">" :action "riverctl focus-view next")
+      (_button :icon "x" :action "riverctl close")
+    )
+  )
+)
+
 (defwindow control [?pos ?anchor]
   :namespace "canvas"
   :monitor 0
@@ -630,6 +649,7 @@
         :orientation "v"
         :space-evenly false
         :spacing {widget_spacing}
+        (wm_control)
         (sinks_container :percent "${replace(volume_level,"Volume level: ","") + 0.0 >= 100? "100":replace(volume_level,"Volume level: ","") + 0.0}")
         (selector_list :title "EQ PRESETS" :items '["iems-zsn-x","laptop-eq-2","laptop-eq","iems-kz10","fakepods-eq"]' :action 'easyeffects -l' :list-height 24 :classes '["sinks_section","audio_sinks"]')
         (sources_container)
@@ -677,7 +697,8 @@
 
 ; (defvar screen_width
 (deflisten screen_width
-  `wlr-randr | grep -n 'Enabled: yes' -A 2 | tail -1 | cut -d '-' -f2 |  cut -d 'x' -f 1 | awk '{$1=$1};1'`
+  ; `wlr-randr | grep -n 'Enabled: yes' -A 2 | tail -1 | cut -d '-' -f2 |  cut -d 'x' -f 1 | awk '{$1=$1};1'`
+  `wlr-randr | grep -n 'Enabled: yes' -A 50 | grep 'current' | cut -d '-' -f2 | cut -d 'x' -f1 | awk '{$1=$1};1'`
   ; "1600"
   ; "720"
   ; "2560"

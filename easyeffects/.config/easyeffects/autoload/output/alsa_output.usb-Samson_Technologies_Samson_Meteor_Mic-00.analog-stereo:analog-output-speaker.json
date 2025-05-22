@@ -1,0 +1,6 @@
+{
+    "device": "alsa_output.usb-Samson_Technologies_Samson_Meteor_Mic-00.analog-stereo",
+    "device-description": "Meteor condenser microphone Analog Stereo",
+    "device-profile": "analog-output-speaker",
+    "preset-name": "iems-zsn-x"
+}

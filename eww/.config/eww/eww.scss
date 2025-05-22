@@ -118,8 +118,8 @@ $color-accent: $color-egg;
 /* $color-main: $color-yellow; */
 /* $color-accent: $color-black; */
 
-$color-main: $color-black;
-$color-accent: $color-yellow;
+/* $color-main: $color-black; */
+/* $color-accent: $color-yellow; */
 
 /* $color-main: $color-black; */
 /* $color-accent: $color-blue; */
@@ -762,4 +762,17 @@ $color-accent-select-text: darken($color-accent, 50%);
   background-color: $color-accent;
   /* background-color: gold; */
   /* color: black; */
+}
+
+.workspace {
+  color: darken($color-accent, 30%);
+}
+
+.workspace:hover {
+  color: $color-main;
+  background-color: $color-accent;
+}
+
+.workspace_focused {
+  color: $color-accent;
 }

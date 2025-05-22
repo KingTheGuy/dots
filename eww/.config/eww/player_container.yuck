@@ -340,6 +340,10 @@
           )
         )
       )
+      ; (stack
+      ;   :selected 1
+      ;   :transition "slidedown" ; slideright", "slideleft", "slideup", "slidedown", "crossfade", "none"
+      ;   :same-size true
       (box
         (for player in all_players
           (eventbox

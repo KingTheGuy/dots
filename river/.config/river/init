@@ -148,8 +148,7 @@ riverctl map normal $mod Return spawn kitty
 # riverctl map normal $mod Return spawn ghostty
 # riverctl map normal $mod Space spawn 'wofi --show drun --allow-images'
 riverctl map normal $mod Space spawn 'fuzzel --list-executables-in-path -w 70 -D no -b 111111ff -t c8c8c8ff -s 242424ff -S c8c8c8ff -B 0'
-riverctl map normal $mod+Shift Space spawn "$HOME/.config/eww/bash/open_widget.sh launcher"
-# riverctl map normal $mod Space spawn 'rofi -m -4 -show drun -show-icons'
+# riverctl map normal $mod+Shift Space spawn "$HOME/.config/eww/bash/open_widget.sh launcher"
 
 riverctl map normal $mod E spawn thunar
 # riverctl map normal $mod+Shift E spawn cosmic-files
@@ -157,7 +156,7 @@ riverctl map normal $mod E spawn thunar
 riverctl map normal $mod P spawn "~/Scripts/shot_to_clipboard.sh"
 riverctl map normal $mod+Shift P spawn  'grim "$HOME/Pictures/screenshots/$(date +%F_[%T]).png" && notify-send "SCREENSHOT saved"'
 
-riverctl map normal $mod N spawn '$HOME/.config/eww/bash/open_widget.sh control --arg pos=0% --arg anchor="center"'
+# riverctl map normal $mod N spawn '$HOME/.config/eww/bash/open_widget.sh control --arg pos=0% --arg anchor="center"'
 
 # zoom
 riverctl map normal $mod Tab zoom
@@ -176,7 +175,6 @@ riverctl map normal $mod T spawn ~/.config/eww/bash/stats.sh
 
 # riverctl map normal $mod B spawn "pkill eww && eww open main_wallpaper && eww open bar --arg gap=0px --arg dist=36px"
 riverctl map normal $mod B spawn "pkill eww && $HOME/.config/eww/bar.sh"
- # && eww open dynamic --arg gap=0px --arg dist=0px
 
 # Mod+J and Mod+K to focus the next/previous view in the layout stack
 riverctl map normal $mod H focus-view left
@@ -304,8 +302,8 @@ riverctl map normal $mod F11 enter-mode passthrough
 riverctl map passthrouh $mod F11 enter-mode normal
 
 #volume
-riverctl map -repeat normal None XF86AudioRaiseVolume spawn "~/.config/eww/scripts/volume up"
-riverctl map -repeat normal None XF86AudioLowerVolume spawn "~/.config/eww/scripts/volume down"
+riverctl map -repeat normal None XF86AudioRaiseVolume spawn "~/.config/eww/bash/volume_knob.sh up keybind"
+riverctl map -repeat normal None XF86AudioLowerVolume spawn "~/.config/eww/bash/volume_knob.sh down keybind"
 riverctl map normal None XF86AudioMute spawn "~/.config/eww/mute_audio.sh"
 
 riverctl map normal None XF86AudioPlay spawn "bash -c 'playerctl play-pause && notify-send $(playerctl status)'"

@@ -36,6 +36,7 @@ t.d = ":pipe $HOME/Scripts/md_date.sh date"
 t.j = ":pipe $HOME/Scripts/md_date.sh jour"
 
 A-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
+# A-y = [":new", ":insert-output yazi", ":buffer-close!", ":redraw"] ##This break helix
 
 [keys.insert]
 j.k =  "normal_mode"

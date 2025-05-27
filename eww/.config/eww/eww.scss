@@ -1,21 +1,14 @@
-$background: #151515;
-$foreground: #EAE7E7;
-$color0: #3C3C3C;
-$color1: #151514;
-$color2: #881812;
-$color3: #525421;
-$color4: #746C70;
-$color5: #CA7A40;
-$color6: #C2BBB9;
-$color7: #D8D5D4;
-$color8: #979594;
-$color9: #151514;
-$color10: #881812;
-$color11: #525421;
-$color12: #746C70;
-$color13: #CA7A40;
-$color14: #C2BBB9;
-$color15: #D8D5D;
+/* $wallpaper: "/home/guard/Downloads/day-426+-+Brainwash+by+mendezmendez.jpg"; */
+
+//GEN COLORS:
+/* magick Pictures/wallpapers/arun-clarke-FIU-a_gq_M8-unsplash.jpg -resize 100x100 -colors 6 -format "%c" histogram:info: */
+
+$wallpaper: "/home/olrak/Pictures/wallpapers/rui-silvestre-0Q1JpsWA4M4-unsplash.jpg";
+$main-padding: 8px;
+$main-bar-width: 40px;
+$main-radius: 10px;
+$sub-radius: 8px;
+$container-padding: 6px 0;
 
 $color-foreground: #b7b8b9;
 $color-background: #0c0d0e;
@@ -44,735 +37,114 @@ $color-black: #0c0d0e;
 $color-slate: #516572;
 $color-sage: #69796a;
 $color-leaf: #35422F;
-/* $color-leaf: #303D31; */
-
-// Special
-$background: #101010;
-$foreground: #e5e6e2;
-$cursor: #e5e6e2;
-// Colors
-$color0: #101010;
-$color1: #C3C82C;
-$color2: #9BA262;
-$color3: #242CBC;
-$color4: #5E679B;
-$color5: #9BA09E;
-$color6: #C2C5BB;
-$color7: #e5e6e2;
-$color8: #a0a19e;
-$color9: #C3C82C;
-$color10: #9BA262;
-$color11: #242CBC;
-$color12: #5E679B;
-$color13: #9BA09E;
-$color14: #C2C5BB;
-$color15: #e5e6e2;
-
 
 $color-main: $color-black;
 $color-accent: $color-egg;
+$color-urgent: $color-salmon;
 
-/* $color-main: $color-leaf; */
-/* $color-accent: $color-black; */
-/* $color-accent: $color-egg; */
-
-/* $color-main: $color-egg; */
-/* $color-accent: $color-black; */
-
-/* $color-main: $color-wash; */
-/* $color-accent: $color-black; */
-
-/* $color-main: $color-black; */
+/* $color-main: #112126; */
+/* $color-accent: #78868A; */
+/* $color-main: $color-yellow; */
 /* $color-accent: $color-wash; */
 
-/* $color-main: $color-white; */
-/* $color-accent: $color-black; */
-
-/* $color-main: #c95c49; */
-/* $color-accent: #3A001E; */
-
-/* $color-main: $color-pink; */
-/* $color-accent: $color-magenta; */
-
-/* $color-main: $color-pink; */
-/* $color-accent: $color-hot-pink; */
-
-/* $color-main: $color-marigold; */
-/* $color-accent: $color-hot-pink; */
-
-/* $color-main: $color-salmon; */
-/* $color-accent: $color-white; */
-
-/* $color-main: $color-salmon; */
-/* $color-accent: $color-black; */
-
-/* $color-main: $color-black; */
-/* $color-accent: $color-salmon; */
-
-/* $color-main: $color-periwinkle; */
-/* $color-accent: $color-black; */
-
-/* $color-main: $color-black; */
-/* $color-accent: $color-periwinkle; */
-
-/* $color-main: $color-yellow; */
-/* $color-accent: $color-black; */
-
-/* $color-main: $color-black; */
-/* $color-accent: $color-yellow; */
-
-/* $color-main: $color-black; */
-/* $color-accent: $color-blue; */
-
-/* $color-main: $color-blue; */
-/* $color-accent: $color-black; */
-
-/* $color-main: $color-sage; */
-/* $color-accent: $color-black; */
-
-/* $color-main: $color-gray; */
-/* $color-accent: $color-black; */
-
-/* $color-main: $color-black; */
-/* $color-accent: $color-gray; */
-
-
-
-* {
-  font-family: "Share Tech Mono";
-  /* border-radius: 8px; */
-  border-radius: 0.7rem;
-  background: none;
-  /* text-shadow: -1px -1px 2px yellow, 1px 1px 2px blue; */
-  /* border-width: 1px; */
-  /* border-style: solid; */
-  /* border-color: $color-accent; */
-}
-
-$dark-theme: true;
-
-$color-accent-select: $color-accent;
-
-$color-accent-lighter: transparentize($color-accent, 0.6);
-$color-accent-light: transparentize($color-accent, 0.3);
-
-$color-accent-select: lighten($color-accent, 50%);
-$color-accent-select-text: darken($color-accent, 50%);
-
-@if $dark-theme {
-  $color-accent-select: lighten($color-accent, 20%);
-  $color-accent-select-text: darken($color-accent, 50%);
-}
-
-*:focus {
-  border-color: $color-main;
-}
-
-*:hover {
-  /* border-color: $color-accent; */
-  /* filter:invert(1); */
-  /* animation:select infinite 2s; */
-}
-
-* .canvas:hover {
-  /* animation:none infinite 3s; */
-  /* animation-fill-mode:none; */
-
-}
-
-.add_padding {
-  margin: 20px;
-
-}
-
-.noti_no,
-.noti_yes {
-  /* opacity: 1; */
-  transition: 300ms;
-  /* background-color: $color-accent; */
-  color: $color-accent;
-  border-width: 4px;
-  padding: 4px;
-  border-color: $color-main;
-  border-style: solid;
-  /* padding: 10px; */
-}
-
-.noti_yes {
-  /* border-color: $color-yellow; */
-  animation: attention infinite ease-out;
-  animation-duration: 1s;
-}
-
-@keyframes attention {
-  0% {
-    /* border-width: 4px; */
-    border-color: $color-accent;
-  }
-
-  50% {
-    /* border-width: 1px; */
-    border-color: rgba(0, 0, 0, 0);
-  }
-
-  100% {
-    /* border-width: 4px; */
-    border-color: $color-accent;
-  }
-}
-
-.noti_no:hover,
-.noti_yes:hover {
-  background-color: $color-main;
-  border-color: $color-accent;
-  /* opacity: 0.5; */
-  /* background-color: $color-salmon; */
-  /* border-color: $color-black; */
-
-}
-
-.noti_text {
-  background-color: $color_main;
-  color: $color_accent;
-  /* background-color: $color-accent; */
-  /* color: $color-main; */
-  padding: 6px;
-  /* margin: 3px; */
-}
-
-
-.open {
-  background-color: darken($color-accent, 70%);
-  /* color: $color-main; */
-  transition: 200ms;
-}
-
-.open:hover {
-  background-color: $color-accent;
-  color: $color-main;
-  transition: 200ms;
-}
-
-.controls {
-  /* background-color: $color-accent; */
-  background-color: $color-accent;
-  color: $color-main;
-  padding: 5px 0px;
-  border-radius: 6px;
-}
-
-/* $color-main: $color-main; */
-/* $color-accent: $color-main; */
-/* $color-active: $color-main; */
-/* $color-select: $color-main; */
-.back_window {
-  /* background: linear-gradient(90deg, rgba(82, 82, 82, 1) 0%, rgba(0, 0, 0, 1) 90%); */
-  /* background: linear-gradient(90deg, $color-main 0%, $color-accent 90%); */
-  border-radius: 0px;
-  /* padding: 20px 0px 20px 20px; */
-  /* margin: 100px; */
-  /* background: linear-gradient(90deg, $color-main 0%, $color-black 90%); */
-  /* background: linear-gradient(90deg, $color-main 0%, $color-black 99%); */
-  /* background: linear-gradient(90deg, $color-main 40%, $color-black 99%); */
-  background: linear-gradient(90deg, $color-main 30%, transparentize($color-main, 0.8) 90%);
-  /* background-color: $color-main; */
-}
-
-.main_bar {
-  border-radius: 0px;
-  /* background: linear-gradient(90deg, $color-main 0%, $color-black 90%); */
-  background-color: transparent;
-}
-
-.bar_container {
-  background: transparent;
-  padding: 10px 6px;
-
-}
-
-.back_window>* {
-  border-radius: 8px;
-}
-
-.back_window_wallpaper {
-  box-shadow: 0px 0px 4px 4px transparentize($color-black, 0.6);
-}
-
-.main,
-.sub {
-  /* padding: 5px; */
-  /* margin: 5px; */
-  /* background-color: transparentize($color-main, 0.2); */
-  background-color: transparent;
-  color: $color-accent;
-  /* background-blend-mode:; */
-}
-
-/* .control, */
-/* .audio_control */
+/* *:hover { */
+/* background-color: red; */
+/* } */
 .grid {
   /* background-color: transparent; */
-  background-image: radial-gradient(transparent 1px, transparentize($color-main, 0.2) 1px);
-  background-size: 4px 4px;
+  background-image: radial-gradient(transparent 1px, transparentize($color-accent, 0.2) 1px);
+  /* background-image: radial-gradient($color-main 1px, transparent 1px); */
+  background-size: 3px 3px;
+  padding: $container-padding;
+  /* border-radius: $sub-radius; */
 }
 
-.canvas {
-  /* margin: 10px; */
+.grid_bright {
+  /* background-color: transparent; */
+  background-image: radial-gradient($color-accent 1px, transparent 1px);
+  background-size: 3px 3px;
+  padding: $container-padding;
+  /* border-radius: $sub-radius; */
+}
+
+.backdrop {
+  /* background-color: $color-main; */
+  background: linear-gradient(90deg, $color-main 0%, darken($color-main, 10%) 100%);
+  /* background: linear-gradient(90deg, $color-accent 0%, $color-main 80%); */
+  /* background-size: 100%; */
+}
+
+.wallpaper {
+  /* background: center no-repeat url("file:///home/guard/Downloads/4_FLORA.jpg"); */
+  background: center no-repeat url("file://#{$wallpaper}");
+  background-size: cover;
+  /* background-size: 100%; */
+  /* background-position: -$main-padding inherit; */
+  background-position: center;
+  /* background-position: center -800px; */
+  border-radius: $main-radius;
+  margin: $main-padding $main-padding $main-padding $main-bar-width;
+  /* color: yellow; */
+}
+
+.bar {
+  background: none;
   color: $color-accent;
-  padding: 14px;
-  /* background-color: transparentize($color-main, 0.9); */
-  background-color: transparentize($color-accent, 0.9);
-  /* background-color: red; */
-  /* background-image: radial-gradient(transparent 1px, transparentize($color-main, 0.2) 1px); */
-  /* background-size: 4px 4px; */
+  margin: $main-padding;
+}
+
+progress {
+  background-color: $color-yellow;
+  color: $color-main;
+}
+
+progressbar {
+  /* background-color:yellow; */
+
+  &>trough {
+    min-width: 0.1px;
+  }
+}
+
+.eventbox {
+  border-radius: $sub-radius;
+  background-color: darken($color-accent, 68%);
+  color: $color-accent;
+  padding: $container-padding;
+
+  &:hover {
+    /* background-color: darken($color-accent,60%); */
+    animation-name: hover;
+    animation-duration: 200ms;
+    animation-fill-mode: forwards;
+  }
+}
+
+.container {
+  padding: $container-padding;
+}
+
+
+@keyframes hover {
+  0% {}
+
+  100% {
+    background-color: darken($color-accent, 60%);
+  }
 }
 
 .base {
-  /* margin: 10px; */
-  padding: 10px;
-  background-color: transparentize($color-main, 0.1);
-
-  /* background-color: transparentize($color13, 0.1); */
+  background-color: darken($color-accent, 50%);
+  border-radius: $sub-radius /2;
 }
 
-.base a {
-  color: $color_accent;
-}
-
-.base:hover {
-  background-color: lighten($color-main, 2%);
-}
-
-.base_alt {
-  padding: 10px;
-  /* background-color: transparentize($color-accent, 0.2); */
-  background-color: transparentize($color-accent, 0.2);
-  color: $color-main;
-}
-
-.player_controls {
-  background-color: transparentize($color-main, 0.6);
-  /* padding: 6px; */
-
-  :last-child {
-    padding: 6px;
-  }
-}
-
-.mini_player {
-  /* background-color: $color-main; */
-  /* background-blend-mode: color-dodge; */
-  /* border-width: 10px; */
-}
-
-.mini_player_progress {
-  background-color: transparentize($color-white, 0.9);
-}
-
-/* .mini_player_progress:hover { */
-/* animation: select infinite 2s; */
-/* } */
-
-.mini_player_progress>* {
-  color: transparentize($color-black, 0.4);
-  /* color: transparentize($color-accent, 0.4); */
-  /* padding: 20px; */
-  /* margin: 20px; */
-
-}
-
-.sinks_section {
-  /* background-color: transparentize($color-main, 0.5); */
-  /* background-color: transparentize($color-accent, 0.4); */
-  background-color: transparentize($color-accent, 0.95);
-  /* background-color: $color-accent; */
-  /* background-color: red; */
-}
-
-.player_container_bg_opacity {
-  /* opacity: 0.6; */
-  /* background-blend-mode: luminosity; */
-  /* background-blend-mode: soft-light; */
-  /* background: red; */
-}
-
-.launcher_item_style {
-  border-width: 8px;
-  /* background-color: $color-egg; */
-  background-color: transparentize($color-accent, 0.8);
-  /* background-color: transparentize($color-main, 0.8); */
-  color: $color-main;
-  /* color: lighten($color-main, 20%); */
-
-}
-
-.launcher_item_style_active {
-  border-width: 8px;
-  /* background-color: $color-main; */
-  /* color: $color-accent; */
+.value {
   background-color: $color-accent;
+  border-radius: $sub-radius/2;
   color: $color-main;
 }
 
-.launcher_item_style:hover,
-.launcher_item_style_active:hover {
-  animation: select infinite 2s;
-  /* background-color: $color-main; */
-  /* color: $color-accent; */
-}
-
-
-.audio_sinks,
-.audio_sinks_active,
-.audio_sources,
-.audio_sources_active {
-  border-width: 8px;
-  /* background-color: $color-egg; */
-  /* background-color: transparentize($color-accent, 0.8); */
-  background-color: $color-accent-lighter;
-  /* color: lighten($color-main, 20%); */
-  color: $color-main;
-  /* color: $color-main; */
-  /* background-color: lighten($color-main, 20%); */
-}
-
-.inactive {
-  border-width: 8px;
-  background-color: $color-accent-lighter;
-  color: $color-main;
-}
-
-
-.inactive:hover,
-.active:hover {
-  animation: select infinite 2s;
-}
-
-
-.active {
-  background-color: $color-accent-light;
-  color: $color-main;
-
-}
-
-
-.audio_sinks_active,
-.audio_sources_active {
-  /* background-color: $color-accent; */
-  /* background-color: transparentize($color-accent, 0.4); */
-  background-color: $color-accent-light;
-  /* color: lighten($color-main, 20%); */
-  color: $color-main;
-  /* animation: select infinite 2s; */
-}
-
-.audio_sinks:hover,
-.audio_sinks_active:hover,
-.audio_sources:hover,
-.audio_sources_active:hover {
-  /* background-color: $color-accent; */
-  animation: select infinite 2s;
-  /* background-color: lighten($color-main, 30%); */
-  /* color: $color-main; */
-  /* color: $color-accent; */
-}
-
-.progress_bar {
-  /* background-color: darken($color-main, 10%); */
-  /* background-color: transparentize($color-accent, 0.8); */
-  background-color: transparentize($color-accent, 0.6);
-  /* background-color: red; */
-  /* color: transparentize($color-main, 0.1); */
-  /* color: invert($color-main); */
-  /* color: black; */
-  color: $color-main;
-
-}
-
-.progress_bar_progress>* {
-  border-radius: inherit;
-
-  background-color: transparentize($color-accent, 0.3);
-  /* background-color: lighten($color-main, 5%) */
-  /* mix-blend-mode: multiply; */
-  /* background-color: $color-accent; */
-
-  /* padding: 10px; */
-  /* width: 300px; */
-  /* height: auto; */
-  /* mask: linear-gradient(rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 100%); */
-}
-
-@keyframes select {
-  0% {
-    background-color: $color-accent-light;
-    /* color: $color-main; */
-  }
-
-  50% {
-    background-color: $color-accent-lighter;
-    /* color: $color-main; */
-
-  }
-
-  100% {
-    background-color: $color-accent-light;
-    /* color: $color-main; */
-  }
-
-}
-
-@keyframes select_alt {
-  0% {
-    /* background-color: $color-main; */
-    background-color: transparentize($color-main, 0.4);
-    color: $color-main;
-  }
-
-  50% {
-    /* background-color: $color-accent; */
-    background-color: transparentize($color-main, 0.2);
-    color: $color-main;
-
-  }
-
-  100% {
-    /* background-color: $color-main; */
-    background-color: transparentize($color-main, 0.4);
-    color: $color-main;
-  }
-
-}
-
-.action:hover {
-  animation: select infinite 1s;
-  /* background-color: $color-accent; */
-  /* color: $color-main; */
-  /* border-radius: 4px; */
-}
-
-.timer {
-  color: $color-wash;
-}
-
-.timer_running {
-  color: $color-yellow;
-  // background-color: $color-yellow;
-}
-
-.volume:hover {
-  animation: select infinite 1s;
-
-  /* background: $color-accent-select; */
-  /* color: $color-main; */
-}
-
-
-
-/* PLAYER: */
-.player_container>* {
-  opacity: 1;
-}
-
-.button {
-  /* background-color: transparentize($color-accent, 0.5); */
-  /* background: none; */
-  border: none;
-  padding: 20px;
-}
-
-/* .base button>* { */
-/* background-color: transparentize($color-accent, 0.5); */
-/* } */
-
-.button:hover {
-  /* background: rgba(256, 256, 256, 0.8); */
-  /* background-color: transparentize($color-accent, 0.5); */
-  /* color: black; */
-  /* color: $color-main; */
-}
-
-.button_container {
-  background-color: $color_main;
-}
-
-.button_in {
-  /* padding: 8px 20px 8px 20px; */
-  padding: 12px;
-}
-
-.button_container:hover {
-  animation: select infinite 2s;
-}
-
-.player_time {
-  background-color: white;
-  opacity: 0.3;
-}
-
-.player_background {
-  animation: load;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes load {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 0.6;
-  }
-}
-
-.close_but {
-  /* color: yellow; */
-  opacity: 0;
-}
-
-.text_msg:hover {
-  /* .base { */
-  animation: select infinite 2s;
-
-  /* opacity: 1; */
-  .base:first-child {
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-
-  .close_but {
-    /* color: yellow; */
-    color: $color-accent;
-    opacity: 1;
-  }
-
-  /* } */
-
-  /* :last-child { */
-  /* background-color: lighten($color-main, 4%); */
-  /* background-color: darken($color-main, 10%); */
-  /* color: $color-black; */
-
-  /* } */
-
-  /* color: darken($color-main, 20%); */
-  /* *:only-child { */
-  /* background-color: mix($color-accent, $color-main, 20%); */
-  /* background-color: darken($color-main, 20%); */
-  /* background-color: lighten($color-main, 10%); */
-  /* } */
-
-  /* background-color: mix($color-main, black, 60%); */
-  /* background-color: scale($color-main, black, 80%); */
-}
-
-.fade_in:nth-child(1) {
-  /* .text_msg:first-child { */
-  opacity: 0;
-  animation: faded 1s normal forwards ease-in-out;
-  /* } */
-}
-
-@keyframes faded {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-/* scale { */
-/* all: unset; */
-/* color: $color-main; */
-/* padding: 0; */
-
-/* trough { */
-/* slider {} */
-
-/* background-color: $color-accent; */
-
-/* highlight { */
-/* background-color: $color-accent; */
-/* min-width: 30px; */
-/* } */
-/* } */
-
-/* } */
-
-/* @keyframes pan { */
-/* 0% { */
-/* background-position: 0 0; */
-/* } */
-
-/* 50% { */
-/* background-position: 10px 0; */
-/* } */
-
-/* 100% { */
-/* background-size: 100%; */
-/* background-position: 0 0; */
-/* } */
-/* } */
-
-.button_passive,
-.button_active {
-  /* border-width: 8px; */
-  padding: 20px;
-  background-color: $color-accent-lighter;
-  color: $color-main;
-}
-
-.button_active {
-  background-color: $color-accent-light;
-  color: $color-main;
-}
-
-.button_passive:hover,
-.button_active:hover {
-  animation: select infinite 2s;
-}
-
-.player_tab {
-  background-color: lighten($color-main, 10%);
-  color: $color-accent;
-  border-radius: 6;
-  /* padding: 20px; */
-}
-
-.player_tab:hover {
-  background-color: $color-accent;
-  color: $color-main;
-}
-
-.in_focus {
-  background-color: $color-accent;
-  color: $color-main;
-  /* border-radius: 0px 0px 6px 6px; */
-}
-
-.launcher-scroll {
-  padding: 6px;
-  background-color: transparentize($color-accent, 0.4);
-  color: $color-main;
-}
-
-.launcher-scroll:first-child {
-  background-color: $color-accent;
-  /* background-color: gold; */
-  /* color: black; */
-}
-
-.workspace {
-  color: darken($color-accent, 30%);
-}
-
-.workspace:hover {
-  color: $color-main;
-  background-color: $color-accent;
-}
-
-.workspace_focused {
-  color: $color-accent;
+.urgent {
+  background-color: $color-urgent;
+  color: darken($color-urgent, 32%);
 }

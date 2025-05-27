@@ -304,7 +304,7 @@ riverctl map passthrouh $mod F11 enter-mode normal
 #volume
 riverctl map -repeat normal None XF86AudioRaiseVolume spawn "~/.config/eww/bash/volume_knob.sh up keybind"
 riverctl map -repeat normal None XF86AudioLowerVolume spawn "~/.config/eww/bash/volume_knob.sh down keybind"
-riverctl map normal None XF86AudioMute spawn "~/.config/eww/mute_audio.sh"
+riverctl map normal None XF86AudioMute spawn "~/.config/eww/bash/volume_knob.sh mute keybind"
 
 riverctl map normal None XF86AudioPlay spawn "bash -c 'playerctl play-pause && notify-send $(playerctl status)'"
 

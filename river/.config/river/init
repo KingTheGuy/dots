@@ -406,9 +406,10 @@ exec dunst &
 # eww open bar --arg gap=0px --arg dist=36px
 
 # $HOME/.config/eww/bar.sh &
-pkill eww
-eww open desktop
-eww open bar
+# pkill eww
+# eww open desktop
+# eww open bar
+~/.config/eww/bar.sh
 
 # exec blueman-applet &
 exec easyeffects &

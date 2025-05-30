@@ -38,7 +38,7 @@ $color-slate: #516572;
 $color-sage: #69796a;
 $color-leaf: #35422F;
 
-$color-main: $color-black;
+$color-main: $color-slate;
 $color-accent: $color-egg;
 $color-urgent: $color-salmon;
 
@@ -50,12 +50,19 @@ $color-urgent: $color-salmon;
 /* *:hover { */
 /* background-color: red; */
 /* } */
+.main {
+  background-color: $color-main;
+}
+
 .grid {
   /* background-color: transparent; */
-  background-image: radial-gradient(transparent 1px, transparentize($color-accent, 0.2) 1px);
+  /* background-image: radial-gradient(transparent 1px, transparentize($color-main, 0.4) 1px); */
+  background-image: radial-gradient(transparent 1px, darken($color-accent, 68%) 1px);
   /* background-image: radial-gradient($color-main 1px, transparent 1px); */
-  background-size: 3px 3px;
-  padding: $container-padding;
+  background-size: 4px 4px;
+  /* padding: $container-padding; */
+  /* padding: 20px; */
+  /* border-radius: $sub-radius; */
   /* border-radius: $sub-radius; */
 }
 
@@ -106,7 +113,7 @@ progressbar {
   }
 }
 
-.eventbox {
+.button {
   border-radius: $sub-radius;
   background-color: darken($color-accent, 68%);
   color: $color-accent;

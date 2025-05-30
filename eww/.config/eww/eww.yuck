@@ -13,6 +13,40 @@
 (defvar spacing 12)
 (defvar spacing_sub 8)
 
+(defvar show_apptray true)
+;;APPTRAY
+(defwidget apptray []
+  (box
+    :class "button"
+    (box
+      :orientation "v"
+      :space-evenly false
+      (revealer
+        :reveal {show_apptray}
+        :transition "slidedown"
+        :duration "300ms"
+        (systray
+          :orientation "v"
+          :icon-size 16
+          :spacing {spacing_sub}
+          :class "container"
+        )
+      )
+      (eventbox
+        :onclick './bash/toggle.sh show_apptray'
+        :class "button"
+        :tooltip "apptray"
+        ; {show_apptray == true? "󱊔":"󱊖"}
+        (label
+          :xalign 0.4
+          :text {show_apptray == true? "󱊔":"󱊖"}
+        )
+        
+      )
+    )
+  )
+)
+
 
 ;;BRIGHNESS
 (defpoll brightness
@@ -30,7 +64,7 @@
     :onhover `eww update reveal_brightness_knob="true"`
     :onhoverlost `eww update reveal_brightness_knob="false"`
     :cursor "pointer"
-    :class "eventbox"
+    :class "button"
     (box
       :orientation "v"
       :space-evenly false
@@ -58,7 +92,9 @@
 ;;CONPONENTS
 (defwidget progressbar [max_height ?width value ?in_value ?urgent]
   (box
+    :orientation "v"
     :class "progressbar"
+    :space-evenly false
     (overlay
       (box
         :halign "center"
@@ -77,8 +113,18 @@
         ; :class "value ${round(value*100,0) > 75? "urgent":""}"
         :height {round((value/100)*max_height,0) > max_height?max_height:round((value/100)*max_height,0)}
         :class "value ${round((value/100)*100,0) > 75? "urgent":""}"
-        ; :style "background-color:mix(red,white,${value > 100? 100:value}%);"
+        ; :style "border-radius:0;"
       )
+      ; (box ;; grid overlay
+      ;   :halign "center"
+      ;   :valign "end"
+      ;   :width {width == ''? spacing: width}
+      ;   :height max_height
+      ;   ; :height {round((value/100)*max_height,0) > max_height? round((value/100)*max_height,0):max_height}
+      ;   :class "grid"
+      ;   :style "background-size: ${max_height/5}px ${max_height/5}px"
+      ; )
+
       (label
         :valign "end"
         :halign "center"
@@ -88,8 +134,8 @@
         ; :text {round(value*100,0) >= 99? 99:round(value*100,0)}
         ; 
         :class "value ${value > 75? "urgent":""}"
-        :style "font-size:${value > 99?6:9}px; opacity:${round((value/100)*100,0) >= 75? round(value,0):0}; background:none;"
-        ; :text {value >= 99? 99:value}
+        ; :style "font-size:${value > 99?6:9}px; opacity:${round((value/100)*100,0) >= 75? round(value,0):0}; background:none;"
+        :style "font-size:${value > 99?6:9}px; background:none;"
         :text {value}
       )
     )
@@ -102,7 +148,7 @@
     ; :halign "center"
     :valign "center"
     :cursor "pointer"
-    :class "eventbox"
+    :class "button"
     (box
       :class "container"
       "⏼"
@@ -118,10 +164,11 @@
     :space-evenly true
     ; :valign "end"
     :halign "center"
-    ; :class "eventbox container"
+    ; :class "button container"
     :spacing {spacing_sub/2}
     :tooltip tooltip
-    (progressbar :max_height 22 :width 14 :value {value} :in_value true)
+    ; (progressbar :max_height 22 :width 14 :value {value} :in_value true)
+    (progressbar :max_height 22 :value {value} :in_value true)
     ; (overlay
     ;   (circular-progress
     ;     :thickness {cir_thic}
@@ -145,7 +192,7 @@
     :spacing {show_stats == "false"? 0:spacing_sub}
     ; :spacing {spacing_sub}
     :tooltip "stats"
-    :class "eventbox container"
+    :class "button container"
     ; :style "background-color:red;"
     (revealer
       :reveal {show_stats}
@@ -163,7 +210,7 @@
       )
     )
     (eventbox
-      :class "eventbox"
+      :class "button"
       :onclick `bash/toggle.sh show_stats`
       :cursor "pointer"
       ; {show_stats == "true"? "":""}
@@ -187,14 +234,14 @@
 (defvar reveal_knob
   "false"
 )
-(defwidget volume_knob []
+(defwidget volume_knob [?override]
   (eventbox
     :onscroll `bash/volume_knob.sh {}`
     :onclick  `wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle`
     :onhover `eww update reveal_knob="true"`
     :onhoverlost `eww update reveal_knob="false"`
     :cursor "pointer"
-    :class "eventbox"
+    :class "button"
     (box
       :orientation "v"
       :space-evenly false
@@ -202,7 +249,7 @@
       :class "container"
       {volume_muted == ""? "󰕾":"󰖁"}
       (revealer
-        :reveal {reveal_knob}
+        :reveal {reveal_knob == true || override == true? true:false}
         :transition "slidedown"
         :duration "300ms"
         (box
@@ -283,7 +330,7 @@
     :onhover 'eww update clock_show="1"'
     :onhoverlost 'eww update clock_show="0"'
     :cursor "pointer"
-    :class "eventbox"
+    :class "button"
     (box
       :orientation "v"
       :space-evenly false
@@ -334,6 +381,26 @@
   )
 )
 
+
+;;POPUP
+(defwindow popup [?override]
+  :monitor 0
+  :geometry (geometry :x "4px"
+                     :y "0px"
+                     :width "32px"
+                     ; :width "20%"
+                     :height "10px"
+                     :anchor "center left")
+  ; :reserve (struts :distance "33px" :side "left")
+  :stacking "overlay"
+  :focusable "none"
+  :namespace "eww_popup"
+  (box
+    :class "main"
+    (volume_knob :override true)
+  )
+)
+
 ;;BAR
 (defwindow bar 
  :monitor 0
@@ -376,6 +443,7 @@
       :spacing {spacing}
       :space-evenly false
       (stats)
+      (apptray)
       (power_menu)
     )
   )

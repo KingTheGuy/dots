@@ -374,7 +374,10 @@ riverctl rule-add -app-id "firefox" ssd
 riverctl rule-add -app-id "vivaldi" ssd
 riverctl rule-add -app-id "thunar" ssd
 riverctl rule-add -app-id "pavucontrol" ssd
+riverctl rule-add -app-id "eww_popup" csd
+riverctl csd-filter-add "eww_popup"
 riverctl rule-add -app-id "*" ssd # is this bad?
+# riverctl rule-add -app-id "easyeffects" tags 9
 
 # Set opacity and fade effect
 # riverctl opacity 1.0 0.75 0.0 0.1 20g
@@ -423,3 +426,4 @@ exec easyeffects &
 
 #this sets the primary display
 # xrandr --output XWAYLAND1 --primary
+

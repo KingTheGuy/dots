@@ -1,7 +1,6 @@
 #!/bin/bash
 
 if [[ "$2" == "keybind" ]]; then
-	eww update reveal_knob="true"
 	exec ~/.config/eww/bash/delay.sh "reveal_knob" &
 fi
 

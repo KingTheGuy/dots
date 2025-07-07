@@ -48,7 +48,6 @@ end
 #     echo $tmux_status
 # end
 
-
 ## taking notes
 set docs "$HOME/Documents"
 
@@ -82,7 +81,7 @@ bind --mode insert \cz zellij
 
 bind --mode insert \cp xplr
 
-bind --mode insert \cr "source ~/.config/fish/config.fish && echo 'sourced config'"
+# bind --mode insert \cr "source ~/.config/fish/config.fish && echo 'sourced config'"
 
 # ZVM
 set -gx ZVM_INSTALL "$HOME/.zvm/self"

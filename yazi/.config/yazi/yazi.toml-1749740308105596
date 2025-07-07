@@ -2,6 +2,6 @@
 prepend_previewers = [
   { name = "*.md", run = "glow" },
 ]
-[mgr]
+[manager]
 show_hidden = true
 ratio = [1,2,4]

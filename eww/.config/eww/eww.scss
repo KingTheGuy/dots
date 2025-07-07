@@ -1,14 +1,12 @@
-/* $wallpaper: "/home/guard/Downloads/day-426+-+Brainwash+by+mendezmendez.jpg"; */
-
 //GEN COLORS:
 /* magick Pictures/wallpapers/arun-clarke-FIU-a_gq_M8-unsplash.jpg -resize 100x100 -colors 6 -format "%c" histogram:info: */
 
-$wallpaper: "/home/olrak/Pictures/wallpapers/rui-silvestre-0Q1JpsWA4M4-unsplash.jpg";
+/* $wallpaper: "/home/olrak/Pictures/wallpapers/rui-silvestre-0Q1JpsWA4M4-unsplash.jpg"; */
 $main-padding: 8px;
 $main-bar-width: 40px;
 $main-radius: 10px;
 $sub-radius: 8px;
-$container-padding: 6px 0;
+$container-padding: 3px;
 
 $color-foreground: #b7b8b9;
 $color-background: #0c0d0e;
@@ -37,10 +35,30 @@ $color-black: #0c0d0e;
 $color-slate: #516572;
 $color-sage: #69796a;
 $color-leaf: #35422F;
+$color-aquamarine: #7FFFD4;
+$color-nyanza: #E9FFDB;
+$color-nyanza2: #EBF9DD;
+$color-light-aqua: #8CFFDB;
 
-$color-main: $color-slate;
-$color-accent: $color-egg;
-$color-urgent: $color-salmon;
+$color-main: $color-black;
+$color-accent: $color-nyanza2;
+$color-urgent: $color-yellow;
+
+/* $color-main: $color-nyanza2; */
+/* $color-accent: $color-black; */
+/* $color-urgent: $color-black; */
+
+$scheme-dark: false;
+
+$color-highlight: transparentize($color-accent, 0.95);
+$color-select: transparentize($color-accent, 0.85);
+$color-select-alt: transparentize($color-accent, 0.9);
+
+@if $scheme-dark {
+  $color-highlight: darken($color-accent, 68%);
+  $color-select: lighten($color-highlight, 6%);
+  $color-select-alt: lighten($color-select, 12%);
+}
 
 /* $color-main: #112126; */
 /* $color-accent: #78868A; */
@@ -50,20 +68,46 @@ $color-urgent: $color-salmon;
 /* *:hover { */
 /* background-color: red; */
 /* } */
+
+* {
+  background: none;
+}
+
 .main {
   background-color: $color-main;
+  border-radius: $sub-radius;
 }
 
 .grid {
   /* background-color: transparent; */
   /* background-image: radial-gradient(transparent 1px, transparentize($color-main, 0.4) 1px); */
-  background-image: radial-gradient(transparent 1px, darken($color-accent, 68%) 1px);
+  background-image: radial-gradient(transparentize($color-accent, 0.7) 1px, transparent 1px);
   /* background-image: radial-gradient($color-main 1px, transparent 1px); */
   background-size: 4px 4px;
+  border-radius: $main-radius;
   /* padding: $container-padding; */
   /* padding: 20px; */
   /* border-radius: $sub-radius; */
   /* border-radius: $sub-radius; */
+}
+
+.grid_fade {
+  animation: grid_fading;
+  animation-duration: 200ms;
+  animation-fill-mode: forwards;
+  background-size: 4px 4px;
+  border-radius: $sub-radius/2;
+}
+
+@keyframes grid_fading {
+  0% {
+    background-color: $color-accent;
+  }
+
+  100% {
+    background-image: radial-gradient(transparentize($color-accent, 0.7) 1px, transparent 1px);
+  }
+
 }
 
 .grid_bright {
@@ -76,28 +120,31 @@ $color-urgent: $color-salmon;
 
 .backdrop {
   /* background-color: $color-main; */
-  background: linear-gradient(90deg, $color-main 0%, darken($color-main, 10%) 100%);
+  background: linear-gradient(90deg, $color-main 0%, $color-black 80%);
+  /* background: linear-gradient(90deg, $color-main 0%, darken($color-main, 70%) 60%, $color-black 100%); */
   /* background: linear-gradient(90deg, $color-accent 0%, $color-main 80%); */
   /* background-size: 100%; */
 }
 
 .wallpaper {
-  /* background: center no-repeat url("file:///home/guard/Downloads/4_FLORA.jpg"); */
-  background: center no-repeat url("file://#{$wallpaper}");
-  background-size: cover;
+  /* background: center no-repeat url("file://$wallpaper"); */
+  /* background: center no-repeat; */
+  /* background-size: cover; */
   /* background-size: 100%; */
   /* background-position: -$main-padding inherit; */
-  background-position: center;
+  /* background-position: center; */
   /* background-position: center -800px; */
   border-radius: $main-radius;
   margin: $main-padding $main-padding $main-padding $main-bar-width;
-  /* color: yellow; */
+  /* margin: $main-padding; */
+  /* box-shadow: 0px 0px 4px 4px transparentize($color-black, 0.6); */
+  box-shadow: 0px 0px 3px 3px $color-black;
 }
 
 .bar {
   background: none;
   color: $color-accent;
-  margin: $main-padding;
+  margin: $main-padding 0;
 }
 
 progress {
@@ -114,10 +161,17 @@ progressbar {
 }
 
 .button {
-  border-radius: $sub-radius;
-  background-color: darken($color-accent, 68%);
+  background-color: $color-highlight;
   color: $color-accent;
-  padding: $container-padding;
+  /* padding: $container-padding; */
+
+}
+
+.container {
+  border-radius: $sub-radius;
+  background-color: $color-highlight;
+  border-radius: $sub-radius;
+  /* padding: $container-padding; */
 
   &:hover {
     /* background-color: darken($color-accent,60%); */
@@ -127,21 +181,36 @@ progressbar {
   }
 }
 
-.container {
-  padding: $container-padding;
-}
-
 
 @keyframes hover {
   0% {}
 
   100% {
-    background-color: darken($color-accent, 60%);
+    background-color: $color-select;
+  }
+}
+
+.notice {
+  animation-name: notice_ani;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  border-style: solid;
+  border-width: 2px;
+  border-color: $color-main;
+  /* animation-fill-mode: forwards; */
+}
+
+@keyframes notice_ani {
+  0% {}
+
+  100% {
+    border-color: $color-urgent;
   }
 }
 
 .base {
-  background-color: darken($color-accent, 50%);
+  background-color: $color-select-alt;
   border-radius: $sub-radius /2;
 }
 
@@ -154,4 +223,13 @@ progressbar {
 .urgent {
   background-color: $color-urgent;
   color: darken($color-urgent, 32%);
+}
+
+.input {
+  border-color: $color-accent;
+  background-color: $color-main;
+}
+
+.launcher_item {
+  padding: $main-padding;
 }

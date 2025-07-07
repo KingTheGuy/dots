@@ -1,4 +1,5 @@
 #!/bin/sh
+
 gsettings set org.gnome.desktop.interface gtk-theme "Juno"
 gsettings set org.gnome.desktop.interface icon-theme "Adwaita"
 gsettings set org.gnome.desktop.interface cursor-theme "Adwaita"
@@ -34,8 +35,9 @@ yellow="dca060"
 wash="44e3c6"
 periwinkle="CCCCFF"
 egg="c8c8c8"
+nyanza="EBF9DD"
 
-COLOR=$yellow
+COLOR=$nyanza
 ALT_COLOR=$wash
 
 ##########
@@ -59,7 +61,8 @@ riverctl map normal $mod M send-layout-cmd rivercarro "main-location-cycle left,
 pkill rivercarro
 riverctl output-layout rivercarro
 
-pgrep rivercarro >/dev/null || exec rivercarro -main-ratio 0.58 -inner-gaps 6 -outer-gaps 16 -no-smart-gaps -per-tag -width-ratio 0.985 -width-ratio-centered &
+# pgrep rivercarro >/dev/null || exec rivercarro -main-ratio 0.58 -inner-gaps 6 -outer-gaps 14 -no-smart-gaps -per-tag -width-ratio 0.985 -width-ratio-centered &
+pgrep rivercarro >/dev/null || exec rivercarro -main-ratio 0.58 -inner-gaps 6 -outer-gaps 14 -no-smart-gaps -per-tag -width-ratio 0.980 -width-ratio-centered &
 
 riverctl default-attach-mode bottom
 
@@ -174,7 +177,9 @@ riverctl map normal $mod+Shift Q exit
 riverctl map normal $mod T spawn ~/.config/eww/bash/stats.sh
 
 # riverctl map normal $mod B spawn "pkill eww && eww open main_wallpaper && eww open bar --arg gap=0px --arg dist=36px"
-riverctl map normal $mod B spawn "pkill eww && $HOME/.config/eww/bar.sh"
+riverctl map normal $mod B spawn "$HOME/.config/eww/bar.sh"
+
+riverctl map normal $mod N spawn "$HOME/.config/eww/launcher.sh"
 
 # Mod+J and Mod+K to focus the next/previous view in the layout stack
 riverctl map normal $mod H focus-view left
@@ -302,11 +307,11 @@ riverctl map normal $mod F11 enter-mode passthrough
 riverctl map passthrouh $mod F11 enter-mode normal
 
 #volume
-riverctl map -repeat normal None XF86AudioRaiseVolume spawn "~/.config/eww/bash/volume_knob.sh up keybind"
-riverctl map -repeat normal None XF86AudioLowerVolume spawn "~/.config/eww/bash/volume_knob.sh down keybind"
-riverctl map normal None XF86AudioMute spawn "~/.config/eww/bash/volume_knob.sh mute keybind"
+riverctl map -repeat normal None XF86AudioRaiseVolume spawn "~/.config/eww/bash/volume_knob.sh up popup"
+riverctl map -repeat normal None XF86AudioLowerVolume spawn "~/.config/eww/bash/volume_knob.sh down popup"
+riverctl map normal None XF86AudioMute spawn "~/.config/eww/bash/volume_knob.sh mute popup"
 
-riverctl map normal None XF86AudioPlay spawn "bash -c 'playerctl play-pause && notify-send $(playerctl status)'"
+riverctl map normal None XF86AudioPlay spawn "bash -c 'playerctl play-pause && ~/.config/eww/bash/delay.sh reveal_player &'"
 
 # riverctl map -repeat normal None XF86MonBrightnessUp   spawn light -A 5
 # riverctl map -repeat normal None XF86MonBrightnessDown spawn light -U 5

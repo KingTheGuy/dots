@@ -10,6 +10,9 @@ if [[ "$1" == "up" ]]; then
 elif [[ "$1" == "down" ]]; then
 	light -U 1%
 fi
+brightness=$(light -G)
+echo $brightness >> /tmp/eww_brightness
+
 
 # level="$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d ' ' -f2)"
 # eww update volume=$level

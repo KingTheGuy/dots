@@ -15,7 +15,12 @@ if [ "$INSTANCE_COUNT" -gt 1 ]; then
     # done
     pkill -o -f "$0"
   else
-		eww open popup --arg override="true"
+    if [[ $1 == "reveal_knob" ]];then
+  		eww open popup --arg override="(volume_knob :override true)"
+    fi
+    if [[ $1 == "reveal_player" ]];then
+  		eww open popup --arg override="(audio_vis :height 20 :width 3 :size wave_form :vert true)"
+    fi
   	# eww update reveal_knob="true"
   	# active_window=$(eww active-windows)
 fi
@@ -28,7 +33,7 @@ fi
 # eww update $1="true"
 # eww open popup ##this should maybe not be here
 
-sleep 0.5
+sleep 1
 
 # eww update $1="false"
 sleep 0.1

@@ -23,7 +23,8 @@ auto-format = true
 formatter = { command = 'prettier', args = ["--parser", "markdown"] }
 # language-servers = [ "iwe" ]
 # language-servers = [ "marksman" , "typos"]
-language-servers = [ "marksman" , "harper-ls"]
+# language-servers = [ "marksman" , "harper-ls"]
+language-servers = ["markdown-oxide"]
 comment-tokens = ["-", "+", "*", "- [ ]", ">"]
 
 [language-server.mdpls]

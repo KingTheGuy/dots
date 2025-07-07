@@ -7,41 +7,219 @@
 ; - [ ]
 ; - [ ] have DATE update on hover
 ; - [ ] have DAY update on click
+; 󱛟 is this a music player or measure tape?
+; 󱔐 app menu icon
+; 󰠠 charging icon
+
+;;DISPLAY RES
+; (defpoll res
+;   :interval "60s"
+; `nu -c 'wlr-randr | find current | split column " " | get column5 | split column "x" | to json -r'`)
 (defvar res_w 1600)
 (defvar res_h 900)
 
-(defvar spacing 12)
+;;WALLPAPER dir
+(defpoll wallpaper
+  :interval "60m"
+`cat /$HOME/.eww_wallpaper`)
+
+;;COMPONENTS
+(defvar spacing 10)
 (defvar spacing_sub 8)
 
-(defvar show_apptray true)
-;;APPTRAY
-(defwidget apptray []
+(defwidget container [?orientation ?onclick ?onscroll ?onhover ?onhoverlost ?cursor ?style ?class]
+  (eventbox
+    :halign "center"
+    :valign "center"
+    :width 26
+    :height 26
+    :hexpand false
+    :vexpand false
+    :class "container ${class}"
+    ; :class {class == ""? "":class}
+    :onclick {onclick == ""?"":onclick}
+    :onscroll {onscroll == ""?"":onscroll}
+    :onhover {onhover == ""?"":onhover}
+    :onhoverlost {onhoverlost == ""?"":onhoverlost}
+    :cursor {cursor == ""?"default":cursor}
+    :style {style == ""?"":style}
+    (box
+      :style "padding:4px;"
+      :orientation {orientation == ''?"h":"v"}
+      (children)
+    )
+  )
+)
+; (defpoll loaded_json
+;   :interval "1s"
+;   './go/context/main | jq'
+; )
+; (defwidget json_text [?json]
+;   (box
+;     ; :orientation "v"
+;     ; "${json}"
+;     ; (for word in {loaded_json}
+;     ;   "${word}"
+;     ; )
+;     "nothing"
+;   )
+; )
+;;LAUCNHER ;; rename this
+(defvar context "")
+(defvar content "")
+(defvar notes "")
+(defvar show_content false)
+(defwindow launcher
+  :monitor 0
+  :geometry (geometry :x "0%"
+                     :y "35%"
+                     :width "0"
+                     :height "0"
+                     :anchor "center top")
+  :stacking "overlay"
+  :focusable "ondemand"
   (box
-    :class "button"
+    :orientation "v"
+    :space-evenly false
+    :spacing {spacing}
+    :style "border-radius:8px; padding:10px;"
+    :class "main"
+    :width 500
+    (input
+      ; :width 400
+      ; :value ":h"
+      :onchange "./go/launcher/main {}"
+      :class "main input"
+      :style "border-radius:8px;"
+    )
+    (revealer
+      :transition "slidedown"
+      :duration "200ms"
+      :reveal {show_content}
+      (scroll
+        :height 200
+        (box
+          :orientation "v"
+          :space-evenly false
+          ; (box ;; NOTES STUFF
+          ;   :orientation "v"
+          ;   :space-evenly false
+          ;   :spacing {spacing_sub}
+          ;   "STUFF:"
+          ;   ; (json_text)
+          ;   (for note in notes
+          ;     (label
+          ;       :halign "start"
+          ;       :valign "start"
+          ;       :wrap-mode "word"
+          ;       :wrap true
+          ;       :text "${note.data_text}"
+          ;     )
+          ;   )
+          ; )
+          (box
+            (literal
+              :content content
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+;;PLAYER
+(defvar album_art "")
+(defvar album_art_current "")
+(defvar album_art_blurred "")
+; (defpoll audio_playing
+;   :interval "300ms"
+;   :initial "Paused"
+; `playerctl status`)
+; (defvar wave_form "[50,30,50,80,60]")
+(defvar wave_form "[50,30,50,80,60]")
+(defvar audio_vis_fade 0)
+(defwidget audio_vis [height width size ?vert]
+  (container
+    :onclick "playerctl play-pause"
     (box
       :orientation "v"
       :space-evenly false
-      (revealer
-        :reveal {show_apptray}
-        :transition "slidedown"
-        :duration "300ms"
-        (systray
-          :orientation "v"
-          :icon-size 16
-          :spacing {spacing_sub}
-          :class "container"
+      :halign "center"
+      :valign "center"
+      :spacing {spacing_sub/2}
+      ; (box
+      ;   ; :width 60
+      ;   :visible {album_art == ""? false:true}
+      ;   :height 80
+      ;   :style `background: center no-repeat url("${album_art}"); background-size: cover; background-position: center; border-radius:8px;`
+      ; )
+      :style `background: center no-repeat url("${album_art_blurred}"); background-size: cover; background-position: center; border-radius:8px; padding: 2px;`
+      (box
+        :orientation {vert == ''?"h":"v"}
+        :halign "center"
+        :valign "center"
+        :space-evenly false
+        :spacing 5
+        ; :class "base"
+        :style "padding:${spacing_sub/2}px 0;"
+        (for bar in size
+          (overlay
+            (box
+              :halign "center"
+              :valign "center"
+              :height {vert == ''?height:width}
+              :width {vert == ''?width:height}
+              ; :class "base"
+              ; :style "background-color:black;"
+            )
+            (box
+              :halign "center"
+              :valign "center"
+              :height {vert == ''?round((bar/100)*height,0) > height?height:round((bar/100)*height,0):width}
+              ; :width width
+              :width {vert == ''?width:round((bar/100)*height,0) > height?height:round((bar/100)*height,0)}
+              :class "value"
+            )
+          )
         )
       )
-      (eventbox
-        :onclick './bash/toggle.sh show_apptray'
-        :class "button"
-        :tooltip "apptray"
-        ; {show_apptray == true? "󱊔":"󱊖"}
-        (label
-          :xalign 0.4
-          :text {show_apptray == true? "󱊔":"󱊖"}
+      "󱛟"
+    )
+  )
+)
+
+;;APPTRAY
+(defvar show_apptray false)
+(defwidget apptray []
+  (eventbox
+    :onhover `eww update show_apptray='true'`
+    :onhoverlost `eww update show_apptray='false'`
+    (container
+      (box
+        :orientation "v"
+        :space-evenly false
+        (revealer
+          :reveal {show_apptray}
+          :transition "slidedown"
+          :duration "300ms"
+          (systray
+            :orientation "v"
+            :icon-size 16
+            :spacing {spacing_sub}
+          )
         )
-        
+        (eventbox
+          :onclick './bash/toggle.sh show_apptray'
+          ; :class "button"
+          :tooltip "apptray"
+          ; {show_apptray == true? "󱊔":"󱊖"}
+            (label
+              :xalign 0.4
+              :text {show_apptray == true? "󱊔":"󱊖"}
+            )
+      
+        )
       )
     )
   )
@@ -49,29 +227,32 @@
 
 
 ;;BRIGHNESS
-(defpoll brightness
-  :interval "100ms"
+(deflisten brightness
+  ; :interval "100ms"
   :initial "00"
-  "light -G"
+  ; "light -G"
+  `tail -F /tmp/eww_brightness`
 )
 (defvar reveal_brightness_knob
   "false"
 )
 (defwidget brightness_knob []
-  (eventbox
+  (container
     :onscroll `bash/brightness_knob.sh {}`
     ; :onclick  `wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle`
     :onhover `eww update reveal_brightness_knob="true"`
     :onhoverlost `eww update reveal_brightness_knob="false"`
     :cursor "pointer"
-    :class "button"
     (box
       :orientation "v"
       :space-evenly false
       :spacing {reveal_brightness_knob == "false"? 0:spacing_sub}
-      :class "container"
       ; {volume_muted == ""? "󰕾":"󰖁"}
-      "󰃟"
+      ; "󰃟"
+      ; "󰤝"
+      ; "󰐜" for keyboard brightness
+      ; "󰖧"
+      "󰖧"
       (revealer
         :reveal {reveal_brightness_knob}
         :transition "slidedown"
@@ -90,7 +271,7 @@
 )
 
 ;;CONPONENTS
-(defwidget progressbar [max_height ?width value ?in_value ?urgent]
+(defwidget progressbar [max_height ?width value ?in_value ?urgent ?alt]
   (box
     :orientation "v"
     :class "progressbar"
@@ -99,7 +280,7 @@
       (box
         :halign "center"
         :valign "end"
-        :width {width == ''? spacing: width}
+        :width {width == ''? 12: width}
         :height max_height
         ; :height {round((value/100)*max_height,0) > max_height? round((value/100)*max_height,0):max_height}
         :class "base"
@@ -108,12 +289,13 @@
       (box
         :halign "center"
         :valign "end"
-        :width {width == ''? spacing: width}
+        :width {width == ''? 12: width}
         ; :height {round((round((value * max_height),0)/max_height) * max_height,0)}
         ; :class "value ${round(value*100,0) > 75? "urgent":""}"
         :height {round((value/100)*max_height,0) > max_height?max_height:round((value/100)*max_height,0)}
-        :class "value ${round((value/100)*100,0) > 75? "urgent":""}"
-        ; :style "border-radius:0;"
+        ;;FIXME:  this is not working how i'd want it to (same for label)
+        ; :class "value ${urgent == ''?'':'${round((value/100)*100,0) > urgent? 'urgent':''}'}"
+        :class {alt == ""? "value" :"grid_fade"}
       )
       ; (box ;; grid overlay
       ;   :halign "center"
@@ -133,9 +315,10 @@
         ; :style "font-size:9px; opacity:${round(value*100,0) >= 75? round(value,0):0}; background:none;"
         ; :text {round(value*100,0) >= 99? 99:round(value*100,0)}
         ; 
-        :class "value ${value > 75? "urgent":""}"
-        ; :style "font-size:${value > 99?6:9}px; opacity:${round((value/100)*100,0) >= 75? round(value,0):0}; background:none;"
-        :style "font-size:${value > 99?6:9}px; background:none;"
+        :class 'value ${urgent == ''?'':'${round((value/100)*100,0) > urgent? 'urgent':''}'}'
+        :style "margin:2px 0px;font-size:8px; opacity:${round((value/100)*100,0) >= 60? 1:0}; background:none;"
+        ; :style "font-size:${value > 99?6:9}px; background:none;"
+        :angle 90
         :text {value}
       )
     )
@@ -144,14 +327,18 @@
 
 ;;POWER
 (defwidget power_menu []
-  (eventbox
-    ; :halign "center"
-    :valign "center"
-    :cursor "pointer"
-    :class "button"
-    (box
-      :class "container"
-      "⏼"
+  (container
+    (eventbox
+      ; :halign "center"
+      :valign "center"
+      :cursor "pointer"
+      ; :class "button"
+      (box
+        ; :class "container"
+        ; "⏻"
+        :class "howdy"
+        ""
+      )
     )
   )
 )
@@ -164,7 +351,7 @@
     :space-evenly true
     ; :valign "end"
     :halign "center"
-    ; :class "button container"
+    ; :class "button true"
     :spacing {spacing_sub/2}
     :tooltip tooltip
     ; (progressbar :max_height 22 :width 14 :value {value} :in_value true)
@@ -186,47 +373,60 @@
 )
 (defvar show_stats true)
 (defwidget stats []
-  (box
-    :orientation "v"
-    :space-evenly false
-    :spacing {show_stats == "false"? 0:spacing_sub}
-    ; :spacing {spacing_sub}
-    :tooltip "stats"
-    :class "button container"
-    ; :style "background-color:red;"
-    (revealer
-      :reveal {show_stats}
-      :transition "slidedown"
-      :duration "300ms"
+  (container
+    (eventbox
+      :onclick `bash/toggle.sh show_stats`
+      :cursor "pointer"
       (box
         :orientation "v"
         :space-evenly false
-        :spacing {spacing / 2}
-        (stat :value {round(EWW_TEMPS.CORETEMP_CORE_0,0)} :icon "󰈸" :tooltip "[${round(EWW_TEMPS.CORETEMP_CORE_0,0)}] cpu_temp")
-        "‑‑"
-        (stat :value {round(EWW_CPU.avg,0)} :icon "󰻠" :tooltip "[${round(EWW_CPU.avg,0)}] cpu")
-        (stat :value {round(EWW_DISK["/"].used_perc,0)} :icon "" :tooltip "[${round(EWW_DISK["/"].used_perc,0)}] disk")
-        (stat :value {round(EWW_RAM.used_mem_perc,0)} :icon "󰚌" :tooltip "[${round(EWW_RAM.used_mem_perc,0)}] ram")
+        ; :spacing {show_stats == "false"? 0:spacing_sub}
+        ; :spacing {spacing_sub}
+        ; :class "button container"
+        ; :style "background-color:red;"
+        (revealer
+          :reveal {show_stats}
+          :transition "slidedown"
+          :duration "300ms"
+          (box
+            :orientation "v"
+            :space-evenly false
+            :spacing {spacing / 2}
+            :style "margin:${spacing_sub}px 0px;"
+            (stat :value {round(EWW_TEMPS.CORETEMP_CORE_0,0)} :icon "󰈸" :tooltip "[${round(EWW_TEMPS.CORETEMP_CORE_0,0)}] cpu_temp" :urgent 20)
+            "‑‑"
+            (stat :value {round(EWW_CPU.avg,0)} :icon "󰻠" :tooltip "[${round(EWW_CPU.avg,0)}] cpu")
+            (stat :value {round(EWW_DISK["/"].used_perc,0)} :icon "󰨆" :tooltip "[${round(EWW_DISK["/"].used_perc,0)}] disk")
+            ; "󰨅"
+            ; "󰟜"
+            (stat :value {round(EWW_RAM.used_mem_perc,0)} :icon "󰚌" :tooltip "[${round(EWW_RAM.used_mem_perc,0)}] ram")
+          )
+        )
+        (eventbox
+          ; {show_stats == "true"? "":""}
+          ; {show_stats == "true"? "":"-"}
+          :class "base"
+          :tooltip "stats"
+          :style "${show_stats == true?'border-radius:2px 2px 8px 8px;':'border-radius:8px;'}"
+          "󰍛"
+        )
       )
-    )
-    (eventbox
-      :class "button"
-      :onclick `bash/toggle.sh show_stats`
-      :cursor "pointer"
-      ; {show_stats == "true"? "":""}
-      {show_stats == "true"? "":"-"}
     )
   )
 )
 
 ;;VOLUME
-(defpoll volume
-  :interval "100ms"
+(deflisten volume
+  ; :interval "1s"
   :initial "00"
-  "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d ' ' -f2"
+  `tail -F /tmp/eww_volume`
+  ; "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d ' ' -f2"
+  ; have get volume/ update volume be this
+  ; setting the volume will be done externally
+  ; "eww get volume && wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d ' ' -f2"
 )
 (defpoll volume_muted
-  :interval "100ms"
+  :interval "500ms"
   :initial "00"
   "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d ' ' -f3"
 )
@@ -235,19 +435,28 @@
   "false"
 )
 (defwidget volume_knob [?override]
-  (eventbox
+  (container
     :onscroll `bash/volume_knob.sh {}`
     :onclick  `wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle`
     :onhover `eww update reveal_knob="true"`
     :onhoverlost `eww update reveal_knob="false"`
     :cursor "pointer"
-    :class "button"
+    ; :style {album_art == ""?"":"background-color:yellow;"}
+    :class {volume_muted == ""?"":"${album_art == ""?"":"notice"}"}
+      ; :class "button"
     (box
       :orientation "v"
       :space-evenly false
       :spacing {reveal_knob == "false"? 0:spacing_sub}
-      :class "container"
-      {volume_muted == ""? "󰕾":"󰖁"}
+      ; :class "container"
+      ; {volume_muted == ""? "󰕾":"󰖁"}
+      (stack
+        :selected {volume_muted == ""? 0:1}
+        :transition {volume_muted == ""? "slideright":"slideleft"}  ;; slidedown crossfade slideleft
+        :same-size true
+        "󰕾"
+        "󰖁"
+      )
       (revealer
         :reveal {reveal_knob == true || override == true? true:false}
         :transition "slidedown"
@@ -256,7 +465,12 @@
           :orientation "v"
           :space-evenly false
           :spacing {spacing_sub}
-          (progressbar :max_height 40 :value {round(volume*100,0)})
+          ; (scale
+          ;   :orientation "v"
+          ;   :value {round(volume*100,0)}
+          ;   :style "trough{background-color:red;color:blue;}"
+          ; )
+          (progressbar :max_height 40 :value {round(volume*100,0)} :alt volume_muted)
           ; (progress
           ;   :flipped true
           ;   :halign "center"
@@ -267,14 +481,14 @@
           ;   :style "min-width:${spacing}px;"
           ; )
           (label
-            :valign "end"
+            :valign "center"
             :halign "center"
-            ; :class "value ${round(value*100,0) > 75? "urgent":""}"
-            ; :style "font-size:9px; opacity:${round(value*100,0) >= 75? round(value,0):0}; background:none;"
             ; :text {round(value*100,0) >= 99? 99:round(value*100,0)}
             ; 
-            :style "${round(volume*100,0) > 99?"font-size:10px;":""}"
+            ; :style "${round(volume*100,0) > 99?"font-size:8.5px;":""}"
+            :angle {round(volume*100,0) > 99?90:0}
             :text {round(volume*100,0)}
+            ; :text {round(volume*100,0) > 99?"${round(volume*100,0) > 110?"":"0"}${round(volume*100,0)-100}":round(volume*100,0)}
           )
           ; {volume == ''? "00":volume * 100 > 99? 99 : round(volume * 100,0)}
         )
@@ -284,61 +498,34 @@
 )
 
 ;;CLOCK/TIME
-(defpoll time_hour
+(defpoll time_full
   :interval "1s"
-  :initial "00"
-  "date +%I"
+  :initial `["00","00","00"]`
+  `date +%I:%M:%S |  jq -Rc 'split(":")'`
 )
-(defpoll time_min
-  :interval "1s"
-  :initial "00"
-  "date +%M"
-)
-(defpoll time_sec
-  :interval "1s"
-  :initial "00"
-  "date +%S"
-)
-(defpoll time_am_pm
-  :interval "1s"
-  :initial "00"
-  "date +%p"
-)
-(defpoll date_mon
-  :interval "1s"
-  :initial "00"
-  ; `echo "[$(date +%m,%d,%Y)]"`
-  "date +%m"
-)
-(defpoll date_day
-  :interval "1s"
-  :initial "00"
-  ; `echo "[$(date +%m,%d,%Y)]"`
-  "date +%d"
-)
-(defpoll date_year
-  :interval "1s"
-  :initial "00"
-  ; `echo "[$(date +%m,%d,%Y)]"`
-  "date +%Y | tail -c3"
+(defvar date_full
+  ; :interval "60s"
+  ; :initial `["00","00","00"]`
+  ; `date +%m:%d:%g |  jq -Rc 'split(":")'`
+  `["00","00","00"]`
 )
 (defvar clock_show ;; what to be showing in the main clock
   0
 )
 (defwidget clock []
-  (eventbox
-    :onhover 'eww update clock_show="1"'
+  (container
+    :onhover `eww update clock_show="1" && eww update date_full="$(date +%m:%d:%g |  jq -Rc 'split(":")')"`
     :onhoverlost 'eww update clock_show="0"'
     :cursor "pointer"
-    :class "button"
     (box
       :orientation "v"
       :space-evenly false
       :spacing {spacing_sub}
-      :class "container"
+      ; :class "container"
       (stack
         :selected {clock_show}
         :transition {clock_show == 0? "slideleft":"slideright"} ;; slidedown crossfade slideleft
+        :same-size true
         (box ;;time
           :orientation "v"
           :halign "center"
@@ -349,13 +536,16 @@
             :halign "center"
             :valign "start"
             :orientation "v"
-            {time_hour}
+            {time_full[0]}
+            ; {time_hour}
             "··"
-            {time_min}
+            {time_full[1]}
+            ; {time_min}
             "··"
-            {time_sec}
+            {time_full[2]}
+            ; {time_sec}
           )
-          {time_am_pm}
+          ; {time_am_pm}
           ; ""
         )
         (box ;;date
@@ -368,13 +558,14 @@
             :halign "center"
             :valign "start"
             :orientation "v"
-            {date_mon}
+            {date_full[0]}
             "‑‑"
-            {date_day}
+            {date_full[1]}
             "‑‑"
-            {date_year}
+            {date_full[2]}
           )
-          ""
+          ; ""
+          ; "󱪹"
         )
       )
     )
@@ -385,66 +576,84 @@
 ;;POPUP
 (defwindow popup [?override]
   :monitor 0
-  :geometry (geometry :x "4px"
+  :geometry (geometry :x "6px"
                      :y "0px"
-                     :width "32px"
-                     ; :width "20%"
+                     ; :width "32px"
                      :height "10px"
                      :anchor "center left")
   ; :reserve (struts :distance "33px" :side "left")
   :stacking "overlay"
-  :focusable "none"
   :namespace "eww_popup"
-  (box
-    :class "main"
-    (volume_knob :override true)
-  )
+  ; (box
+  ; (container
+    (literal
+      :class "main"
+      :content override
+      ; :content "
+      ;   (box
+      ;   (audio_vis :height 20 :width 3 :size wave_form :vert true)
+      ;   (volume_knob :override true)
+      ;   )
+      ; "
+    )
+    
+  ; )
 )
 
 ;;BAR
 (defwindow bar 
  :monitor 0
- :geometry (geometry :x "0%"
-                     :y "0px"
+ :geometry (geometry :x "0"
+                     :y "0"
                      :width "32px"
                      ; :width "20%"
                      :height "100%"
-                     :anchor "top left")
+                     :anchor "center left")
  ; :windowtype "desktop"
- :reserve (struts :distance "33px" :side "left")
+ :reserve (struts :distance "32px" :side "left")
  :stacking "fg"
+ ; :exclusive true
  :namespace "eww_bar"
-  (centerbox
-    :orientation "v"
-    :class "bar"
-    :width 40 ; scss $main-bar-width
-    ; :spacing {spacing}
-    :orientation "v"
-    (box
-      ; :halign "start"
-      :valign "start"
+  (box
+  :class "grid"
+    (centerbox
       :orientation "v"
-      :spacing {spacing}
-      :space-evenly false
-      (clock)
-      (volume_knob)
-      (brightness_knob)
-    )
-    (box
-      :valign "center"
-      :orientation "v"
-      :spacing {spacing}
-      :space-evenly false
-    )
-    ; (progressbar :max_height 30 :value {volume})
-    (box
-      :valign "end"
-      :orientation "v"
-      :spacing {spacing}
-      :space-evenly false
-      (stats)
-      (apptray)
-      (power_menu)
+      :halign "center"
+      :width 40 ; scss $main-bar-width
+      (box
+        :valign "start"
+        :orientation "v"
+        :spacing {spacing}
+        :space-evenly false
+        :vexpand true
+        (clock)
+        (volume_knob)
+        (brightness_knob)
+      )
+      (box
+        :valign "center"
+        :orientation "v"
+        :spacing {spacing}
+        :space-evenly false
+        (audio_vis :height 20 :width 3 :size wave_form :vert true)
+        ; (stack
+        ;   :selected {audio_vis_fade}
+        ;   :transition "crossfade"
+        ;   :same-size true
+          ; (audio_vis :height 20 :width 3 :size "[50,30,50,80,60]" :vert true)
+          ; (audio_vis :height 20 :width 3 :size "[20,50,40,60,70]" :vert true)
+          ; (audio_vis :height 20 :width 3 :size "[30,80,30,50,40]" :vert true)
+        ; )
+      )
+      (box
+        :valign "end"
+        :orientation "v"
+        :spacing {spacing}
+        :space-evenly false
+        (stats)
+        (apptray)
+        (power_menu)
+      )
     )
   )
 )
@@ -457,22 +666,25 @@
     :class "backdrop"
     (box
       :width {res_w}; the size of the display
+      ; :width {res.column1}; the size of the display
       :height {res_h}
       :halign "start"
       :class "wallpaper"
+      :style `background: center no-repeat url("file://${wallpaper}"); background-size: cover; background-position: center;`
     )
   )
 )
+
 (defwindow desktop
- :monitor 0
- :geometry (geometry :x "0%"
+  :monitor 0
+  :geometry (geometry :x "0%"
                      :y "0px"
                      :width "100%"
                      :height "100%"
                      :anchor "top center")
- :stacking "bg"
- :windowtype "desktop"
- ; :wm-ignore false
- :namespace "eww_backdrop"
+  :stacking "bottom"
+  :windowtype "desktop"
+  ; :exclusive false
+  :namespace "eww_backdrop"
   (backdrop)
 )

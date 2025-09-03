@@ -42,7 +42,7 @@ $color-light-aqua: #8CFFDB;
 
 $color-main: $color-black;
 $color-accent: $color-nyanza2;
-$color-urgent: $color-yellow;
+$color-urgent: $color-salmon;
 
 /* $color-main: $color-nyanza2; */
 /* $color-accent: $color-black; */
@@ -71,6 +71,8 @@ $color-select-alt: transparentize($color-accent, 0.9);
 
 * {
   background: none;
+  font-family: ShureTechMono Nerd Font Propo;
+  /* color: $color-accent */
 }
 
 .main {
@@ -89,6 +91,14 @@ $color-select-alt: transparentize($color-accent, 0.9);
   /* padding: 20px; */
   /* border-radius: $sub-radius; */
   /* border-radius: $sub-radius; */
+}
+
+.grid_dark {
+  /* background-image: radial-gradient(transparentize($color-main, 0.1) 1px, transparent 1px); */
+  /* background-image: linear-gradient($color-main 50%, transparent 100%); */
+  background-image: linear-gradient($color-main 50%, transparentize($color-main, 0.2) 100%);
+  background-size: 4px 4px;
+  border-radius: $main-radius;
 }
 
 .grid_fade {
@@ -135,8 +145,8 @@ $color-select-alt: transparentize($color-accent, 0.9);
   /* background-position: center; */
   /* background-position: center -800px; */
   border-radius: $main-radius;
-  margin: $main-padding $main-padding $main-padding $main-bar-width;
-  /* margin: $main-padding; */
+  /* margin: $main-padding $main-padding $main-padding $main-bar-width; */
+  margin: $main-padding;
   /* box-shadow: 0px 0px 4px 4px transparentize($color-black, 0.6); */
   box-shadow: 0px 0px 3px 3px $color-black;
 }
@@ -232,4 +242,12 @@ progressbar {
 
 .launcher_item {
   padding: $main-padding;
+}
+
+.trinket {
+  /* color: $color-main; */
+  /* background-color: transparentize($color-main, 0.9); */
+
+  color: $color-red;
+  background-color: transparentize($color-red, 0.9);
 }

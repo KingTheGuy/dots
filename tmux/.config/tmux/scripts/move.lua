@@ -13,6 +13,8 @@ local function cmd_output(cmd)
   end
 end
 
+-- cmd_output(string.format("notify-send %s",direction))
+
 local current_pane = cmd_output("tmux display-message -p '#{pane_id}'")
 
 -- local window_width=cmd_output("tmux display-message -p '#{window_width}'")

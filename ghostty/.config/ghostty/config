@@ -1,12 +1,17 @@
-background = 131313
+# background = 131313
 # foreground = ffffff
 
 # theme = Dark Pastel
 # theme = duckbones
 # theme = Aura
 # theme = rose-pine
-theme = ayu
-theme = citruszest
+# theme = ayu
+# theme = citruszest
+# theme = Adventure
+# theme = duckbones
+# theme = citruszest
+theme = Mathias
+# theme = synthwave
 
 font-size = 12.0
 font-family = "Share Tech Mono"

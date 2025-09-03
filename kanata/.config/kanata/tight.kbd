@@ -1,6 +1,6 @@
-(defcfg
-  linux-dev /dev/input/by-id/usb-Razer_Razer_Blade-if01-event-kbd
-)
+;;(defcfg
+;;  linux-dev /dev/input/by-id/usb-Razer_Razer_Blade-if01-event-kbd
+;;)
 (defsrc
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
@@ -15,6 +15,7 @@
   ;; fingers faster.
   tap-time 200
   hold-time 200 
+  hold-time-short 100 
   hold-time-slow 300 
 )
 
@@ -23,7 +24,7 @@
   sw_cole (tap-hold $tap-time $hold-time (layer-switch colemakdh)(layer-switch default))
   alts (layer-while-held less)
   meh  (multi ctl alt lsft)
-  tmeh (tap-hold $tap-time $hold-time spc @meh)
+  tmeh (tap-hold $tap-time $hold-time spc lsft)
   l_num (layer-while-held num)
   f (tap-hold $tap-time $hold-time f @l_num)
   semi_s (tap-hold $tap-time $hold-time ; lmet)
@@ -37,12 +38,19 @@
   ;; [ (tap-hold $tap-time $hold-time bspc [)
   rem (multi ctl bspc)
   [ (tap-hold $tap-time $hold-time bspc @rem)
+  ;; [ (tap-hold $tap-time $hold-time-short bspc @rem)
+  ;; mouse
+  mmu (movemouse-up 1 1)
+  mmd (movemouse-down 1 1)
+  mml (movemouse-left 1 1)
+  mmr (movemouse-right 1 1)
+  h (tap-hold $tap-time $hold-time h (layer-while-held mouse))
 )
 
 (deflayer main
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [  ]    \
-  caps a    @s   d    @f   g    h    @j    k    l   @semi_s  ' ret
+  caps a    @s   d    @f   g    @h    @j    k    l   @semi_s  ' ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           @tmeh            @sw_cole rmet rctl
 )
@@ -76,6 +84,14 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    f    p    b    j    l    u    y    ;    [  ]    \
   caps a    @r   s    @t   g    m    @n   e    i   o  ret  ret
+  lsft x    c    d    v    z    k    h    ,    .    /    rsft
+  lctl lmet lalt           @tmeh            @sw_main rmet rctl
+)
+
+(deflayer mouse
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  XX mrtp @mmu  mltp    b    j    l    u    y    ;    [  ]    \
+  caps XX @mml @mmd  @mmr    g    m    @n   e    i   o  ret  ret
   lsft x    c    d    v    z    k    h    ,    .    /    rsft
   lctl lmet lalt           @tmeh            @sw_main rmet rctl
 )

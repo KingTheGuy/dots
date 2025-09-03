@@ -9,6 +9,8 @@ gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"   # for GTK
 # this line gets lorien and other stuff working correctly
 # exec dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY &
 exec dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY &
+# exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec /usr/libexec/polkit-mate-authentication-agent-1 &
 
 # exec systemctl --user import-environment &
 
@@ -19,8 +21,6 @@ pgrep pipewire >/dev/null || pipewire &
 # eval $(gnome-keyring-daemon --start)
 # export SSH_AUTH_SOCK
 
-# exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec /usr/libexec/polkit-mate-authentication-agent-1 &
 
 # exec /nix/store/$(ls -la /nix/store | grep 'mate-polkit' | grep '4096' | awk '{print $9}' | sed -n '$p')/libexec/polkit-mate-authentication-agent-1 &
 
@@ -181,6 +181,10 @@ riverctl map normal $mod B spawn "$HOME/.config/eww/bar.sh"
 
 riverctl map normal $mod N spawn "$HOME/.config/eww/launcher.sh"
 
+riverctl map normal $mod+Shift C spawn 'eww open --toggle bar_extended'
+
+riverctl map normal $mod O spawn 'flatpak run md.obsidian.Obsidian'
+
 # Mod+J and Mod+K to focus the next/previous view in the layout stack
 riverctl map normal $mod H focus-view left
 riverctl map normal $mod J focus-view down
@@ -307,9 +311,12 @@ riverctl map normal $mod F11 enter-mode passthrough
 riverctl map passthrouh $mod F11 enter-mode normal
 
 #volume
-riverctl map -repeat normal None XF86AudioRaiseVolume spawn "~/.config/eww/bash/volume_knob.sh up popup"
-riverctl map -repeat normal None XF86AudioLowerVolume spawn "~/.config/eww/bash/volume_knob.sh down popup"
-riverctl map normal None XF86AudioMute spawn "~/.config/eww/bash/volume_knob.sh mute popup"
+# riverctl map -repeat normal None XF86AudioRaiseVolume spawn "~/.config/eww/bash/volume_knob.sh up popup"
+# riverctl map -repeat normal None XF86AudioLowerVolume spawn "~/.config/eww/bash/volume_knob.sh down popup"
+# riverctl map normal None XF86AudioMute spawn "~/.config/eww/bash/volume_knob.sh mute popup"
+riverctl map -repeat normal None XF86AudioRaiseVolume spawn "lua ~/.config/eww/lua/volume_knob.lua up popup"
+riverctl map -repeat normal None XF86AudioLowerVolume spawn "lua ~/.config/eww/lua/volume_knob.lua down popup"
+riverctl map normal None XF86AudioMute spawn "lua ~/.config/eww/lua/volume_knob.lua mute popup"
 
 riverctl map normal None XF86AudioPlay spawn "bash -c 'playerctl play-pause && ~/.config/eww/bash/delay.sh reveal_player &'"
 

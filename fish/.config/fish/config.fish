@@ -79,7 +79,7 @@ end
 
 bind --mode insert \cz zellij
 
-bind --mode insert \cp xplr
+bind --mode insert \ct tmux
 
 # bind --mode insert \cr "source ~/.config/fish/config.fish && echo 'sourced config'"
 

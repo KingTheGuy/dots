@@ -10,6 +10,7 @@
 ; 󱛟 is this a music player or measure tape?
 ; 󱔐 app menu icon
 ; 󰠠 charging icon
+(include "./components.yuck")
 
 ;;DISPLAY RES
 ; (defpoll res
@@ -17,11 +18,12 @@
 ; `nu -c 'wlr-randr | find current | split column " " | get column5 | split column "x" | to json -r'`)
 (defvar res_w 1600)
 (defvar res_h 900)
+(defvar wall_offset "-200")
 
 ;;WALLPAPER dir
 (defpoll wallpaper
   :interval "60m"
-`cat /$HOME/.eww_wallpaper`)
+`tail -n1 /$HOME/.eww_wallpaper`)
 
 ;;COMPONENTS
 (defvar spacing 10)
@@ -137,6 +139,77 @@
 ;   :initial "Paused"
 ; `playerctl status`)
 ; (defvar wave_form "[50,30,50,80,60]")
+(defwidget player []
+  (container
+    (box
+      :orientation "h"
+      :space-evenly false
+      :spacing {spacing}
+      :class "main"
+      :style "padding:6px;"
+      (box
+        :orientation "v"
+        :valign "end"
+        :height 140
+        :width 240
+        :style `background: center no-repeat url("${album_art_blurred}"); background-size: 180%; background-position: center; border-radius:8px; padding: ${spacing}px;`
+        :space-evenly false
+        :spacing {spacing}
+        (box
+          :halign "center"
+          :valign "center"
+          :orientation "h"
+          :space-evenly true
+          :spacing {spacing}
+          (box
+            :width 80
+            :height 80
+            :style `background: center no-repeat url("${album_art}"); background-size: cover; background-position: center; border-radius:6px; padding: 2px;`
+          )
+          (box
+            :valign "center"
+            :halign "start"
+            :orientation "v"
+            :space-evenly false
+            :spacing {spacing_sub/2}
+            (label
+              :halign "start"
+              :style "font-weight:bold;"
+              :text "song title"
+            )
+            (label
+              :halign "start"
+              :style "font-size:12px;"
+              :text "artist"
+            )
+          )
+        )
+        (box
+          :halign "center"
+          :valign "end"
+          :space-evenly false
+          :spacing {spacing*2}
+          (container
+            :onclick "playerctl previous"
+            "󰙣"
+          )
+          (container
+            :onclick "playerctl play-pause"
+            {album_art == ""?"󰐌":"󰏥"}
+            
+          )
+          (container
+            :onclick "playerctl next"
+            "󰙡"
+          )
+        )
+        ; "player"
+        ; {album_art}
+      )
+      (volume_knob :override true)
+    )
+  )
+)
 (defvar wave_form "[50,30,50,80,60]")
 (defvar audio_vis_fade 0)
 (defwidget audio_vis [height width size ?vert]
@@ -210,12 +283,11 @@
           )
         )
         (eventbox
-          :onclick './bash/toggle.sh show_apptray'
+          :onclick 'bash/toggle.sh show_apptray'
           ; :class "button"
           :tooltip "apptray"
           ; {show_apptray == true? "󱊔":"󱊖"}
             (label
-              :xalign 0.4
               :text {show_apptray == true? "󱊔":"󱊖"}
             )
       
@@ -295,7 +367,7 @@
         :height {round((value/100)*max_height,0) > max_height?max_height:round((value/100)*max_height,0)}
         ;;FIXME:  this is not working how i'd want it to (same for label)
         ; :class "value ${urgent == ''?'':'${round((value/100)*100,0) > urgent? 'urgent':''}'}"
-        :class {alt == ""? "value" :"grid_fade"}
+        :class {alt == ""? "value ${urgent == ''?'':'${round((value/100)*100,0) > urgent? 'urgent':''}'}" :"grid_fade"}
       )
       ; (box ;; grid overlay
       ;   :halign "center"
@@ -316,7 +388,7 @@
         ; :text {round(value*100,0) >= 99? 99:round(value*100,0)}
         ; 
         :class 'value ${urgent == ''?'':'${round((value/100)*100,0) > urgent? 'urgent':''}'}'
-        :style "margin:2px 0px;font-size:8px; opacity:${round((value/100)*100,0) >= 60? 1:0}; background:none;"
+        :style "margin:2px 0px;font-size:12px; opacity:${round((value/100)*100,0) >= 60? 1:0}; background:none;"
         ; :style "font-size:${value > 99?6:9}px; background:none;"
         :angle 90
         :text {value}
@@ -355,7 +427,7 @@
     :spacing {spacing_sub/2}
     :tooltip tooltip
     ; (progressbar :max_height 22 :width 14 :value {value} :in_value true)
-    (progressbar :max_height 22 :value {value} :in_value true)
+    (progressbar :max_height 22 :value {value} :in_value true :urgent 85)
     ; (overlay
     ;   (circular-progress
     ;     :thickness {cir_thic}
@@ -436,9 +508,11 @@
 )
 (defwidget volume_knob [?override]
   (container
-    :onscroll `bash/volume_knob.sh {}`
-    :onclick  `wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle`
-    :onhover `eww update reveal_knob="true"`
+    ; :onscroll `bash/volume_knob.sh {}`
+    :onscroll `lua lua/volume_knob.lua {} scroll`
+    :onclick `lua lua/volume_knob.lua mute`
+    ; :onclick  `wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle`
+    :onhover {override != ""?"":`eww update reveal_knob="true"`}
     :onhoverlost `eww update reveal_knob="false"`
     :cursor "pointer"
     ; :style {album_art == ""?"":"background-color:yellow;"}
@@ -501,7 +575,8 @@
 (defpoll time_full
   :interval "1s"
   :initial `["00","00","00"]`
-  `date +%I:%M:%S |  jq -Rc 'split(":")'`
+  ; `date +%I:%M:%S |  jq -Rc 'split(":")'`
+  `date +%H:%M:%S |  jq -Rc 'split(":")'`
 )
 (defvar date_full
   ; :interval "60s"
@@ -599,6 +674,46 @@
     
   ; )
 )
+(defvar focus_control_center false)
+(defvar control_center_size 300)
+(defwidget control_center []
+(eventbox
+    ; :class "base"
+    ; :style "background-color: black;"
+    :onhoverlost "eww close bar_extended && eww update focus_control_center='false'"
+    (box
+      :class "grid_dark"
+      :width control_center_size
+      (box
+        :orientation "v"
+        :valign "start"
+        :halign "center"
+        :space-evenly false
+        ; :spacing {spacing}
+        ; "control center"
+        (player)
+        (markdown)
+      )
+    )
+  )
+)
+;;BAR extended
+(defwindow bar_extended
+ :monitor 0
+ :geometry (geometry :x "40px"
+                     :y "0"
+                     ; :width "32px"
+                     ; :width "20%"
+                     :height "100%"
+                     :anchor "center left")
+ ; :windowtype "desktop"
+ :reserve (struts :distance "32px" :side "left")
+ :stacking "overlay"
+ ; :exclusive true
+ :namespace "eww_bar_extended"
+  (control_center)
+  
+)
 
 ;;BAR
 (defwindow bar 
@@ -615,17 +730,26 @@
  ; :exclusive true
  :namespace "eww_bar"
   (box
-  :class "grid"
     (centerbox
       :orientation "v"
       :halign "center"
       :width 40 ; scss $main-bar-width
+      :class "grid_dark"
       (box
         :valign "start"
         :orientation "v"
         :spacing {spacing}
         :space-evenly false
         :vexpand true
+        (container
+          (eventbox
+            ; :onclick "eww open --toggle bar_extended && eww update focus_control_center='true'"
+            :onclick "eww open --toggle bar_extended"
+            :cursor "pointer"
+            :class ""
+            "󱔐"
+          )
+        )
         (clock)
         (volume_knob)
         (brightness_knob)
@@ -664,14 +788,48 @@
 (defwidget backdrop []
   (box
     :class "backdrop"
-    (box
-      :width {res_w}; the size of the display
-      ; :width {res.column1}; the size of the display
-      :height {res_h}
-      :halign "start"
-      :class "wallpaper"
-      :style `background: center no-repeat url("file://${wallpaper}"); background-size: cover; background-position: center;`
+    :space-evenly false
+    ; :spacing {spacing}
+    :orientation "h"
+    :halign "end"
+    :style "padding:0 0 0 40px;"
+    (overlay
+      (box
+        :width {res_w}; the size of the display
+        :height {res_h}
+      )
+      (box
+        :orientation "h"
+        :space-evenly false
+        (revealer
+          :reveal {focus_control_center}
+          :transition "slideleft"
+          (box
+            :width control_center_size
+          )
+          ; (control_center)
+        )
+        (box
+          :width {res_w - 40}; the size of the display
+          :height {res_h}
+          :halign "start"
+          :class "wallpaper"
+          :style `background: center no-repeat url("file://${wallpaper}"); background-size: cover; background-position: 0 ${wall_offset}px;`
+        )
+      )    
+      (label
+        ; :height 100
+        :halign "center"
+        :valign "center"
+        :style "margin-top:500px;padding:10px;font-size:48px;font-weight:bold;"
+        :class "main"
+        :wrap true
+        :wrap-mode "word"
+        ; :text "FUCK YOU"
+        :text "YOU HAVE NO IDEA WHAT'S GOING ON"
+      )
     )
+    
   )
 )
 
@@ -682,9 +840,10 @@
                      :width "100%"
                      :height "100%"
                      :anchor "top center")
-  :stacking "bottom"
+  :stacking "bg"
   :windowtype "desktop"
-  ; :exclusive false
+  :exclusive false
   :namespace "eww_backdrop"
+  :focusable false
   (backdrop)
 )

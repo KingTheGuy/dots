@@ -48,12 +48,13 @@
 
 # TODO
 "markup.heading" = "wash"
-"markup.heading.1" = { fg = "wash", bg = "dark-gray", modifiers = ["bold"]}
-"markup.heading.2" = { fg = "wash", bg = "dark-gray", modifiers = ["underlined"]}
+# "markup.heading.1" = { fg = "wash", bg = "dark-gray", modifiers = ["bold"]}
+# "markup.heading.2" = { fg = "wash", bg = "dark-gray", modifiers = ["underlined"]}
 "markup.list" = "salmon"
 "markup.bold" = { fg = "yellow", modifiers = ["bold"] }
 "markup.italic" = { fg = "purple", modifiers = ["italic"] }
-"markup.link.url" = { fg = "yellow", modifiers = ["underlined"] }
+# "markup.link.url" = { fg = "yellow", modifiers = ["underlined"] }
+"markup.link.url" = { fg = "yellow", modifiers = ["italic"] }
 "markup.link.text" = { fg = "marigold", bg = "dark-gray" }
 "markup.quote" = {fg="hot-pink"}
 "markup.raw" = {fg="purple"}

@@ -1,0 +1,74 @@
+;; format the markdown file to json
+(defvar time_bar 20)
+(defpoll text_file
+	:interval "1s"
+	`lua lua/markdown_to_json.lua`)
+(defwidget markdown []
+	(container
+		(overlay
+			(box
+				; :height 140
+				:height 340
+				:width  270
+				:space-evenly false
+				:class "main"
+				""
+			)
+			(transform
+				; :translate-y time_bar
+				; :translate-y {-time_full[2]}
+				:translate-y {-((time_full[0]*60) + time_full[1])}
+				(box
+					:orientation "v"
+					:height 1440
+					:width 265
+					:space-evenly false
+					:halign "center"
+					:valign "end"
+					; :class "value"
+					:style "padding:12px;"
+					(for task in {text_file}
+						(box
+							:height {task[0] * 4}
+							:width 260
+							:orientation "v"
+							:space-evenly false
+							:halign "start"
+							:valign "center"
+							:class "grid_dark"
+							:style "margin:2px;padding:6px;border-width:1.5px;border-radius:8px;border-style:solid;border-color:gray;"
+							(box
+								:halign "start"
+								:valign "center"
+								:orientation "h"
+								:style "color:cyan;"
+								"${task[1]} - ${task[2]}:"
+							)
+				      (label
+				        ; :height 100
+				        :halign "start"
+				        :valign "start"
+				        ; :style "margin-top:500px;padding:10px;font-size:48px;font-weight:bold;"
+				        :style "padding-top:10px;"
+				        ; :class "main"
+				        :wrap true
+				        :wrap-mode "word"
+				        ; :text "FUCK YOU"
+								:text "${task[3]}"
+				      )
+						)
+					)
+					; text_file
+				)
+			)
+			(box
+				:halign "start"
+				:valign "center"
+				; :style "color:red;background-color:rgba(255, 0, 0, 0.1);"
+				:class "trinket"
+				; ">---------------------------------"
+				">--------"
+			)
+		)
+	)
+)

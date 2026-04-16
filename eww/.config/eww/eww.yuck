@@ -681,7 +681,7 @@
 
 (deflisten wallpaper
   ; "tail -f ~/.fehbg"
-  "tail -f ~/.config/eww/eww_wallpaper.txt"
+  "tail -fn1 ~/.config/eww/eww_wallpaper.txt"
 )
 
 ; (defvar bar_padding
@@ -698,10 +698,11 @@
 ; (defvar screen_width
 (deflisten screen_width
   ; `wlr-randr | grep -n 'Enabled: yes' -A 2 | tail -1 | cut -d '-' -f2 |  cut -d 'x' -f 1 | awk '{$1=$1};1'`
-  `wlr-randr | grep -n 'Enabled: yes' -A 50 | grep 'current' | cut -d '-' -f2 | cut -d 'x' -f1 | awk '{$1=$1};1'`
+  ; `wlr-randr | grep -n 'Enabled: yes' -A 50 | grep 'current' | cut -d '-' -f2 | cut -d 'x' -f1 | awk '{$1=$1};1'`
   ; "1600"
   ; "720"
   ; "2560"
+  "1440"
 )
 
 (defwindow main_bar[]
@@ -812,5 +813,5 @@
   :exclusive false
   :focusable false
   :wm-ignore false
-  (wallpaper_container :bar_padding 34 :screen_padding 0 :sides 4 :width 2560) 
+  (wallpaper_container :bar_padding 34 :screen_padding 0 :sides 4 :width 1440) 
 )

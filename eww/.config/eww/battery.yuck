@@ -1,0 +1,11 @@
+(defwidget battery []
+	(eventbox
+		:onclick `notify-send "battery"`
+		:class "container"
+			(progress_bar
+				:value "${EWW_BATTERY.BAT0.capacity}"
+				:icon "󰁹"
+			; "${EWW_BATTERY.BAT0.status}"
+			)
+	)
+)

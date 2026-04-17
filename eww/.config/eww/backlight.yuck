@@ -1,0 +1,17 @@
+(defvar backlight_steps 1)
+(defpoll cur_backlight_level
+	:interval "340ms"
+	:run-while true
+`cd ./lua/ ; lua backlight_control.lua need_the_percent`)
+(defwidget backlight []
+	(eventbox
+		:onclick `notify-send $(lua ./lua/backlight_control.lua)`
+		:onscroll `cd ./lua ; lua backlight_control.lua {} ${backlight_steps}`
+		:class "container"
+			(progress_bar_flipped
+				:value cur_backlight_level
+				:icon "󱣴"
+				; :flipped "true"
+			)
+	)
+)

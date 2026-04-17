@@ -1,0 +1,12 @@
+
+(defwidget temp []
+	(eventbox
+		; :onclick `notify-send "temp"`
+		:class "container"
+			(progress_bar
+				:value "${EWW_TEMPS.CORETEMP_PACKAGE_ID_0}"
+				:icon ""
+			; "${EWW_BATTERY.BAT0.status}"
+			)
+	)
+)

@@ -1,11 +1,12 @@
-#!/usr/bin/env bash
+#!/bin/env bash
 
-pkill eww
+eww close bar
+eww close bar
 
-eww open main_wallpaper
-# eww open bar --arg gap=0px --arg dist=30px
-# eww open-many bar --arg gap=0px --arg dist=30px
-#
-# eww open bar --screen 0  --id pirmary --arg gap=0px --arg dist=30px
-# eww open bar --screen 1  --id secondary --arg gap=0px --arg dist=30px
-eww open bar --id primary --arg gap=0px --arg dist=30px
+eww open bar
+eww open backdrop
+
+wallpaper=$(tail -n1 ~/.config/eww/.eww_wallpaper)
+
+swaybg -m fill -i $wallpaper &
+disown

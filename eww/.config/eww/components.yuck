@@ -1,0 +1,87 @@
+(defwidget container [content]
+	(eventbox ;;for hover effects
+		:class "container"
+		:valign "center"
+		:halign "center"
+		(box
+			:class "container_padding"
+			:space-evenly false
+			(literal
+				:valign "center"
+				:halign "center"
+				:content "${content}"
+			)
+		)
+	)
+)
+
+(defwidget progress_with_context [?value]
+	(overlay
+		(circular-progress
+			:value value
+			:start-at 25
+			:thickness circle_thickness
+			:class "progress"
+		)
+		(circular-progress
+			:value {value > 100? value - 100:0}
+			:start-at 25
+			:thickness circle_thickness
+			:class "progress_plus"
+		)
+	)
+)
+
+(defwidget progress_bar [?value ?limit ?icon ?flipped]
+	(box
+		:orientation "v"
+		; :space-evenly false
+		:valign "center"
+		; "󱄠"
+		; (label
+		; 	:class "small"
+		; 	:text value
+		; )
+		; (label
+		; 	:class 'small'
+		; 	:text {flipped == ""? value:"${icon == ''? 'N' : icon}"}
+		; )
+		value
+		; "--"
+		(overlay
+			(box
+				:width 24
+				:height 24
+			)
+			(progress_with_context
+				:value value
+			)
+			(label
+				:class "small"
+				:text {icon == ""? "N" : icon}
+			)
+		)
+	)
+)
+
+(defwidget progress_bar_flipped [?value ?limit ?icon ?flipped]
+	(box
+		:orientation "v"
+		; :space-evenly false
+		:valign "center"
+		(overlay
+			(box
+				:width 24
+				:height 24
+			)
+			(progress_with_context
+				:value value
+			)
+			(label
+				:class "small"
+				:text value
+			)
+		)
+		icon
+	)
+)

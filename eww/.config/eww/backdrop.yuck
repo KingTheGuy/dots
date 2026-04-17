@@ -1,0 +1,32 @@
+(defwindow backdrop []
+	:namespace "wallpaper"
+	:monitor 0
+	:stacking "bg"
+	; :windowtype "dock"
+	; :reserve (struts :distance "60px" :side "left")
+	; :exclusive "true"
+	:geometry (geometry 
+		; :x {gap != "" ? gap : 10}
+		:x "0%"
+		; :y "14px"
+		:y "0%"
+		:height "100%"
+		:width "100%"
+		:anchor "top left"
+	)
+	(overlay
+		(eventbox
+			:class "backdrop"
+			; :onhoverlost "niri msg action toggle-overview"
+			; :style "background-color: blue;"
+		)
+		(box
+			:style "
+				background:center no-repeat url('/home/olrak/Downloads/gabriele-catalano-ioLsN803LWw-unsplash.jpg');
+				background-size:cover;
+				margin:4px;
+			"
+			:class "wallpaper"
+		)
+	)
+)

@@ -1,7 +1,8 @@
 (defvar backlight_steps 1)
+(defvar just_once false)
 (defpoll cur_backlight_level
 	:interval "340ms"
-	:run-while true
+	:run-while just_once
 `cd ./lua/ ; lua backlight_control.lua need_the_percent`)
 (defwidget backlight []
 	(eventbox

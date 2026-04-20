@@ -18,13 +18,19 @@
 (defwidget progress_with_context [?value]
 	(overlay
 		(circular-progress
-			:value value
+			:value 100
+			:start-at 25
+			:thickness circle_thickness
+			:class "progress_base"
+		)
+		(circular-progress
+			:value {value == ""? 25:value}
 			:start-at 25
 			:thickness circle_thickness
 			:class "progress"
 		)
 		(circular-progress
-			:value {value > 100? value - 100:0}
+			:value {value == ""? 0:"${value > 100? value - 100:0}"}
 			:start-at 25
 			:thickness circle_thickness
 			:class "progress_plus"
@@ -37,7 +43,10 @@
 		:orientation "v"
 		; :space-evenly false
 		:valign "center"
-		value
+		(label
+			:class "small"
+			:text {value == ""? "N" : value}
+		)
 		; "--"
 		(overlay
 			(box

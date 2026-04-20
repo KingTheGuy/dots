@@ -1,7 +1,9 @@
 #!/bin/env bash
 
+pkill swaybg
+
 eww close bar
-eww close bar
+eww close backdrop
 
 eww open bar
 eww open backdrop

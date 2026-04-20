@@ -1,4 +1,4 @@
-$border-radius: 10px;
+$border-radius: 8px;
 $anim-speed: 200ms;
 $padding: 4px;
 $container_padding: $padding/2;
@@ -13,20 +13,22 @@ $color-black7: #2B2B2C;
 $color-black8: #0D1C1C;
 $color-black9: #1f2f2f;
 
-$color-main: $color-black4;
+$color-main: $color-black3;
 $color-accent: #EBF9DD;
-$container-color: lighten($color-main,6%);
+$container-color: lighten($color-main,5%);
 
 * {
   font-family: "ShureTechMono Nerd Font Propo";
   font-size: 0.8rem;
-  /* background: none; */
 }
 
 .backdrop {
-  background-color: $color-main;
- 
+  background: none;
 }
+.backdrop_back {
+  background-color: black;
+}
+
 .wallpaper {
   border-radius: $border-radius;
 }
@@ -65,7 +67,32 @@ $container-color: lighten($color-main,6%);
 .progress {
   color: lighten($color-accent,10%); 
 }
+.progress_base {
+  color: lighten($color-main,3%); 
+}
 .progress_plus {
   /* background-color: lighten($color-accent,90%); */ 
   color: darken($color-accent,40%); 
+}
+
+.in {
+  animation: yolo;
+  animation-duration: 2s;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+.out {
+  animation: yolo;
+  animation-duration: 2s;
+  animation-direction: reverse;
+  animation-fill-mode: forwards;
+}
+
+@keyframes yolo {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

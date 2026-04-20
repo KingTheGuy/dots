@@ -1,18 +1,19 @@
 (defvar bar_width 30)
 (defvar spacing 5)
 (defpoll time
-	:interval "1s"
+	:interval "2s"
 	:initial '[ "00", "00", "00" ]'
 ; `date +%r | jq -R 'split(":")'`)
 `date +%T | jq -R 'split(":")'`)
 
+(include "./backdrop.yuck")
 (include "./clock.yuck")
 (include "./components.yuck")
 (include "./battery.yuck")
 (include "./temp.yuck")
 (include "./button_progress.yuck")
 (include "./backlight.yuck")
-(include "./backdrop.yuck")
+(include "./ram.yuck")
 
 
 (defwindow bar []
@@ -24,10 +25,10 @@
 	:exclusive "false"
 	:geometry (geometry 
 		; :x {gap != "" ? gap : 10}
-		:x 8
+		:x 10
 		; :y "14px"
 		:y "0%"
-		:height "97.5%"
+		:height "97.8%"
 		; :width "0px"
 		:anchor "left center"
 	)
@@ -35,6 +36,14 @@
 	(overlay
 		(eventbox
 			:onclick "niri msg action toggle-overview"
+			; :onscroll "
+			; bash -c '
+			; 	if [[ {} == 'up' ]]; then
+			; 		niri msg action focus-workspace-up
+			; 	else
+			; 		niri msg action focus-workspace-down
+			; 	fi
+			; '"
 			:halign "center"
 			:width {bar_width * 1.3}
 			:class "main_bar"
@@ -51,8 +60,15 @@
 				:space-evenly false
 				:spacing spacing
 				(clock)
-				(button_progress)
-				(backlight)
+				(box
+					:class "container"
+					:orientation "v"
+					:space-evenly false
+					:spacing spacing
+					(button_progress)
+					"--"
+					(backlight)
+				)
 			)
 			(box
 				:valign "center"
@@ -67,6 +83,7 @@
 				:space-evenly false
 				:spacing spacing
 				(temp)
+				(ram)
 				(battery)
 			)
 		)

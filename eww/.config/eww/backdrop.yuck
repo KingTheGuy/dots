@@ -1,3 +1,9 @@
+(defvar backdrop_visible false)
+
+(deflisten wallpaper
+	:initial "ok"
+`tail -Fn1 /home/olrak/.config/eww/.eww_wallpaper`)
+
 (defwindow backdrop []
 	:namespace "wallpaper"
 	:monitor 0
@@ -14,19 +20,25 @@
 		:width "100%"
 		:anchor "top left"
 	)
-	(overlay
-		(eventbox
-			:class "backdrop"
-			; :onhoverlost "niri msg action toggle-overview"
-			; :style "background-color: blue;"
-		)
-		(box
-			:style "
-				background:center no-repeat url('/home/olrak/Downloads/gabriele-catalano-ioLsN803LWw-unsplash.jpg');
-				background-size:cover;
-				margin:4px;
-			"
-			:class "wallpaper"
+	(box
+		:visible {backdrop_visible == true? false : true}
+		:class {backdrop_visible == true? "out" : "in"}
+		(overlay
+			(box
+				:class "backdrop_back"
+				; :onhoverlost "niri msg action toggle-overview"
+				; :style "background-color: blue;"
+			)
+			(box
+				; :style {screen_width == "2560"? "background:center no-repeat url('${wallpaper}');background-size:cover;background-position: center -1200px;margin-right:${sides}px;": "background:center no-repeat url('${wallpaper}');background-size: 102%;background-position: -30px;margin-right:${sides}px;background-color:white;"} 
+				:style "
+					background:center no-repeat url('${wallpaper}');
+					background-size:cover;
+					background-position: center;
+					margin:4px;
+				"
+				:class "wallpaper"
+			)
 		)
 	)
 )

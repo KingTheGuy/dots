@@ -1,27 +1,28 @@
 (defvar pro 30)
+(defvar prev_pro 30) ;; at start should be PRO
 (defvar steps 2)
 (defvar circle_thickness 4)
 (defvar temp_icon_volume "󱄠")
-(defpoll update_volume ;;will not work if not referenced
-	; :interval "120ms"
-	; :initial "0.00"
-	:interval "280ms"
-`./go/volume/main`)
+; (defpoll update_volume ;;will not work if not referenced
+; 	; :interval "120ms"
+; 	; :initial "0.00"
+; 	:interval "280ms"
+; `/home/olrak/.config/eww/bash/update_volume.sh`)
 
 (defwidget button_progress []
 	(eventbox
 		:class "container"
-		:onscroll "eww update pro=$(./go/progress/main {} ${steps} ${pro})"
+		:onscroll "eww update pro=$(./go/progress/build/progress {} ${steps} ${pro}) && /home/olrak/.config/eww/bash/update_volume.sh"
 		:onclick "./bash/mute.sh 󰕾 󰝟"
 		(overlay
 			(progress_bar_flipped
 				:value pro
 				:icon temp_icon_volume
 			)
-			(box ;; runs / updates the volume
-				:visible false
-				"${update_volume}"
-			)
+			; (box ;; runs / updates the volume
+			; 	:visible false
+			; 	"${update_volume}"
+			; )
 		)
 	)
 )

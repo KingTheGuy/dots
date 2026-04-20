@@ -1,0 +1,10 @@
+(defwidget ram []
+	(eventbox
+		:onclick `notify-send "ram"`
+		:class "container"
+			(progress_bar
+				:value "${round(EWW_RAM.used_mem_perc, 0)}"
+				:icon ""
+			)
+	)
+)

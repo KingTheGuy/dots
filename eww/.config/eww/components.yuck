@@ -32,20 +32,11 @@
 	)
 )
 
-(defwidget progress_bar [?value ?limit ?icon ?flipped]
+(defwidget progress_bar [?value ?limit ?icon]
 	(box
 		:orientation "v"
 		; :space-evenly false
 		:valign "center"
-		; "󱄠"
-		; (label
-		; 	:class "small"
-		; 	:text value
-		; )
-		; (label
-		; 	:class 'small'
-		; 	:text {flipped == ""? value:"${icon == ''? 'N' : icon}"}
-		; )
 		value
 		; "--"
 		(overlay

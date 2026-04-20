@@ -1,4 +1,4 @@
-(defvar pro 2)
+(defvar pro 30)
 (defvar steps 2)
 (defvar circle_thickness 4)
 (defvar temp_icon_volume "󱄠")
@@ -13,40 +13,15 @@
 		:class "container"
 		:onscroll "eww update pro=$(./go/progress/main {} ${steps} ${pro})"
 		:onclick "./bash/mute.sh 󰕾 󰝟"
-		(box
-			:orientation "v"
-			; :space-evenly false
-			:valign "center"
-			(overlay
-				(box
-					:width 24
-					:height 24
-				)
-				(circular-progress
-					:value pro
-					:start-at 25
-					:thickness circle_thickness
-					:class "progress"
-				)
-				(circular-progress
-					:value {pro > 100? pro - 100:0}
-					:start-at 25
-					:thickness circle_thickness
-					:class "progress_plus"
-				)
-				(box ;; runs / updates the volume
-					:visible false
-					"${update_volume}"
-				)
-				(label
-					:class {pro >= 99? "smaller":"small"}
-					:text pro
-				)
+		(overlay
+			(progress_bar_flipped
+				:value pro
+				:icon temp_icon_volume
 			)
-			; "-"
-			; "󰁹"
-			; "󱄠"
-			temp_icon_volume
+			(box ;; runs / updates the volume
+				:visible false
+				"${update_volume}"
+			)
 		)
 	)
 )
